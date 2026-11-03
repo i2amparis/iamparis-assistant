@@ -1,0 +1,106 @@
+{
+  "_comment": "Curated answer policy, applied before the classifier so the same wording always gives the same query. Scenario coverage measured with /results/distinct on 2026-10-30; recheck with scripts/curation-check.mjs when studies change.",
+  "generalStudies": ["world-headed", "eu-headed"],
+  "studies": {
+    "_comment": "A specialised study is used only when the request names it with one of these phrases; otherwise the general study answers.",
+    "afolu": ["afolu"],
+    "buildings-transf": ["buildings transformation"],
+    "covid-rec": ["covid", "recovery package"],
+    "decarb-potentials": ["energy citizens", "decarbonization potentials"],
+    "decipher": ["decipher"],
+    "energy-systems": ["people centered", "national energy systems"],
+    "index-decomp": ["index decomposition", "decomposition analysis"],
+    "industrial-transf": ["industrial transformation"],
+    "ndcs-impacts": ["global impacts of ndcs", "ndc impacts"],
+    "net-zero": ["eu path to net zero", "path to net zero", "net zero study"],
+    "post-glasgow": ["glasgow", "cop26"],
+    "power-people": ["power to the people", "eu cities"],
+    "study-1": ["fit for 55", "cost optimal"],
+    "study-2": ["renewable energy system metrics"],
+    "study-3": ["tech constrained", "technology constrained"],
+    "study-4": ["steel"],
+    "study-6": ["cost of capital"],
+    "study-7": ["behavioural", "behavioral"],
+    "transp-transf": ["transport transformation", "transportation transformation"]
+  },
+  "headlineScenarios": {
+    "_comment": "Shown when no scenario is named: the scenario family with the widest model and variable coverage in each study.",
+    "world-headed": ["PR_CurPol_CP", "PR_NDC_CP"],
+    "eu-headed": ["PR_WWH_CP", "PR_WWH_NDC"],
+    "post-glasgow": ["CP_EI", "NDC_EI", "NDC_LTT"],
+    "net-zero": ["WWH21", "NZE_EUPol_Stand"]
+  },
+  "scenarios": {
+    "_comment": "Readable names; phrases pick the scenario outright within its study.",
+    "PR_Baseline": { "label": "Baseline", "phrases": ["baseline", "no policy", "reference"] },
+    "PR_CurPol_CP": {
+      "label": "Current policies",
+      "phrases": ["current policies", "current policy", "existing policies"]
+    },
+    "PR_CurPol_CPO": { "label": "Current policies, carbon price only" },
+    "PR_CurPol_EI": { "label": "Current policies, energy intensity" },
+    "PR_NDC_CP": { "label": "NDC pledges", "phrases": ["ndc", "pledges", "paris pledges"] },
+    "PR_NDC_CPO": { "label": "NDC pledges, carbon price only" },
+    "PR_NDC_EI": { "label": "NDC pledges, energy intensity" },
+    "PR_WWH_CP": {
+      "label": "Current policies",
+      "phrases": ["current policies", "current policy", "existing policies"]
+    },
+    "PR_WWH_NDC": { "label": "NDC pledges", "phrases": ["ndc", "pledges", "paris pledges"] },
+    "CP_EI": { "label": "Current policies", "phrases": ["current policies", "current policy"] },
+    "NDC_EI": { "label": "NDC pledges", "phrases": ["ndc", "pledges"] },
+    "NDC_LTT": {
+      "label": "NDC pledges with long-term targets",
+      "phrases": ["long term targets", "ltt"]
+    },
+    "NDC_LTS|Harmonized": { "label": "NDCs with long-term strategies (harmonised)" },
+    "WWH21": {
+      "label": "Where is the world headed, 2021",
+      "phrases": ["current policies", "reference"]
+    },
+    "NZE_EUPol_Stand": { "label": "Net zero with EU policies", "phrases": ["net zero"] },
+    "NZE": { "label": "Net zero", "phrases": ["net zero"] },
+    "Unharmonised baseline": { "label": "Baseline, not harmonised" }
+  },
+  "variables": {
+    "_comment": "Everyday phrases for IAMC variables that word matching misses. Each phrase's words must all appear; the longest phrase wins.",
+    "Carbon Sequestration|CCS": ["ccs", "carbon capture"],
+    "Emissions|Kyoto Gases": ["greenhouse gas", "ghg", "kyoto gases"],
+    "Emissions|CO2|Energy|Demand|Transportation": ["co2 transport", "transport emissions"],
+    "Emissions|CO2|Energy|Demand|Industry": [
+      "co2 industry",
+      "industry emissions",
+      "industrial emissions"
+    ],
+    "Emissions|CO2|Energy|Supply|Electricity": [
+      "co2 electricity",
+      "electricity emissions",
+      "power sector emissions"
+    ],
+    "Final Energy|Transportation": ["final energy transport", "transport energy"],
+    "Final Energy|Industry": ["final energy industry", "industry energy"],
+    "Final Energy|Residential and Commercial": [
+      "final energy buildings",
+      "buildings energy",
+      "energy in buildings"
+    ],
+    "Capacity|Electricity|Solar": ["solar capacity"],
+    "Capacity|Electricity|Wind": ["wind capacity"],
+    "Capacity|Electricity|Nuclear": ["nuclear capacity"],
+    "Secondary Energy|Electricity|Solar": ["solar generation", "solar electricity", "solar power"],
+    "Secondary Energy|Electricity|Wind": ["wind generation", "wind electricity", "wind power"],
+    "Secondary Energy|Electricity|Nuclear": [
+      "nuclear generation",
+      "nuclear electricity",
+      "nuclear power"
+    ],
+    "Secondary Energy|Hydrogen": ["hydrogen production"],
+    "Price|Carbon": ["carbon price", "co2 price", "carbon tax"],
+    "Population": ["population"]
+  },
+  "units": {
+    "_comment": "Spellings of the same unit, read as the first.",
+    "EJ/yr": ["EJ/y"],
+    "Mt CO2/yr": ["Mt CO2/y"]
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "_comment": "Conversations the assistant must answer the same way every time. Each turn lists the expected reply kind and the filters that must match exactly (fields left out are not checked). Run with: node scripts/curation-check.mjs",
+  "cases": [
+    {
+      "turns": [
+        {
+          "text": "CO2 emissions in the world in 2050",
+          "kind": "result",
+          "workspace_code": ["world-headed"],
+          "variable": ["Emissions|CO2"],
+          "region": ["World"],
+          "scenario": ["PR_CurPol_CP", "PR_NDC_CP"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "Compare CO2 emissions in Europe in 2050",
+          "kind": "result",
+          "workspace_code": ["eu-headed"],
+          "variable": ["Emissions|CO2"],
+          "region": ["EU"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "greenhouse gas emissions in the EU",
+          "kind": "result",
+          "variable": ["Emissions|Kyoto Gases"],
+          "region": ["EU"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "electricity generation for EU in 2050",
+          "kind": "result",
+          "workspace_code": ["eu-headed"],
+          "variable": ["Secondary Energy|Electricity"]
+        },
+        {
+          "text": "only solar",
+          "kind": "result",
+          "variable": ["Secondary Energy|Electricity|Solar"]
+        },
+        {
+          "text": "same for Germany",
+          "kind": "result",
+          "workspace_code": ["world-headed"],
+          "region": ["DEU"],
+          "scenario": ["PR_CurPol_CP", "PR_NDC_CP"]
+        },
+        { "text": "what about 2040?", "kind": "result", "region": ["DEU"] }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "How much power will the EU get from wind in 2050?",
+          "kind": "result",
+          "variable": ["Secondary Energy|Electricity|Wind"]
+        },
+        { "text": "only GCAM", "kind": "result", "modelName": ["GCAM-PR 5.3"] }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "solar capacity in China",
+          "kind": "result",
+          "variable": ["Capacity|Electricity|Solar"],
+          "region": ["CHN"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "final energy consumption in transport for the EU",
+          "kind": "result",
+          "workspace_code": ["eu-headed"],
+          "variable": ["Final Energy|Transportation"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "CO2 emissions from transport in Germany",
+          "kind": "result",
+          "workspace_code": ["world-headed"],
+          "variable": ["Emissions|CO2|Energy|Demand|Transportation"],
+          "region": ["DEU"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "primary energy from coal worldwide",
+          "kind": "result",
+          "variable": ["Primary Energy|Coal"],
+          "region": ["World"],
+          "scenario": ["PR_CurPol_CP", "PR_NDC_CP"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "Show me CCS in the world",
+          "kind": "result",
+          "variable": ["Carbon Sequestration|CCS"]
+        },
+        { "text": "only TIAM", "kind": "result", "modelName": ["tiam"] }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "emissions in the USA under current policies",
+          "kind": "result",
+          "region": ["USA"],
+          "scenario": ["PR_CurPol_CP"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "CO2 emissions in the world",
+          "kind": "result",
+          "scenario": ["PR_CurPol_CP", "PR_NDC_CP"]
+        },
+        {
+          "text": "add baseline",
+          "kind": "result",
+          "scenario": ["PR_CurPol_CP", "PR_NDC_CP", "PR_Baseline"]
+        },
+        {
+          "text": "only current policies",
+          "kind": "result",
+          "scenario": ["PR_CurPol_CP"],
+          "modelName": ["e3me", "gcam", "gemini_e3", "muse"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "global wind power",
+          "kind": "result",
+          "variable": ["Secondary Energy|Electricity|Wind"],
+          "region": ["World"]
+        },
+        {
+          "text": "same for India",
+          "kind": "result",
+          "workspace_code": ["world-headed"],
+          "region": ["IND"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "population projections for Africa",
+          "kind": "result",
+          "variable": ["Population"],
+          "region": ["AFR"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "what does GCAM project for wind capacity globally?",
+          "kind": "result",
+          "variable": ["Capacity|Electricity|Wind"],
+          "modelName": ["gcam"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "carbon price under the post-Glasgow targets",
+          "kind": "result",
+          "workspace_code": ["post-glasgow"],
+          "variable": ["Price|Carbon"]
+        }
+      ]
+    },
+    { "turns": [{ "text": "GDP of India", "kind": "ask" }] },
+    { "turns": [{ "text": "Where can I find the model catalogue?", "kind": "navigation" }] },
+    { "turns": [{ "text": "What is a baseline scenario?", "kind": "answer" }] },
+    {
+      "turns": [
+        { "text": "tell me about GCAM", "kind": "answer" },
+        { "text": "who developed it?", "kind": "answer" }
+      ]
+    }
+  ]
+}

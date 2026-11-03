@@ -1,0 +1,28 @@
+{
+  "name": "iamparis-assistant",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n server,web \"pnpm --filter @iamparis/server dev\" \"pnpm --filter @iamparis/web dev\"",
+    "build": "pnpm --filter @iamparis/web build",
+    "start": "pnpm --filter @iamparis/server start",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.5",
+    "concurrently": "^10.0.5",
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.25.0"
+}
