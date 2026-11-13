@@ -12,7 +12,8 @@ const rounds = Number(args[0] ?? 2);
 const { cases } = JSON.parse(
   readFileSync(new URL("./curation-cases.json", import.meta.url), "utf8"),
 );
-const fields = ["workspace_code", "variable", "region", "modelName", "scenario"];
+// Data-query filters, and the facets of a study search ("region" is a field of both).
+const fields = ["workspace_code", "variable", "region", "modelName", "scenario", "sector", "tag"];
 const headers = {
   "Content-Type": "application/json",
   "X-IAMPARIS-Session": crypto.randomUUID(),
@@ -41,7 +42,12 @@ async function run(turns) {
     replies.push({
       ms: Math.round(performance.now() - started),
       kind: reply.kind,
-      filters: reply.plan?.filters ?? reply.filters ?? {},
+      filters:
+        reply.plan?.filters ??
+        reply.filters ??
+        Object.fromEntries(
+          (reply.selection ?? []).map((facet) => [facet.key, facet.values.map((v) => v.id)]),
+        ),
       series: reply.plan?.rows.length,
       text: reply.text,
     });

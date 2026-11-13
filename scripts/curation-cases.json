@@ -1,5 +1,5 @@
 {
-  "_comment": "Conversations the assistant must answer the same way every time. Each turn lists the expected reply kind and the filters that must match exactly (fields left out are not checked). Run with: node scripts/curation-check.mjs",
+  "_comment": "Conversations the assistant must answer the same way every time. Each turn lists the expected reply kind and the filters that must match exactly (fields left out are not checked). For a study search the filters are its facets: sector, region, tag. Run with: node scripts/curation-check.mjs",
   "cases": [
     {
       "turns": [
@@ -202,6 +202,47 @@
       "turns": [
         { "text": "tell me about GCAM", "kind": "answer" },
         { "text": "who developed it?", "kind": "answer" }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "I work on industry policy at the German economics ministry. Which studies matter to me?",
+          "kind": "studies",
+          "sector": ["industry"],
+          "region": ["germany"]
+        },
+        {
+          "text": "what about Poland?",
+          "kind": "studies",
+          "sector": ["industry"],
+          "region": ["poland"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        { "text": "I'm a policy maker, which studies are relevant for me?", "kind": "ask" },
+        { "text": "transport", "kind": "studies", "sector": ["transport"] }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "I work on buildings policy for the Greek government",
+          "kind": "studies",
+          "sector": ["buildings"],
+          "region": ["greece", "eu"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "Which studies are relevant for hydrogen in steelmaking?",
+          "kind": "studies",
+          "tag": ["hydrogen"]
+        }
       ]
     }
   ]

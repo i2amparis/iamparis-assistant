@@ -5,17 +5,34 @@ import { ReplyCard } from "./components/ReplyCard.tsx";
 import { Inspector } from "./components/Inspector.tsx";
 
 // Each is a case in scripts/curation-cases.json, so it is known to answer well.
-const prompts = [
-  "How much power will the EU get from wind in 2050?",
-  "Where can I find the model catalogue?",
-  "What is a baseline scenario?",
+const prompts: [string, string][] = [
+  ["↗ Build an analysis", "How much power will the EU get from wind in 2050?"],
+  [
+    "◎ Studies for you",
+    "I work on industry policy at the German economics ministry. Which studies matter to me?",
+  ],
+  ["⌘ Find your way", "Where can I find the model catalogue?"],
+  ["◇ Understand a concept", "What is a baseline scenario?"],
 ];
+/** What a reply is, in a word, for its tag. */
+const kinds: Record<string, string> = {
+  ask: "Question",
+  review: "Query",
+  result: "Data",
+  studies: "Studies",
+  answer: "Answer",
+  insight: "Chart summary",
+  navigation: "Page",
+  help: "Help",
+  error: "Problem",
+};
+type Status = { classifier: string; provider?: string; model?: string | null };
 
 /** Chat workspace with saved conversations, constrained actions and a per-reply inspector. */
 export function App() {
   const [conversations, setConversations] = useState<{ id: string; title: string }[]>([]);
   const [chat, setChat] = useState<Conversation>();
-  const [status, setStatus] = useState("loading");
+  const [status, setStatus] = useState<Status>({ classifier: "loading" });
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -25,11 +42,11 @@ export function App() {
   useEffect(() => {
     Promise.all([
       request<{ id: string; title: string }[]>("/conversations"),
-      request<{ classifier: string }>("/status"),
+      request<Status>("/status"),
     ])
       .then(([list, s]) => {
         setConversations(list);
-        setStatus(s.classifier);
+        setStatus(s);
       })
       .catch((e) => setError(e.message));
   }, []);
@@ -67,6 +84,10 @@ export function App() {
     }
   }
   const last = chat?.messages.findLast((m) => m.role === "assistant");
+  const inspected = chat?.messages.find((m) => m.id === selected) ?? last;
+  // The user message a reply answers sits right before it.
+  const inspectedInput = inspected && chat?.messages[chat.messages.indexOf(inspected) - 1]?.text;
+  const classifierReady = ["configured", "ready"].includes(status.classifier);
   return (
     <div className={`app ${inspect ? "inspecting" : ""}`}>
       <nav className="sidebar" aria-label="Conversations">
@@ -111,13 +132,18 @@ export function App() {
             <i /> Curated knowledge <small>Local</small>
           </p>
           <p>
-            <i className={status === "configured" ? "" : "manual"} /> Jev{" "}
+            <i /> Study catalogue <small>Snapshot</small>
+          </p>
+          <p title={status.provider ? `Provider: ${status.provider}` : undefined}>
+            <i className={classifierReady ? "" : "manual"} /> Classifier{" "}
             <small>
-              {status === "configured"
-                ? "Configured"
-                : status === "loading"
-                  ? "Checking"
-                  : "Manual choices"}
+              {status.classifier === "loading"
+                ? "Checking"
+                : classifierReady
+                  ? (status.model ?? "Ready")
+                  : status.classifier === "manual"
+                    ? "Off"
+                    : "Unavailable"}
             </small>
           </p>
         </div>
@@ -143,16 +169,19 @@ export function App() {
           </button>
           <div>
             <strong>{chat?.title ?? "IAMPARIS assistant"}</strong>
-            <small>Explore. Understand. Analyse.</small>
+            <small>Studies, data, pages and concepts from IAMPARIS</small>
           </div>
           <button aria-pressed={inspect} onClick={() => setInspect((v) => !v)}>
             ◧ Inspector
           </button>
         </header>
-        {status === "manual" && (
+        {!classifierReady && status.classifier !== "loading" && (
           <div className="banner">
-            Manual mode · Add a TypeSafe API key to enable natural-language decisions. Guided
-            choices and live data work now.
+            {status.classifier === "manual"
+              ? "The classifier is switched off."
+              : `The classifier${status.model ? ` (${status.model})` : ""} is not reachable.`}{" "}
+            Exact wording, curated phrases and guided choices still work; free phrasing may need a
+            clarifying question.
           </div>
         )}
         <section className="thread" aria-label="Chat messages">
@@ -167,15 +196,13 @@ export function App() {
                   to the right analysis.
                 </h1>
                 <p>
-                  Find your way around the platform, understand key concepts, and choose the data
-                  that answers your question.
+                  Tell me who you are and I will pick the studies that matter to you. Or ask for
+                  data, a page, or a concept.
                 </p>
                 <div className="starter-grid">
-                  {prompts.map((p, i) => (
+                  {prompts.map(([label, p]) => (
                     <button disabled={busy} key={p} onClick={() => send({ text: p })}>
-                      <span>
-                        {["↗ Build an analysis", "⌘ Find your way", "◇ Understand a concept"][i]}
-                      </span>
+                      <span>{label}</span>
                       <p>{p}</p>
                       <b>→</b>
                     </button>
@@ -196,14 +223,16 @@ export function App() {
                   <div className="message-meta">
                     <span className="avatar">✳</span>
                     <strong>IAMPARIS</strong>
-                    <span className="tag">{message.reply?.kind}</span>
+                    <span className="tag">
+                      {kinds[message.reply?.kind ?? ""] ?? message.reply?.kind}
+                    </span>
                     <button
                       onClick={() => {
                         setSelected(message.id);
                         setInspect(true);
                       }}
                     >
-                      Inspect ↗
+                      {message.reply?.trace.length ?? 0} decisions · Inspect ↗
                     </button>
                   </div>
                   {message.reply && (
@@ -265,7 +294,7 @@ export function App() {
           </div>
         </footer>
       </main>
-      {inspect && <Inspector message={chat?.messages.find((m) => m.id === selected) ?? last} />}
+      {inspect && <Inspector message={inspected} input={inspectedInput} />}
     </div>
   );
 }

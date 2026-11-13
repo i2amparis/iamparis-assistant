@@ -2,7 +2,8 @@ import { TypeSafeClient } from "@typesafe-ai/sdk";
 import type { Decision, Option } from "../shared/types.ts";
 import { providerSettings, type ProviderSettings } from "./provider.ts";
 
-export type Question = { question: string; options: Option[] };
+/** `subject` names what is decided ("variable", "sector"), for the inspector. */
+export type Question = { question: string; options: Option[]; subject?: string };
 /**
  * Ask several choice questions about one state in a single Jev request: the
  * state is sent (and paid for) once however many questions there are.
@@ -47,13 +48,22 @@ function read(
   const selected = options.find((_, index) => key === `o${index}`);
   const winner = key ? probabilities[key] : undefined;
   const runner = Math.max(0, ...entries.filter(([id]) => id !== key).map(([, p]) => p));
-  if (
-    selected &&
-    typeof winner === "number" &&
-    winner >= settings.confidence &&
-    winner - runner >= settings.margin
-  )
+  trace.thresholds = { confidence: settings.confidence, margin: settings.margin };
+  const percent = (p: number) => `${Math.round(p * 100)}%`;
+  // The gate in words, so a refused answer explains itself in the inspector.
+  if (!selected || typeof winner !== "number") {
+    trace.reason = `“None of these” leads at ${percent(probabilities.none)}.`;
+    return;
+  }
+  const lead = Math.round((winner - runner) * 100);
+  if (winner < settings.confidence)
+    trace.reason = `Top option at ${percent(winner)} is below the ${percent(settings.confidence)} needed.`;
+  else if (winner - runner < settings.margin)
+    trace.reason = `Top option leads by ${lead} points, below the ${Math.round(settings.margin * 100)} needed.`;
+  else {
+    trace.reason = `${percent(winner)}, ${lead} points ahead of the next option.`;
     trace.choice = selected.id;
+  }
 }
 
 const ollamaInstructions =
@@ -76,6 +86,7 @@ async function askOllama(
   traces: Record<string, Decision>,
 ) {
   for (const key of keys) {
+    const asked = performance.now();
     const options = questions[key].options.slice(0, letters.length);
     const listing = options
       .map((o, i) => `${letters[i]}: ${o.label}${o.detail ? ` — ${o.detail}` : ""}`)
@@ -121,6 +132,8 @@ async function askOllama(
     }
     const total = Object.values(mass).reduce((sum, p) => sum + p, 0);
     const trace = traces[key];
+    // One request per question, so each decision carries its own latency.
+    trace.ms = Math.max(1, Math.round(performance.now() - asked));
     trace.options = options;
     trace.model = body.model ?? settings.model;
     trace.tokens = { input: body.prompt_eval_count ?? 0, output: body.eval_count ?? 0 };
@@ -145,6 +158,7 @@ export const choose: Choose = async (questions, state) => {
       key,
       {
         question: questions[key].question,
+        subject: questions[key].subject,
         options: questions[key].options,
         probabilities: {},
         ms: 0,
@@ -219,7 +233,7 @@ export const choose: Choose = async (questions, state) => {
     );
   } finally {
     const ms = Math.round(performance.now() - started);
-    for (const key of keys) traces[key].ms = ms;
+    for (const key of keys) traces[key].ms ||= ms;
   }
   return traces;
 };

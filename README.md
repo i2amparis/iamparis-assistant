@@ -34,6 +34,7 @@ Open http://127.0.0.1:8788. Conversations and decision traces survive restarts i
 
 ## What it does
 
+- **Studies for you:** describe who you are or what you work on ("I work on industry policy at the German economics ministry") and the assistant picks the relevant studies with the Results page's own filter: sector, region, topic and project facets, OR within a facet and AND between them. Sector, region and topic are read from the wording or inferred by the classifier; what is still open is asked one question at a time, with the number of studies behind each option; an empty result is widened (member state → EU-wide → global) and said so. **Open these in Results** opens the page with the same filter. See [docs/study-filtering.md](docs/study-filtering.md).
 - **Navigation:** selects from the existing curated link catalogue. URLs remain exact; entries with only a library landing page retain their search instructions.
 - **Curated answers:** selects a glossary entry and returns its definition verbatim with attribution, only when the question names the term or an alias. Unsupported questions receive choices, never generated facts.
 - **Model profiles:** "tell me about GCAM" returns the IAMPARIS model registry's own description, developer and type, with a link to the model page; "who developed it?" is answered from the same record.
@@ -43,9 +44,9 @@ Open http://127.0.0.1:8788. Conversations and decision traces survive restarts i
 - **Variable dictionary:** `data/variables.json` gives each published variable its IAMC definition (from `iam-data-chatbot/definitions`, templates expanded) or its nearest defined parent's, about 68% coverage. The descriptions are the option text the classifier judges and feed the candidate ranking. Detail the user did not ask for is dropped ("carbon emissions" → Emissions|CO2, not …|Energy). Rebuild with `python scripts/build_variable_dictionary.py ../iam-data-chatbot/definitions/variable`.
 - **Years:** type a year, explicit year list, or bounded range. Ranges include published observation years only. No interpolation or zero-filling.
 - **Validation and preview:** every run rechecks returned row scope, scenario coverage and unit consistency, then displays observations, offers to open them in GraphMaker, and exports data or a GraphMaker configuration.
-- **Inspector:** view the questions, supplied options, probabilities, accepted selections and latency. Low confidence, close alternatives, missing keys and service failures fall back to searchable choices.
+- **Inspector:** every reply lists its decisions in order, named by what was decided (task, variable, sector…) rather than by provider, each with who decided (classifier, wording match, rule in code, or the user's click), how it ended (used, overruled, unsure, not mentioned, failed) and why. A step opens to the question asked, the text judged, every option's probability against the acceptance threshold, the model and token count. Rules that assumed a default, asked a follow-up, moved to another study or widened a filter are steps too. Below them is the state the turn left behind; "Copy JSON" exports the trace. Low confidence, close alternatives, missing keys and service failures fall back to searchable choices.
 
-Examples: “Help me compare CO2 emissions in Europe in 2050”; “Where can I find the model catalogue?”; “What is a baseline scenario?” While choosing, select a button, type its exact label, or use natural language with Jev enabled. `cancel` / `start over` reset the draft. Changing years is supported at query review.
+Examples: “Help me compare CO2 emissions in Europe in 2050”; “I advise the Greek energy ministry, which studies matter to me?”; “Where can I find the model catalogue?”; “What is a baseline scenario?” While choosing, select a button, type its exact label, or use natural language with Jev enabled. `cancel` / `start over` reset the draft. Changing years is supported at query review.
 
 ## Analysis integration
 
@@ -69,13 +70,13 @@ Catch validation errors in the importing UI and show them to the user. Revalidat
 
 ## Architecture
 
-`apps/server/src/shared` → `config`, `jev`, `tools` → `turn` → `app`. The web imports shared types only. `turn/turn.ts` owns pending choices and policy; `turn/analysis.ts` owns validation/export; `tools/results.ts` owns bounded live requests and metadata caching. No tool result can specify a URL to fetch or an action to execute. User labels are rendered as plain React text. API turns are serialized per conversation and stored atomically.
+`apps/server/src/shared` → `config`, `jev`, `tools` → `turn` → `app`. The web imports shared types only. `turn/turn.ts` owns pending choices and policy; `turn/studies.ts` owns the study search; `turn/analysis.ts` owns validation/export; `tools/results.ts` owns bounded live requests and metadata caching; `tools/studies.ts` owns the study facet filter. No tool result can specify a URL to fetch or an action to execute. User labels are rendered as plain React text. API turns are serialized per conversation and stored atomically.
 
 The classifier sees at most 70 ranked candidates per question. Larger catalogues remain fully searchable in the manual picker. Broad or unusual phrasing may need a clarification; no semantic recall or accuracy claim has been established yet. A live Jev evaluation requires a configured key. Thresholds and limits live in `config.ts`.
 
 ## Content provenance
 
-Copied independently from `iam-data-chatbot`: `config/glossary.json` → `data/glossary.json`; `config/workspace_catalog.json` → `data/workspaces.json`; `docs/iamparis_link_catalog.json` → `data/links.json`. The workspace snapshot records verification on 2026-09-17; links and definitions are curated snapshots, not freshly verified facts. Edit these standalone copies as content changes. Metadata and observations come live from `https://api.iamparis.eu`. The global workspace-distinct endpoint currently fails on null workspace values, so the app uses the curated study list and scopes subsequent API requests by workspace.
+Copied independently from `iam-data-chatbot`: `config/glossary.json` → `data/glossary.json`; `config/workspace_catalog.json` → `data/workspaces.json`; `docs/iamparis_link_catalog.json` → `data/links.json`. The workspace snapshot records verification on 2026-09-17; links and definitions are curated snapshots, not freshly verified facts. Edit these standalone copies as content changes. `data/studies.json` is generated, not copied: `node scripts/build_study_catalogue.mjs ../../i2amparis-frontend` imports the frontend's study taxonomy and runs it over the CMS study list and the results API (29 studies on 2026-11-13). Rebuild it when studies or their facets change. Metadata and observations come live from `https://api.iamparis.eu`. The global workspace-distinct endpoint currently fails on null workspace values, so the app uses the curated study list and scopes subsequent API requests by workspace.
 
 Jev's [official documentation](https://docs.typesafe.ai/introduction) describes the System One choice interface used here.
 
@@ -93,7 +94,7 @@ pnpm --filter @iamparis/server exec tsx ../../scripts/live-smoke.ts
 node scripts/curation-check.mjs
 ```
 
-`scripts/curation-check.mjs` sends every conversation in `scripts/curation-cases.json` to the running assistant twice and checks each reply's kind, study, variable, region, model and scenario, and that both runs agree. On 2026-10-30 all 29 turns passed with a median of about 0.3 s. Add a case whenever a query is fixed, so it stays fixed.
+`scripts/curation-check.mjs` sends every conversation in `scripts/curation-cases.json` to the running assistant twice and checks each reply's kind, study, variable, region, model and scenario, and that both runs agree. On 2026-11-13 all 35 turns passed (29 data, page and concept turns, 6 study-search turns) with a median of about 0.4 s. Add a case whenever a query is fixed, so it stays fixed.
 
 Unit tests require no API keys or network. They cover invalid model selections, probability gates, manual continuation, stale buttons, API failures, dependent filters, comparisons, year handling, unit compatibility, persistence/API boundaries, and import validation. The live smoke script checks EU CO2 emissions in 2050 for GCAM-PR 5.3 / PR_WWH_CP in eu-headed.
 

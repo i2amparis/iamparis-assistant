@@ -6,6 +6,7 @@ import {
   type Conversation,
   type Decision,
   type Dimension,
+  type FacetKey,
   type Filters,
   type ModelProfile,
   type Option,
@@ -31,8 +32,10 @@ import {
 } from "../tools/catalog.ts";
 import { curatedPick, headlineScenarios, namesStudy, scenarioLabel } from "../tools/curation.ts";
 import type { Results } from "../tools/results.ts";
+import { facetNames } from "../tools/studies.ts";
 import { buildPlan, requestedYears } from "./analysis.ts";
 import { chartFilters, describeChart, draftFromChart, planPatch, usableChart } from "./chart.ts";
+import { studyFlow } from "./studies.ts";
 
 const routes: Option[] = [
   {
@@ -58,7 +61,35 @@ const routes: Option[] = [
     detail:
       "About one specific model (such as GCAM, TIMES or MUSE): what it is, who developed it, what type of model it is",
   },
+  {
+    id: "studies",
+    label: "Find studies for me",
+    detail:
+      "Recommend which IAMPARIS studies are relevant to the user, from their role, employer, sector, country or topic of interest",
+  },
 ];
+/**
+ * Someone describing themselves ("I work at the transport ministry", "as a policy advisor") or
+ * asking which studies matter: a study search, decided before pages and data words are looked at.
+ */
+const describesUser =
+  /\b(i\s*(am|'m|’m)\s+(an?|the|in|at|with|from|working|responsible|based)\b|i\s+(work|advise|represent|lead|manage)\b|my\s+(role|job|background|work|team|ministry|department|agency|country|region|sector|organi[sz]ation|company|city)\b|we\s+(work|regulate|advise)\b|as\s+an?\s+[\w\s-]{0,30}(maker|advis[eo]r|analyst|regulator|planner|official|officer|servant|minister|journalist|student|researcher|consultant|investor|mayor)\b)/i;
+const asksForStudies =
+  /\b(which|what|any|relevant|recommend|suggest|curate|pick|find|show)\b[^.?!]*\bstud(y|ies)\b[^.?!]*\b(for|about|on|covering|relevant|matter|should|cover|deal)\b|\b(relevant|useful|matter)s?\s+(for|to)\s+(me|us|my)\b|\bwhat should i (read|look at)\b/i;
+/** What each classifier question decides, as the inspector names it. */
+const subjects: Record<string, string> = {
+  route: "task",
+  study: "study",
+  variable: "variable",
+  region: "region",
+  modelName: "model",
+  scenario: "scenario",
+  request: "request type",
+  action: "chart action",
+  model: "model",
+  target: "page or definition",
+  answer: "answer",
+};
 const asksAboutModel =
   /\b(tell me about|what is|what's|describe|explain|information on|assumptions?|who (developed|develops|built|made|created|runs))\b/i;
 /**
@@ -119,6 +150,17 @@ export const dimensionLabels: Record<Dimension, string> = {
   modelName: "model",
   scenario: "scenario",
 };
+/** What an open question was about, for the inspector's step title. */
+const subjectOfPending = (pending: Pending) =>
+  pending.facet
+    ? facetNames[pending.facet]
+    : pending.dimension
+      ? dimensionLabels[pending.dimension]
+      : pending.kind === "route"
+        ? "task"
+        : pending.kind === "review" || pending.kind === "studies"
+          ? "change"
+          : pending.kind;
 type SeriesDimension = Exclude<Dimension, "workspace_code">;
 const seriesDimensions: SeriesDimension[] = ["variable", "region", "modelName", "scenario"];
 const dimensionQuestions: Record<Dimension, string> = {
@@ -180,6 +222,7 @@ function guessRoute(text: string, chart: boolean) {
   const asksPlace = /\b(where|find|page|go to|take me|navigate|catalog(ue)?|link)\b/.test(t);
   if (asksMeaning && matchOption(answerOptions, text)) return "answer";
   if (asksPlace && matchOption(linkOptions, text)) return "navigation";
+  if (describesUser.test(text) || asksForStudies.test(text)) return "studies";
   // Data words, or a named region ("electricity for India"), mean a data request.
   if (
     dataWords.test(t) ||
@@ -247,7 +290,9 @@ export async function handleTurn(
   classify: Choose = choose,
 ): Promise<Reply> {
   const trace: Decision[] = [];
+  const started = performance.now();
   const draftBefore = structuredClone(conversation.draft);
+  const briefBefore = structuredClone(conversation.brief);
   const pendingBefore = structuredClone(conversation.pending);
   const text = "text" in input ? input.text.trim() : "";
   const chart = usableChart(input.context?.chart) ? input.context.chart : undefined;
@@ -257,13 +302,14 @@ export async function handleTurn(
     kind: Pending["kind"],
     question: string,
     options: Option[],
-    extra: { dimension?: Dimension; compare?: boolean; featured?: number } = {},
+    extra: { dimension?: Dimension; facet?: FacetKey; compare?: boolean; featured?: number } = {},
   ): Reply {
     conversation.pending = {
       token: randomUUID(),
       kind,
       options,
       dimension: extra.dimension,
+      facet: extra.facet,
       compare: extra.compare,
       request: text || conversation.pending?.request,
     };
@@ -279,6 +325,23 @@ export async function handleTurn(
     };
   }
 
+  /** Record a decision made by a rule in code, so the inspector shows why the turn went as it did. */
+  function note(subject: string, what: string, reason: string, choice?: string) {
+    trace.push({
+      subject,
+      question: what,
+      options: choice
+        ? [{ id: choice, label: routes.find((r) => r.id === choice)?.label ?? choice }]
+        : [],
+      choice,
+      probabilities: {},
+      ms: 0,
+      source: "policy",
+      outcome: "accepted",
+      reason,
+    });
+  }
+
   /** Ask every question in one classifier request; exact wording matches fill what it leaves open. */
   /** `wording` overrides, per question, the text that exact wording matches are looked for in. */
   async function decide<K extends string>(
@@ -290,6 +353,7 @@ export async function handleTurn(
       K,
       { choice?: string; guess?: string; unspecified: boolean; curated?: boolean }
     >;
+    const subjectOf = (key: K) => asked[key].subject ?? subjects[key] ?? key;
     // Curated phrases decide first, so the same wording always gives the same query.
     const study = conversation.draft?.filters.workspace_code?.[0];
     for (const key of Object.keys(asked) as K[]) {
@@ -298,12 +362,16 @@ export async function handleTurn(
         dimension && curatedPick(dimension, asked[key].options, wording[key] ?? state, study);
       if (!pick) continue;
       trace.push({
-        question: `${asked[key].question} (curated phrase)`,
+        subject: subjectOf(key),
+        question: asked[key].question,
         options: [pick],
         choice: pick.id,
         probabilities: {},
         ms: 0,
         source: "match",
+        outcome: "accepted",
+        reason: "A curated phrase in data/curation.json names it, so the classifier was not asked.",
+        state: wording[key] ?? state,
       });
       result[key] = { choice: pick.id, unspecified: false, curated: true };
     }
@@ -313,6 +381,7 @@ export async function handleTurn(
         key,
         {
           question: asked[key].question,
+          subject: subjectOf(key),
           options: rankOptions(asked[key].options, state).slice(0, config.maxCandidates),
         },
       ]),
@@ -329,24 +398,49 @@ export async function handleTurn(
     };
     for (const key of keys) {
       const decision = decisions[key];
-      if (decision) trace.push(decision);
-      if (
-        decision?.choice &&
-        ranked[key].options.some((o) => o.id === decision.choice) &&
-        usable(key, decision.choice)
-      ) {
-        result[key] = { choice: decision.choice, unspecified: false };
+      if (decision) {
+        decision.subject = subjectOf(key);
+        decision.state = state;
+        decision.offered = asked[key].options.length;
+        trace.push(decision);
+      }
+      const offered = Boolean(
+        decision?.choice && ranked[key].options.some((o) => o.id === decision.choice),
+      );
+      if (offered && usable(key, decision!.choice!)) {
+        decision!.outcome = "accepted";
+        result[key] = { choice: decision!.choice, unspecified: false };
         continue;
+      }
+      // What the code did with the answer: a confident pick can still be refused by policy.
+      if (decision) {
+        if (offered) {
+          decision.outcome = "overruled";
+          decision.reason =
+            `${decision.reason ?? ""} Not used: ${key === "study" ? "a specialised study is used only when the message names it" : "the message does not name this value"}.`.trim();
+        } else if (decision.choice) {
+          decision.outcome = "error";
+          decision.reason = "The classifier answered with an option that was not offered.";
+        } else
+          decision.outcome = decision.error
+            ? "error"
+            : (decision.noneProbability ?? 0) >= config.confidence
+              ? "none"
+              : "unsure";
       }
       const match = matchOption(asked[key].options, wording[key] ?? state);
       if (match && usable(key, match.id)) {
         trace.push({
-          question: `${asked[key].question} (exact wording match)`,
+          subject: subjectOf(key),
+          question: asked[key].question,
           options: [match],
           choice: match.id,
           probabilities: {},
           ms: 0,
           source: "match",
+          outcome: "accepted",
+          reason: "Every word of its label or name appears in the message.",
+          state: wording[key] ?? state,
         });
         result[key] = { choice: match.id, unspecified: false };
         continue;
@@ -366,6 +460,8 @@ export async function handleTurn(
     }
     return result;
   }
+
+  const studies = studyFlow({ conversation, trace, decide, ask, note });
 
   function others(except: Dimension): Filters {
     const filters = { ...conversation.draft!.filters };
@@ -474,7 +570,15 @@ export async function handleTurn(
       );
       // Studies mean little to most users: without a confident pick, use a general one and say so.
       draft.filters.workspace_code = [study.choice ?? defaultStudy(draft.goal)];
-      if (!study.choice) draft.assumed = [...(draft.assumed ?? []), "workspace_code"];
+      if (!study.choice) {
+        draft.assumed = [...(draft.assumed ?? []), "workspace_code"];
+        note(
+          "study",
+          "No study named: a general one is assumed.",
+          "World study unless the message mentions the EU or Europe.",
+          draft.filters.workspace_code[0],
+        );
+      }
     }
     const missing = seriesDimensions.filter((d) => !draft.filters[d]?.length);
     const available = Object.fromEntries(
@@ -483,7 +587,16 @@ export async function handleTurn(
       ),
     ) as Record<SeriesDimension, string[]>;
     const open = missing.filter((d) => available[d].length > 1);
-    for (const d of missing) if (available[d].length === 1) draft.filters[d] = available[d];
+    for (const d of missing)
+      if (available[d].length === 1) {
+        draft.filters[d] = available[d];
+        note(
+          dimensionLabels[d],
+          `Only one ${dimensionLabels[d]} has data here.`,
+          "Taken without asking.",
+          available[d][0],
+        );
+      }
     const picks = open.length
       ? await decide(
           Object.fromEntries(
@@ -501,14 +614,32 @@ export async function handleTurn(
           >
         >);
     for (const d of open)
-      if (picks[d]?.choice)
-        draft.filters[d] = [
-          // A curated phrase names its variable exactly ("transport emissions"); keep its detail.
+      if (picks[d]?.choice) {
+        // A curated phrase names its variable exactly ("transport emissions"); keep its detail.
+        const value =
           d === "variable" && !picks[d]!.curated
             ? plainest(picks[d]!.choice!, available.variable, draft.goal)
-            : picks[d]!.choice!,
-        ];
+            : picks[d]!.choice!;
+        if (value !== picks[d]!.choice)
+          note(
+            "variable",
+            `${picks[d]!.choice} is more detailed than the message asks for.`,
+            "Detail whose words the message does not use is dropped when the parent has data.",
+            value,
+          );
+        draft.filters[d] = [value];
+      }
+    const beforePrune = structuredClone(draft.filters);
     await prune();
+    for (const d of seriesDimensions) {
+      const lost = (beforePrune[d] ?? []).filter((v) => !draft.filters[d]?.includes(v));
+      if (lost.length)
+        note(
+          dimensionLabels[d],
+          `${lost.join(", ")} has no data with the selections before it.`,
+          "Dropped and resolved again: study, variable, region, model and scenario are checked in that order.",
+        );
+    }
     // A named model or scenario without data here is said once, then assumed like an unnamed one,
     // rather than asked about among values the user never mentioned.
     for (const d of ["modelName", "scenario"] as const) {
@@ -535,6 +666,12 @@ export async function handleTurn(
         );
       if (options.length === 1) {
         draft.filters[d] = options;
+        note(
+          dimensionLabels[d],
+          `Only one ${dimensionLabels[d]} has data with these selections.`,
+          "Taken without asking.",
+          options[0],
+        );
         continue;
       }
       // Among values with data, a curated phrase or exact wording may now be unambiguous:
@@ -545,6 +682,12 @@ export async function handleTurn(
         matchOption(offered, draft.goal);
       if (named) {
         draft.filters[d] = [named.id];
+        note(
+          dimensionLabels[d],
+          `Among the ${options.length} ${dimensionLabels[d]}s with data, the message names one.`,
+          "A curated phrase or exact wording that was ambiguous before the other selections narrowed the list.",
+          named.id,
+        );
         continue;
       }
       // A region named outright but without data here ("Africa", "Greece" for solar capacity)
@@ -556,7 +699,16 @@ export async function handleTurn(
         if (moved) return moved;
       }
       const unspecified = Boolean(outside) || (picks[d]?.unspecified ?? true);
-      if (d === "variable" || !unspecified) return askFor(d, offered, "", picks[d]?.guess);
+      if (d === "variable" || !unspecified) {
+        note(
+          "follow-up",
+          `Asking for the ${dimensionLabels[d]}.`,
+          d === "variable" && unspecified
+            ? "A variable is never assumed."
+            : "The classifier was undecided between options, so the user is asked, best guess first.",
+        );
+        return askFor(d, offered, "", picks[d]?.guess);
+      }
       if (d === "region") {
         const fallback = defaultRegions.find((r) => options.includes(r));
         // A region was named but matches several ("Africa_Eastern", …): ask rather than guess.
@@ -565,17 +717,39 @@ export async function handleTurn(
         if (outside)
           draft.notice = `No study has ${draft.filters.variable} data for ${outside.detail ?? outside.id}, so this shows ${fallback}.`;
         draft.filters.region = [fallback];
+        note(
+          "region",
+          outside ? "The named region has no data in any study." : "No region named.",
+          `Assumed the first of ${defaultRegions.join(", ")} with data.`,
+          fallback,
+        );
       } else if (
         d === "scenario" &&
         headlineScenarios(draft.filters.workspace_code?.[0], options).length
       ) {
         // The study's main scenario family, rather than every variant it publishes.
         draft.filters.scenario = headlineScenarios(draft.filters.workspace_code?.[0], options);
+        note(
+          "scenario",
+          "No scenario named.",
+          `Assumed the study's headline scenarios from data/curation.json: ${draft.filters.scenario.join(", ")}.`,
+        );
       } else {
         // Every model fits while the lines stay readable; that is checked once scenarios are known.
-        if (options.length > (d === "modelName" ? maxSeries : maxAssumedValues))
+        if (options.length > (d === "modelName" ? maxSeries : maxAssumedValues)) {
+          note(
+            "follow-up",
+            `Asking for the ${dimensionLabels[d]}.`,
+            `${options.length} have data, too many to assume them all.`,
+          );
           return askFor(d, values(options, d));
+        }
         draft.filters[d] = options;
+        note(
+          dimensionLabels[d],
+          `No ${dimensionLabels[d]} named.`,
+          `Assumed all ${options.length} with data.`,
+        );
       }
       draft.assumed = [...new Set([...(draft.assumed ?? []), d])];
     }
@@ -603,6 +777,11 @@ export async function handleTurn(
       draft.filters.modelName = draft.filters.modelName!.filter((m) => models.has(m));
       rows = rows.filter((r) => r.unit === unit);
       unitNote = `${dropped.length} model${dropped.length === 1 ? " reports" : "s report"} other units than ${unit} and ${dropped.length === 1 ? "is" : "are"} left out.`;
+      note(
+        "units",
+        `Models report ${byUnit.size} different units.`,
+        `Kept ${unit}, used by most models; left out ${dropped.join(", ")}.`,
+      );
     }
     // Name only the assumed models and scenarios that have rows left.
     for (const d of ["modelName", "scenario"] as const)
@@ -689,6 +868,14 @@ export async function handleTurn(
     const index = found.findIndex(Boolean);
     if (index < 0) return undefined;
     const [code, twin] = [order[index], found[index]!];
+    note(
+      "study",
+      `${regionName(region) ?? region} has no data for this variable in the current selection.`,
+      code === current
+        ? `The same region is published here as ${twin}.`
+        : `Moved to the first study that has it, general studies first: ${code}.`,
+      code,
+    );
     if (code === current) {
       draft.filters.region = [twin];
       if (years.length) draft.years = years;
@@ -801,9 +988,13 @@ export async function handleTurn(
     selected: string,
     dimension?: Dimension,
     compare = false,
+    facet?: FacetKey,
   ): Promise<Reply> {
     const request = conversation.pending?.request || text;
+    if (kind === "studies") return studies.choose(selected, facet);
     if (kind === "route") {
+      if (selected === "studies") return studies.start(request);
+      conversation.brief = undefined;
       if (selected === "analysis") {
         conversation.draft = {
           // Stay in the study the user is already charting.
@@ -1002,8 +1193,21 @@ export async function handleTurn(
   async function newRequest(): Promise<Reply> {
     conversation.pending = undefined;
     conversation.draft = undefined;
+    conversation.brief = undefined;
     // With a chart open, "this chart" or a chart type is about that chart: no classifier needed.
     if (chart && aboutOpenChart.test(text)) return execute("route", "chart");
+    // Someone describing themselves, or asking which studies matter, wants studies picked.
+    if (describesUser.test(text) || asksForStudies.test(text)) {
+      note(
+        "task",
+        describesUser.test(text)
+          ? "The message describes who the user is."
+          : "The message asks which studies are relevant.",
+        "Studies are picked for them. A wording rule in code; the classifier was not asked.",
+        "studies",
+      );
+      return studies.start(text);
+    }
     // "Who developed it?" right after a model profile is about that model.
     if (
       conversation.subject?.kind === "model" &&
@@ -1058,114 +1262,170 @@ export async function handleTurn(
       };
       return resolve();
     }
+    if (route && !picks.route.choice)
+      note(
+        "task",
+        "No confident classifier pick for the task.",
+        "Keyword rules in code chose it.",
+        route,
+      );
     if (route) return execute("route", route);
     return ask(
       "route",
       chart
-        ? "I can work with your current chart, show IAMPARIS data, find a page, or explain a concept."
-        : "I can show IAMPARIS data, find a page, or explain a concept.",
+        ? "I can work with your current chart, show IAMPARIS data, find a page, explain a concept, or pick studies for you."
+        : "I can show IAMPARIS data, find a page, explain a concept, or pick the studies relevant to you.",
       availableRoutes,
     );
   }
 
-  try {
-    if (
-      /^(cancel|stop|reset|start over)$/i.test(text) ||
-      ("option" in input &&
-        input.option === "cancel" &&
-        input.token === conversation.pending?.token)
-    ) {
-      conversation.draft = undefined;
-      conversation.pending = undefined;
+  async function respond(): Promise<Reply> {
+    try {
+      if (
+        /^(cancel|stop|reset|start over)$/i.test(text) ||
+        ("option" in input &&
+          input.option === "cancel" &&
+          input.token === conversation.pending?.token)
+      ) {
+        conversation.draft = undefined;
+        conversation.brief = undefined;
+        conversation.pending = undefined;
+        return {
+          kind: "help",
+          text: "Cancelled. You can ask for data, find a page, ask about a concept, or have studies picked for you.",
+          trace,
+        };
+      }
+      if ("option" in input) {
+        const pending = conversation.pending;
+        if (
+          !pending ||
+          pending.token !== input.token ||
+          !pending.options.some((o) => o.id === input.option)
+        )
+          return {
+            kind: "error",
+            text: "That button has expired. Use the choices on the newest reply.",
+            trace,
+          };
+        trace.push({
+          subject: subjectOfPending(pending),
+          question: "The user clicked one of the offered options.",
+          options: pending.options.filter((o) => o.id === input.option),
+          choice: input.option,
+          probabilities: {},
+          ms: 0,
+          source: "user",
+          outcome: "accepted",
+        });
+        return await execute(
+          pending.kind,
+          input.option,
+          pending.dimension,
+          pending.compare,
+          pending.facet,
+        );
+      }
+      // Typed or suggested commands that name a task exactly need no classifier call.
+      const command = [...availableRoutes, ...(chart ? chartOptions : [])].find(
+        (o) => o.label.toLowerCase() === text.toLowerCase(),
+      );
+      if (command) {
+        conversation.pending = undefined;
+        conversation.draft = undefined;
+        return await execute(chartOptions.includes(command) ? "chart" : "route", command.id);
+      }
+      const pending = conversation.pending;
+      if (pending) {
+        // "2" picks the second offered option, as numbered in the panel.
+        const number = /^\s*#?(\d{1,2})[.)]?\s*$/.exec(text);
+        const exact = number
+          ? pending.options[Number(number[1]) - 1]
+          : pending.options.find(
+              (o) =>
+                o.label.toLowerCase() === text.toLowerCase() ||
+                o.id.toLowerCase() === text.toLowerCase(),
+            );
+        if (exact) {
+          trace.push({
+            subject: subjectOfPending(pending),
+            question: number
+              ? "The user typed the number of an offered option."
+              : "The user typed an offered option's label.",
+            options: [exact],
+            choice: exact.id,
+            probabilities: {},
+            ms: 0,
+            source: "user",
+            outcome: "accepted",
+          });
+          return await execute(
+            pending.kind,
+            exact.id,
+            pending.dimension,
+            pending.compare,
+            pending.facet,
+          );
+        }
+        if (pending.kind === "studies") {
+          const picked = await studies.typed(text, pending);
+          if (picked) return picked;
+        } else if (pending.kind === "review") {
+          const refined = await refine(text);
+          if (refined) return refined;
+        } else {
+          const { answer } = await decide(
+            {
+              answer: {
+                question: `Which of the offered options does the user choose?${pending.dimension ? ` They were asked for the ${dimensionLabels[pending.dimension]}.` : ""} Choose none if the message is about something else.`,
+                options: pending.options,
+              },
+            },
+            text,
+            // "only solar", typed when asked for the variable, reads with the original request.
+            pending.kind === "dimension"
+              ? { answer: `${conversation.draft?.goal ?? ""} ${text}` }
+              : {},
+          );
+          if (answer.choice) {
+            // A typed answer is the request now, not the message that raised the question.
+            pending.request = text;
+            return await execute(pending.kind, answer.choice, pending.dimension, pending.compare);
+          }
+          const refined = pending.kind === "dimension" ? await refine(text) : undefined;
+          if (refined) return refined;
+        }
+      }
+      return await newRequest();
+    } catch (error) {
+      conversation.draft = draftBefore;
+      conversation.brief = briefBefore;
+      conversation.pending = pendingBefore;
       return {
-        kind: "help",
-        text: "Cancelled. You can ask for data, find a page, or ask about a concept.",
+        kind: "error",
+        text:
+          error instanceof Error && !error.message.startsWith("[")
+            ? error.message
+            : "The data service returned an unexpected response. Your selections have been kept; try again.",
+        options: pendingBefore?.options,
+        token: pendingBefore?.token,
+        filters: draftBefore?.filters,
         trace,
       };
     }
-    if ("option" in input) {
-      const pending = conversation.pending;
-      if (
-        !pending ||
-        pending.token !== input.token ||
-        !pending.options.some((o) => o.id === input.option)
-      )
-        return {
-          kind: "error",
-          text: "That button has expired. Use the choices on the newest reply.",
-          trace,
-        };
-      trace.push({
-        question: "Explicit user selection",
-        options: pending.options.filter((o) => o.id === input.option),
-        choice: input.option,
-        probabilities: {},
-        ms: 0,
-        source: "user",
-      });
-      return await execute(pending.kind, input.option, pending.dimension, pending.compare);
-    }
-    // Typed or suggested commands that name a task exactly need no classifier call.
-    const command = [...availableRoutes, ...(chart ? chartOptions : [])].find(
-      (o) => o.label.toLowerCase() === text.toLowerCase(),
-    );
-    if (command) {
-      conversation.pending = undefined;
-      conversation.draft = undefined;
-      return await execute(chartOptions.includes(command) ? "chart" : "route", command.id);
-    }
-    const pending = conversation.pending;
-    if (pending) {
-      // "2" picks the second offered option, as numbered in the panel.
-      const number = /^\s*#?(\d{1,2})[.)]?\s*$/.exec(text);
-      const exact = number
-        ? pending.options[Number(number[1]) - 1]
-        : pending.options.find(
-            (o) =>
-              o.label.toLowerCase() === text.toLowerCase() ||
-              o.id.toLowerCase() === text.toLowerCase(),
-          );
-      if (exact) return await execute(pending.kind, exact.id, pending.dimension, pending.compare);
-      if (pending.kind === "review") {
-        const refined = await refine(text);
-        if (refined) return refined;
-      } else {
-        const { answer } = await decide(
-          {
-            answer: {
-              question: `Which of the offered options does the user choose?${pending.dimension ? ` They were asked for the ${dimensionLabels[pending.dimension]}.` : ""} Choose none if the message is about something else.`,
-              options: pending.options,
-            },
-          },
-          text,
-          // "only solar", typed when asked for the variable, reads with the original request.
-          pending.kind === "dimension"
-            ? { answer: `${conversation.draft?.goal ?? ""} ${text}` }
-            : {},
-        );
-        if (answer.choice) {
-          // A typed answer is the request now, not the message that raised the question.
-          pending.request = text;
-          return await execute(pending.kind, answer.choice, pending.dimension, pending.compare);
-        }
-        const refined = pending.kind === "dimension" ? await refine(text) : undefined;
-        if (refined) return refined;
-      }
-    }
-    return await newRequest();
-  } catch (error) {
-    conversation.draft = draftBefore;
-    conversation.pending = pendingBefore;
-    return {
-      kind: "error",
-      text:
-        error instanceof Error && !error.message.startsWith("[")
-          ? error.message
-          : "The data service returned an unexpected response. Your selections have been kept; try again.",
-      options: pendingBefore?.options,
-      token: pendingBefore?.token,
-      filters: draftBefore?.filters,
-      trace,
-    };
   }
+
+  const reply = await respond();
+  // What the turn left behind, so the inspector can show the state the next message meets.
+  reply.state = structuredClone({
+    draft: conversation.draft,
+    brief: conversation.brief,
+    pending: conversation.pending && {
+      kind: conversation.pending.kind,
+      dimension: conversation.pending.dimension,
+      facet: conversation.pending.facet,
+    },
+  });
+  reply.ms = Math.round(performance.now() - started);
+  return reply;
 }
