@@ -1,0 +1,1067 @@
+{
+  "rttMs": 256,
+  "when": "2026-10-30T13:54:43.850Z",
+  "rounds": [
+    [
+      {
+        "text": "electricity generation for EU in 2050",
+        "old": {
+          "ms": 1822,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity",
+          "region": "EU",
+          "clarification": false,
+          "answer": "### Secondary Energy|Electricity in EU Scope: scenario `multiple`, model `multiple`, years `2050` Unit: `EJ/yr` Answer: In 2050, Secondary Energy|Electricity in EU ranges from 12.81 (E3ME, PR_NDC_CP) to 54.54 EJ/yr (ICES"
+        },
+        "new": {
+          "ms": 648,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "ICES-XPS 1.1",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1759,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity in EU, 2050: 6 series from 6 models and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. No model was named, so all available are included. 1 model reports other units t"
+        }
+      },
+      {
+        "text": "only solar",
+        "old": {
+          "ms": 1240,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "EU",
+          "clarification": false,
+          "answer": "### Secondary Energy|Electricity|Solar in EU Scope: scenario `multiple`, model `multiple`, years `2050` Unit: `EJ/yr` Answer: In 2050, Secondary Energy|Electricity|Solar in EU ranges from 0.118 (ICES-XPS, PR_Baseline) to"
+        },
+        "new": {
+          "ms": 1121,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Solar"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "ICES-XPS 1.1",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1490,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Solar in EU, 2050: 6 series from 6 models and PR_WWH_CP. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "same for Germany",
+        "old": {
+          "ms": 1529,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": false,
+          "answer": "### Secondary Energy|Electricity|Solar in DEU Scope: scenario `multiple`, model `multiple`, years `2050` Unit: `EJ/yr` Answer: In 2050, Secondary Energy|Electricity|Solar in DEU ranges from 0.106 (ICES-XPS, PR_Baseline) "
+        },
+        "new": {
+          "ms": 1010,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Solar"
+            ],
+            "region": [
+              "DEU"
+            ],
+            "modelName": [
+              "e3me",
+              "ices"
+            ],
+            "scenario": [
+              "PR_Baseline",
+              "PR_CurPol_CP",
+              "PR_CurPol_CPO",
+              "PR_CurPol_EI",
+              "PR_NDC_CP",
+              "PR_NDC_CPO",
+              "PR_NDC_EI",
+              "Unharmonised baseline"
+            ]
+          },
+          "classifierCalls": 7,
+          "inputTokens": 1568,
+          "outputTokens": 7,
+          "wordingMatches": 1,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Solar in DEU, 2050: 13 series from e3me, ices and 8 scenarios. Germany is not in “Where is the EU headed?”, so this uses “Where is the world headed?”. No model was named, so all available are"
+        }
+      },
+      {
+        "text": "what about 2040?",
+        "old": {
+          "ms": 1096,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": false,
+          "answer": "### Secondary Energy|Electricity|Solar in DEU Scope: scenario `multiple`, model `multiple`, years `2040` Unit: `EJ/yr` Answer: In 2040, Secondary Energy|Electricity|Solar in DEU ranges from 0.0782 (ICES-XPS, PR_Baseline)"
+        },
+        "new": {
+          "ms": 6729,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Solar"
+            ],
+            "region": [
+              "DEU"
+            ],
+            "modelName": [
+              "e3me"
+            ],
+            "scenario": [
+              "PR_Baseline",
+              "PR_CurPol_CP",
+              "PR_CurPol_EI",
+              "PR_NDC_CP",
+              "PR_NDC_EI",
+              "Unharmonised baseline"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1469,
+          "outputTokens": 5,
+          "wordingMatches": 1,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Solar in DEU, 2040: 6 series from e3me and 6 scenarios. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "How much power will the EU get from wind in 2050?",
+        "old": {
+          "ms": 2192,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": true,
+          "answer": "No data found for **Power Generation Technologies|Wind** in region `EU` for any scenario. Choose the variable: 1. `Secondary Energy|Electricity|Wind` (electricity output, wind) 2. `Primary Energy|Wind` (primary energy, w"
+        },
+        "new": {
+          "ms": 777,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Wind"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "ICES-XPS 1.1",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1812,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Wind in EU, 2050: 6 series from 6 models and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. No model was named, so all available are included. 1 model reports other un"
+        }
+      },
+      {
+        "text": "only GCAM",
+        "old": {
+          "ms": 1165,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/conversation_state",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": false,
+          "answer": "I could not find `Power Generation Technologies|Wind` in `EU (European Union)` for the explicitly requested model `GCAM`. I did not substitute results from a different model."
+        },
+        "new": {
+          "ms": 573,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Wind"
+            ],
+            "modelName": [
+              "GCAM-PR 5.3"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1260,
+          "outputTokens": 5,
+          "wordingMatches": 1,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Wind in EU, 2050: 1 series from GCAM-PR 5.3 and PR_WWH_CP. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "Compare CO2 emissions in Europe in 2050",
+        "old": {
+          "ms": 1430,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/policy",
+          "extraction": "deterministic",
+          "variable": "Emissions|CO2",
+          "region": "EU",
+          "clarification": false,
+          "answer": "### Emissions|CO2 in EU Scope: scenario `multiple`, model `multiple`, years `2050` Unit: `Mt CO2/yr` Answer: In 2050, Emissions|CO2 in EU ranges from 1,024 (GCAM, PR_CurPol_CPO) to 3,429 Mt CO2/yr (GCAM, PR_Baseline) acr"
+        },
+        "new": {
+          "ms": 637,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Emissions|CO2"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "GEMINI-E3 7.0",
+              "MUSE",
+              "NEMESIS 5.0"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 2739,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Emissions|CO2 in EU, 2050: 6 series from 6 models and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. No model was named, so all available are included. Type a change, such as a model, scenario or "
+        }
+      },
+      {
+        "text": "Where can I find the model catalogue?",
+        "old": {
+          "ms": 191,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "Use these IAM PARIS links for this request: [Models](https://iamparis.eu/models)."
+        },
+        "new": {
+          "ms": 207,
+          "kind": "navigation",
+          "classifierCalls": 3,
+          "inputTokens": 1350,
+          "outputTokens": 3,
+          "wordingMatches": 1,
+          "actions": [
+            "navigate:/models"
+          ],
+          "answer": "Models — Open this page on IAMPARIS."
+        }
+      },
+      {
+        "text": "where can I compare models side by side?",
+        "old": {
+          "ms": 171,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "Use these IAM PARIS links for this request: [Model Comparison](https://iamparis.eu/models/comparison)."
+        },
+        "new": {
+          "ms": 273,
+          "kind": "navigation",
+          "classifierCalls": 3,
+          "inputTokens": 1397,
+          "outputTokens": 3,
+          "wordingMatches": 0,
+          "actions": [
+            "navigate:/models/comparison"
+          ],
+          "answer": "Model Comparison — Open this page on IAMPARIS."
+        }
+      },
+      {
+        "text": "What is a baseline scenario?",
+        "old": {
+          "ms": 110,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "### Baseline scenario A baseline (or reference) scenario describes a future without additional climate policy beyond a base year. It is the point of comparison for policy scenarios: the difference between a policy scenar"
+        },
+        "new": {
+          "ms": 257,
+          "kind": "answer",
+          "classifierCalls": 3,
+          "inputTokens": 1309,
+          "outputTokens": 3,
+          "wordingMatches": 0,
+          "actions": [],
+          "answer": "Baseline scenario — A baseline (or reference) scenario describes a future without additional climate policy beyond a base year. It is the point of comparison for policy scenarios: the difference between a policy scenario"
+        }
+      },
+      {
+        "text": "What does net zero mean?",
+        "old": {
+          "ms": 109,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "### Net zero emissions Net zero CO2 emissions are reached when remaining anthropogenic CO2 emissions are balanced by anthropogenic CO2 removals over a specified period. Net zero greenhouse gas emissions apply the same ba"
+        },
+        "new": {
+          "ms": 245,
+          "kind": "answer",
+          "classifierCalls": 3,
+          "inputTokens": 1309,
+          "outputTokens": 3,
+          "wordingMatches": 1,
+          "actions": [],
+          "answer": "Net zero emissions — Net zero CO2 emissions are reached when remaining anthropogenic CO2 emissions are balanced by anthropogenic CO2 removals over a specified period. Net zero greenhouse gas emissions apply the same bala"
+        }
+      },
+      {
+        "text": "energy in buildings for EU",
+        "old": {
+          "ms": 1228,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Emissions|CO2",
+          "region": "EU",
+          "clarification": true,
+          "answer": "I found several possible variables, but none has enough evidence for automatic selection. Choose the variable: 1. `Final Energy|Buildings|Residential` (final energy use, buildings) 2. `Final Energy|Buildings|Residential|"
+        },
+        "new": {
+          "ms": 485,
+          "kind": "ask",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1761,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [],
+          "answer": "Which variable do you mean? These are the closest matches; search for others."
+        }
+      },
+      {
+        "text": "1",
+        "old": {
+          "ms": 374,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/conversation_state",
+          "extraction": "deterministic",
+          "variable": "Final Energy|Buildings|Residential",
+          "region": "EU",
+          "clarification": false,
+          "answer": "### Final Energy|Buildings|Residential in EU Scope: scenario `PR_WWH_CP`, model `GEMINI-E3 7.0`, years `2050` Unit: `EJ/yr` Answer: In 2050, Final Energy|Buildings|Residential in EU is 8.96 EJ/yr (GEMINI-E3 7.0, PR_WWH_C"
+        },
+        "new": {
+          "ms": 547,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Final Energy|Buildings|Residential"
+            ],
+            "modelName": [
+              "GEMINI-E3 7.0"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Final Energy|Buildings|Residential in EU, 2015–2050: 1 series from GEMINI-E3 7.0 and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "tell me about GCAM",
+        "old": {
+          "ms": 628,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "model_explanation/deterministic",
+          "extraction": "deterministic",
+          "clarification": false,
+          "answer": "### GCAM Description: GCAM is a dynamic-recursive model with technology-rich representations of the economy, energy sector, land use and water linked to a climate model that can be used to explore climate change mitigati"
+        },
+        "new": {
+          "ms": 4,
+          "kind": "answer",
+          "classifierCalls": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "wordingMatches": 0,
+          "actions": [
+            "navigate:/models/30"
+          ],
+          "answer": "GCAM (The Global Change Assessment Model) — GCAM is a dynamic-recursive model with technology-rich representations of the economy, energy sector, land use and water linked to a climate model that can be used to explore c"
+        }
+      },
+      {
+        "text": "who developed it?",
+        "old": {
+          "ms": 234,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "model_explanation/conversation_state",
+          "clarification": false,
+          "answer": "### GCAM `GCAM` is developed by Joint Global Change Research Institute. Related model documentation: - [IAM PARIS model page](https://iamparis.eu/models/30)"
+        },
+        "new": {
+          "ms": 4,
+          "kind": "answer",
+          "classifierCalls": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "wordingMatches": 0,
+          "actions": [
+            "navigate:/models/30"
+          ],
+          "answer": "GCAM (The Global Change Assessment Model) — GCAM (The Global Change Assessment Model) is developed by Joint Global Change Research Institute."
+        }
+      }
+    ],
+    [
+      {
+        "text": "electricity generation for EU in 2050",
+        "old": {
+          "ms": 1085,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity",
+          "region": "EU",
+          "clarification": false,
+          "answer": "Showing results from the study **Where is the world headed?**. Also available in: Where is the EU headed?; Post-Glasgow targets. Name another study to switch. ### Secondary Energy|Electricity in EU Scope: scenario `multi"
+        },
+        "new": {
+          "ms": 406,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "ICES-XPS 1.1",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1759,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity in EU, 2050: 6 series from 6 models and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. No model was named, so all available are included. 1 model reports other units t"
+        }
+      },
+      {
+        "text": "only solar",
+        "old": {
+          "ms": 1243,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "EU",
+          "clarification": false,
+          "answer": "### Secondary Energy|Electricity|Solar in EU Scope: scenario `multiple`, model `multiple`, years `2050` Unit: `EJ/yr` Answer: In 2050, Secondary Energy|Electricity|Solar in EU ranges from 0.118 (ICES-XPS, PR_Baseline) to"
+        },
+        "new": {
+          "ms": 343,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Solar"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "ICES-XPS 1.1",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1490,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Solar in EU, 2050: 6 series from 6 models and PR_WWH_CP. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "same for Germany",
+        "old": {
+          "ms": 1575,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": false,
+          "answer": "### Secondary Energy|Electricity|Solar in DEU Scope: scenario `multiple`, model `multiple`, years `2050` Unit: `EJ/yr` Answer: In 2050, Secondary Energy|Electricity|Solar in DEU ranges from 0.106 (ICES-XPS, PR_Baseline) "
+        },
+        "new": {
+          "ms": 402,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Solar"
+            ],
+            "region": [
+              "DEU"
+            ],
+            "modelName": [
+              "e3me",
+              "ices"
+            ],
+            "scenario": [
+              "PR_Baseline",
+              "PR_CurPol_CP",
+              "PR_CurPol_CPO",
+              "PR_CurPol_EI",
+              "PR_NDC_CP",
+              "PR_NDC_CPO",
+              "PR_NDC_EI",
+              "Unharmonised baseline"
+            ]
+          },
+          "classifierCalls": 7,
+          "inputTokens": 1568,
+          "outputTokens": 7,
+          "wordingMatches": 1,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Solar in DEU, 2050: 13 series from e3me, ices and 8 scenarios. Germany is not in “Where is the EU headed?”, so this uses “Where is the world headed?”. No model was named, so all available are"
+        }
+      },
+      {
+        "text": "what about 2040?",
+        "old": {
+          "ms": 1079,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": false,
+          "answer": "### Secondary Energy|Electricity|Solar in DEU Scope: scenario `multiple`, model `multiple`, years `2040` Unit: `EJ/yr` Answer: In 2040, Secondary Energy|Electricity|Solar in DEU ranges from 0.0782 (ICES-XPS, PR_Baseline)"
+        },
+        "new": {
+          "ms": 364,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Solar"
+            ],
+            "region": [
+              "DEU"
+            ],
+            "modelName": [
+              "e3me"
+            ],
+            "scenario": [
+              "PR_Baseline",
+              "PR_CurPol_CP",
+              "PR_CurPol_EI",
+              "PR_NDC_CP",
+              "PR_NDC_EI",
+              "Unharmonised baseline"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1469,
+          "outputTokens": 5,
+          "wordingMatches": 1,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Solar in DEU, 2040: 6 series from e3me and 6 scenarios. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "How much power will the EU get from wind in 2050?",
+        "old": {
+          "ms": 1988,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": true,
+          "answer": "No data found for **Power Generation Technologies|Wind** in region `EU` for any scenario. Choose the variable: 1. `Secondary Energy|Electricity|Wind` (electricity output, wind) 2. `Primary Energy|Wind` (primary energy, w"
+        },
+        "new": {
+          "ms": 394,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Wind"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "ICES-XPS 1.1",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1812,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Wind in EU, 2050: 6 series from 6 models and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. No model was named, so all available are included. 1 model reports other un"
+        }
+      },
+      {
+        "text": "only GCAM",
+        "old": {
+          "ms": 1162,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/conversation_state",
+          "extraction": "deterministic",
+          "variable": "Secondary Energy|Electricity|Solar",
+          "region": "DEU",
+          "clarification": false,
+          "answer": "I could not find `Power Generation Technologies|Wind` in `EU (European Union)` for the explicitly requested model `GCAM`. I did not substitute results from a different model."
+        },
+        "new": {
+          "ms": 306,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Secondary Energy|Electricity|Wind"
+            ],
+            "modelName": [
+              "GCAM-PR 5.3"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1260,
+          "outputTokens": 5,
+          "wordingMatches": 1,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Secondary Energy|Electricity|Wind in EU, 2050: 1 series from GCAM-PR 5.3 and PR_WWH_CP. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "Compare CO2 emissions in Europe in 2050",
+        "old": {
+          "ms": 1431,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/policy",
+          "extraction": "deterministic",
+          "variable": "Emissions|CO2",
+          "region": "EU",
+          "clarification": false,
+          "answer": "### Emissions|CO2 in EU Scope: scenario `multiple`, model `multiple`, years `2050` Unit: `Mt CO2/yr` Answer: In 2050, Emissions|CO2 in EU ranges from 1,024 (GCAM, PR_CurPol_CPO) to 3,429 Mt CO2/yr (GCAM, PR_Baseline) acr"
+        },
+        "new": {
+          "ms": 519,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Emissions|CO2"
+            ],
+            "modelName": [
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "GCAM-PR 5.3",
+              "GEMINI-E3 7.0",
+              "MUSE",
+              "NEMESIS 5.0"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 2739,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Emissions|CO2 in EU, 2050: 6 series from 6 models and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. No model was named, so all available are included. Type a change, such as a model, scenario or "
+        }
+      },
+      {
+        "text": "Where can I find the model catalogue?",
+        "old": {
+          "ms": 198,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "Use these IAM PARIS links for this request: [Models](https://iamparis.eu/models)."
+        },
+        "new": {
+          "ms": 163,
+          "kind": "navigation",
+          "classifierCalls": 3,
+          "inputTokens": 1350,
+          "outputTokens": 3,
+          "wordingMatches": 1,
+          "actions": [
+            "navigate:/models"
+          ],
+          "answer": "Models — Open this page on IAMPARIS."
+        }
+      },
+      {
+        "text": "where can I compare models side by side?",
+        "old": {
+          "ms": 176,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "Use these IAM PARIS links for this request: [Model Comparison](https://iamparis.eu/models/comparison)."
+        },
+        "new": {
+          "ms": 189,
+          "kind": "navigation",
+          "classifierCalls": 3,
+          "inputTokens": 1397,
+          "outputTokens": 3,
+          "wordingMatches": 0,
+          "actions": [
+            "navigate:/models/comparison"
+          ],
+          "answer": "Model Comparison — Open this page on IAMPARIS."
+        }
+      },
+      {
+        "text": "What is a baseline scenario?",
+        "old": {
+          "ms": 115,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "### Baseline scenario A baseline (or reference) scenario describes a future without additional climate policy beyond a base year. It is the point of comparison for policy scenarios: the difference between a policy scenar"
+        },
+        "new": {
+          "ms": 155,
+          "kind": "answer",
+          "classifierCalls": 3,
+          "inputTokens": 1309,
+          "outputTokens": 3,
+          "wordingMatches": 0,
+          "actions": [],
+          "answer": "Baseline scenario — A baseline (or reference) scenario describes a future without additional climate policy beyond a base year. It is the point of comparison for policy scenarios: the difference between a policy scenario"
+        }
+      },
+      {
+        "text": "What does net zero mean?",
+        "old": {
+          "ms": 101,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "general_qa/deterministic",
+          "clarification": false,
+          "answer": "### Net zero emissions Net zero CO2 emissions are reached when remaining anthropogenic CO2 emissions are balanced by anthropogenic CO2 removals over a specified period. Net zero greenhouse gas emissions apply the same ba"
+        },
+        "new": {
+          "ms": 186,
+          "kind": "answer",
+          "classifierCalls": 3,
+          "inputTokens": 1309,
+          "outputTokens": 3,
+          "wordingMatches": 1,
+          "actions": [],
+          "answer": "Net zero emissions — Net zero CO2 emissions are reached when remaining anthropogenic CO2 emissions are balanced by anthropogenic CO2 removals over a specified period. Net zero greenhouse gas emissions apply the same bala"
+        }
+      },
+      {
+        "text": "energy in buildings for EU",
+        "old": {
+          "ms": 1039,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/deterministic",
+          "extraction": "deterministic",
+          "variable": "Emissions|CO2",
+          "region": "EU",
+          "clarification": true,
+          "answer": "I found several possible variables, but none has enough evidence for automatic selection. Choose the variable: 1. `Final Energy|Buildings|Residential` (final energy use, buildings) 2. `Final Energy|Buildings|Residential|"
+        },
+        "new": {
+          "ms": 370,
+          "kind": "ask",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ]
+          },
+          "classifierCalls": 5,
+          "inputTokens": 1761,
+          "outputTokens": 5,
+          "wordingMatches": 0,
+          "actions": [],
+          "answer": "Which variable do you mean? These are the closest matches; search for others."
+        }
+      },
+      {
+        "text": "1",
+        "old": {
+          "ms": 378,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "data_query/conversation_state",
+          "extraction": "deterministic",
+          "variable": "Final Energy|Buildings|Residential",
+          "region": "EU",
+          "clarification": false,
+          "answer": "### Final Energy|Buildings|Residential in EU Scope: scenario `PR_WWH_CP`, model `GEMINI-E3 7.0`, years `2050` Unit: `EJ/yr` Answer: In 2050, Final Energy|Buildings|Residential in EU is 8.96 EJ/yr (GEMINI-E3 7.0, PR_WWH_C"
+        },
+        "new": {
+          "ms": 95,
+          "kind": "result",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Final Energy|Buildings|Residential"
+            ],
+            "modelName": [
+              "GEMINI-E3 7.0"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "classifierCalls": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "wordingMatches": 0,
+          "actions": [
+            "chart.apply:Open in GraphMaker"
+          ],
+          "answer": "Final Energy|Buildings|Residential in EU, 2015–2050: 1 series from GEMINI-E3 7.0 and PR_WWH_CP. No study was named, so this uses “Where is the EU headed?”. Type a change, such as a model, scenario or “2030 to 2050”."
+        }
+      },
+      {
+        "text": "tell me about GCAM",
+        "old": {
+          "ms": 618,
+          "session_id": "5c19784153944f4299fe46edd81efd67",
+          "route": "model_explanation/deterministic",
+          "extraction": "deterministic",
+          "clarification": false,
+          "answer": "### GCAM Description: GCAM is a dynamic-recursive model with technology-rich representations of the economy, energy sector, land use and water linked to a climate model that can be used to explore climate change mitigati"
+        },
+        "new": {
+          "ms": 5,
+          "kind": "answer",
+          "classifierCalls": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "wordingMatches": 0,
+          "actions": [
+            "navigate:/models/30"
+          ],
+          "answer": "GCAM (The Global Change Assessment Model) — GCAM is a dynamic-recursive model with technology-rich representations of the economy, energy sector, land use and water linked to a climate model that can be used to explore c"
+        }
+      },
+      {
+        "text": "who developed it?",
+        "old": {
+          "ms": 85,
+          "route": "undefined/undefined",
+          "clarification": false,
+          "answer": ""
+        },
+        "new": {
+          "ms": 4,
+          "kind": "answer",
+          "classifierCalls": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "wordingMatches": 0,
+          "actions": [
+            "navigate:/models/30"
+          ],
+          "answer": "GCAM (The Global Change Assessment Model) — GCAM (The Global Change Assessment Model) is developed by Joint Global Change Research Institute."
+        }
+      }
+    ]
+  ]
+}

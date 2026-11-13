@@ -1,0 +1,3544 @@
+{
+  "summary": {
+    "queries": 231,
+    "new": {
+      "route": "82% (190/231)",
+      "variable": "60% (41/68)",
+      "region": "75% (58/77)",
+      "medianMs": 458,
+      "failedRequests": 0
+    },
+    "old": {
+      "route": "91% (211/231)",
+      "variable": "63% (43/68)",
+      "region": "61% (47/77)",
+      "medianMs": 748,
+      "failedRequests": 0
+    }
+  },
+  "results": [
+    {
+      "query": "show me carbon dioxide emissions for Europe",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 796,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1302,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "plot photovoltaic capacity for Greece",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Solar",
+      "region": "Greece",
+      "new": {
+        "ms": 419,
+        "route": "data",
+        "variable": "Capacity|Electricity|Solar|PV",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 94,
+        "route": "site"
+      }
+    },
+    {
+      "query": "which models are available",
+      "expected": "data",
+      "new": {
+        "ms": 231,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 311,
+        "route": "data"
+      }
+    },
+    {
+      "query": "compare wind power and solar PV",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Wind",
+      "new": {
+        "ms": 527,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 33304,
+        "route": "data",
+        "variable": "Capacity|Electricity|Wind"
+      }
+    },
+    {
+      "query": "tell me about GCAM model assumptions",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 230,
+        "route": "model"
+      }
+    },
+    {
+      "query": "what are the assumptions in the GCAM model",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 239,
+        "route": "model"
+      }
+    },
+    {
+      "query": "information on gcam",
+      "expected": "data",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 1099,
+        "route": "data"
+      }
+    },
+    {
+      "query": "list variables",
+      "expected": "data",
+      "new": {
+        "ms": 230,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 3085,
+        "route": "data"
+      }
+    },
+    {
+      "query": "list scenarios",
+      "expected": "data",
+      "new": {
+        "ms": 330,
+        "route": "site",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 456,
+        "route": "data"
+      }
+    },
+    {
+      "query": "list regions",
+      "expected": "data",
+      "new": {
+        "ms": 254,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 521,
+        "route": "data"
+      }
+    },
+    {
+      "query": "energy in buildings for EU",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 399,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 533,
+        "route": "data",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "carbon from transport in Europe",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 295,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 542,
+        "route": "data",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "AFOLU agriculture land forestry transformation results",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 216,
+        "route": "site"
+      }
+    },
+    {
+      "query": "open the Aqueduct raw data application",
+      "expected": "site",
+      "new": {
+        "ms": 5,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 168,
+        "route": "site"
+      }
+    },
+    {
+      "query": "where can I find Climate Watch",
+      "expected": "site",
+      "new": {
+        "ms": 209,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 150,
+        "route": "site"
+      }
+    },
+    {
+      "query": "policy catalogue climate policies",
+      "expected": "site",
+      "new": {
+        "ms": 273,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 164,
+        "route": "site"
+      }
+    },
+    {
+      "query": "Fit-for-55 EU net zero results",
+      "expected": "site",
+      "region": "EU",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 1036,
+        "route": "site"
+      }
+    },
+    {
+      "query": "NDC impacts for transport and buildings",
+      "expected": "data",
+      "new": {
+        "ms": 347,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1465,
+        "route": "data"
+      }
+    },
+    {
+      "query": "show me data for EU",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 381,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2151,
+        "route": "data"
+      }
+    },
+    {
+      "query": "oil demand for EU",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 425,
+        "route": "data",
+        "variable": "Primary Energy|Oil",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1932,
+        "route": "data",
+        "variable": "Final Energy|Liquids",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "electricity for India",
+      "expected": "data",
+      "region": "India",
+      "new": {
+        "ms": 454,
+        "route": "data",
+        "region": "IND",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2339,
+        "route": "data",
+        "variable": "Final Energy|Liquids",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "show Emissions|CO2 for World under Policy",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 594,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1817,
+        "route": "data",
+        "variable": "Final Energy|Liquids",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "plot Emissions|CO2 for World under Policy",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 581,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 103,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show Emissions|CO2 for World under Baseline in 2030",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 878,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1454,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show Emissions|CO2 for World under Baseline by 2050",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 672,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1411,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show Emissions|CO2 for World under Baseline after 2030",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 683,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1413,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show the latest available year for Emissions|CO2 in World",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 551,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 552,
+        "route": "data",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot it",
+      "expected": "data",
+      "new": {
+        "ms": 428,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 92,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show all scenarios",
+      "expected": "data",
+      "new": {
+        "ms": 482,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1109,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "use the first scenario",
+      "expected": "data",
+      "new": {
+        "ms": 599,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 340,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "what kinds of data are included",
+      "expected": "data",
+      "new": {
+        "ms": 437,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1439,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "help me find data",
+      "expected": "data",
+      "new": {
+        "ms": 899,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1482,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "compare GCAM and MESSAGE for CO2 emissions",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "new": {
+        "ms": 234,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 1269,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show data using gcampr",
+      "expected": "data",
+      "new": {
+        "ms": 503,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1239,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show data with message ix",
+      "expected": "data",
+      "new": {
+        "ms": 778,
+        "route": "data",
+        "variable": "Capacity Additions|Electricity|Oil",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1347,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot solar capacity for EU under Baseline",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Solar",
+      "region": "EU",
+      "new": {
+        "ms": 761,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 103,
+        "route": "site"
+      }
+    },
+    {
+      "query": "plot wind capacity for EU under Baseline",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Wind",
+      "region": "EU",
+      "new": {
+        "ms": 445,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 101,
+        "route": "site"
+      }
+    },
+    {
+      "query": "gross domestic product for World",
+      "expected": "data",
+      "variable": "GDP|MER",
+      "region": "World",
+      "new": {
+        "ms": 600,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2043,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World"
+      }
+    },
+    {
+      "query": "greenhouse gas pathways by country",
+      "expected": "data",
+      "variable": "Emissions|GHG",
+      "new": {
+        "ms": 565,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1208,
+        "route": "data",
+        "variable": "Emissions|Kyoto Gases",
+        "region": "World"
+      }
+    },
+    {
+      "query": "current policy scenario emissions for EU",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 1911,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1849,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "show all models",
+      "expected": "data",
+      "new": {
+        "ms": 230,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 300,
+        "route": "data"
+      }
+    },
+    {
+      "query": "show all variables",
+      "expected": "data",
+      "new": {
+        "ms": 460,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2295,
+        "route": "data"
+      }
+    },
+    {
+      "query": "custom analysis for decarbonisation options",
+      "expected": "site",
+      "new": {
+        "ms": 444,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 278,
+        "route": "site"
+      }
+    },
+    {
+      "query": "carbon emissions in Europe",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 1184,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1053,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "CO2 emissions for EU in 2050",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 605,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1469,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "show greenhouse gases for World",
+      "expected": "data",
+      "variable": "Emissions|GHG",
+      "region": "World",
+      "new": {
+        "ms": 497,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1588,
+        "route": "data",
+        "variable": "Emissions|Kyoto Gases",
+        "region": "World"
+      }
+    },
+    {
+      "query": "methane emissions for Europe",
+      "expected": "data",
+      "variable": "Emissions|CH4",
+      "region": "EU",
+      "new": {
+        "ms": 1123,
+        "route": "data",
+        "variable": "Emissions|CH4",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1612,
+        "route": "data",
+        "variable": "Emissions|CH4",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "nitrous oxide emissions for World",
+      "expected": "data",
+      "variable": "Emissions|N2O",
+      "region": "World",
+      "new": {
+        "ms": 862,
+        "route": "data",
+        "variable": "Emissions|N2O",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1644,
+        "route": "data",
+        "variable": "Emissions|N2O",
+        "region": "World"
+      }
+    },
+    {
+      "query": "electricity generation for World",
+      "expected": "data",
+      "variable": "Secondary Energy|Electricity",
+      "region": "World",
+      "new": {
+        "ms": 729,
+        "route": "data",
+        "variable": "Secondary Energy|Electricity",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2006,
+        "route": "data",
+        "variable": "Secondary Energy|Electricity",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot electricity generation for World",
+      "expected": "data",
+      "variable": "Secondary Energy|Electricity",
+      "region": "World",
+      "new": {
+        "ms": 444,
+        "route": "data",
+        "variable": "Secondary Energy|Electricity",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 166,
+        "route": "site"
+      }
+    },
+    {
+      "query": "wind power capacity in Europe",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Wind",
+      "region": "EU",
+      "new": {
+        "ms": 1108,
+        "route": "data",
+        "variable": "Capacity|Electricity|Wind",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1617,
+        "route": "data",
+        "variable": "Capacity|Electricity|Wind",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "solar pv installed capacity in World",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Solar",
+      "region": "World",
+      "new": {
+        "ms": 817,
+        "route": "data",
+        "variable": "Capacity|Electricity|Solar|PV",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1876,
+        "route": "data",
+        "variable": "Capacity|Electricity|Wind",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot solar pv installed capacity in World",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Solar",
+      "region": "World",
+      "new": {
+        "ms": 563,
+        "route": "data",
+        "variable": "Capacity|Electricity|Solar|PV",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 176,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show GDP for EU",
+      "expected": "data",
+      "variable": "GDP|MER",
+      "region": "EU",
+      "new": {
+        "ms": 394,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1526,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "gdp values for global economy",
+      "expected": "data",
+      "variable": "GDP|MER",
+      "region": "World",
+      "new": {
+        "ms": 1069,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1945,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show carbon dioxide emissions globally",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 864,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1895,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "display co2 emission trend for China",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "China",
+      "new": {
+        "ms": 855,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "China",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 2028,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "CHN"
+      }
+    },
+    {
+      "query": "plot co2 emission trend for China",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "China",
+      "new": {
+        "ms": 676,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "China",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 164,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show data for India emissions",
+      "expected": "data",
+      "region": "India",
+      "new": {
+        "ms": 862,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "IND",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2075,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "show emissions in Greece",
+      "expected": "data",
+      "region": "Greece",
+      "new": {
+        "ms": 787,
+        "route": "data",
+        "region": "GRC",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2036,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "GRC"
+      }
+    },
+    {
+      "query": "show emissions for United States",
+      "expected": "data",
+      "new": {
+        "ms": 871,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "USA",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2072,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "USA"
+      }
+    },
+    {
+      "query": "show data for CHN",
+      "expected": "data",
+      "region": "China",
+      "new": {
+        "ms": 526,
+        "route": "data",
+        "region": "CHN",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2082,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "CHN"
+      }
+    },
+    {
+      "query": "show data for IND",
+      "expected": "data",
+      "region": "India",
+      "new": {
+        "ms": 538,
+        "route": "data",
+        "region": "IND",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2107,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "current policies emissions for EU",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 556,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1669,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "current policy CO2 for Europe",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 567,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1599,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "baseline emissions for World",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 540,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1689,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "business as usual emissions for World",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 600,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1688,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "BAU carbon emissions for World",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 500,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1877,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "NDC emissions for World",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 530,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1703,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "nationally determined contributions emissions",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "new": {
+        "ms": 1185,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1216,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "net zero emissions for Europe",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 880,
+        "route": "data",
+        "region": "EU27",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1809,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show net-zero target results",
+      "expected": "data",
+      "new": {
+        "ms": 5,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 3177,
+        "route": "data"
+      }
+    },
+    {
+      "query": "Fit for 55 policy questions",
+      "expected": "site",
+      "new": {
+        "ms": 232,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 205,
+        "route": "site"
+      }
+    },
+    {
+      "query": "IAM COMPACT renewable energy metrics",
+      "expected": "site",
+      "new": {
+        "ms": 1128,
+        "route": "data",
+        "variable": "Secondary Energy",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 167,
+        "route": "site"
+      }
+    },
+    {
+      "query": "post Glasgow climate results",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 1166,
+        "route": "site"
+      }
+    },
+    {
+      "query": "steel relocation EU results",
+      "expected": "site",
+      "new": {
+        "ms": 7,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 165,
+        "route": "site"
+      }
+    },
+    {
+      "query": "cost of capital mitigation pathways",
+      "expected": "site",
+      "new": {
+        "ms": 460,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 172,
+        "route": "site"
+      }
+    },
+    {
+      "query": "behavioural change climate policy",
+      "expected": "site",
+      "new": {
+        "ms": 242,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 2098,
+        "route": "data"
+      }
+    },
+    {
+      "query": "technology constrained pathways to net zero",
+      "expected": "site",
+      "new": {
+        "ms": 796,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 201,
+        "route": "site"
+      }
+    },
+    {
+      "query": "NDC ASPECTS transport results",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 167,
+        "route": "site"
+      }
+    },
+    {
+      "query": "NDC ASPECTS buildings results",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 159,
+        "route": "site"
+      }
+    },
+    {
+      "query": "global impacts of NDCs",
+      "expected": "site",
+      "new": {
+        "ms": 725,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 428,
+        "route": "site"
+      }
+    },
+    {
+      "query": "long term targets scenario results",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 171,
+        "route": "site"
+      }
+    },
+    {
+      "query": "where is the buildings transformation workspace",
+      "expected": "site",
+      "new": {
+        "ms": 215,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 97,
+        "route": "site"
+      }
+    },
+    {
+      "query": "open transportation transformation results",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 115,
+        "route": "site"
+      }
+    },
+    {
+      "query": "industrial transformation workspace",
+      "expected": "site",
+      "new": {
+        "ms": 249,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 125,
+        "route": "site"
+      }
+    },
+    {
+      "query": "AFOLU land use results",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 185,
+        "route": "site"
+      }
+    },
+    {
+      "query": "agriculture forestry land results",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 169,
+        "route": "site"
+      }
+    },
+    {
+      "query": "open application library",
+      "expected": "site",
+      "new": {
+        "ms": 267,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 162,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show me interactive maps in application library",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 171,
+        "route": "site"
+      }
+    },
+    {
+      "query": "where is the CDP Open Data Portal",
+      "expected": "site",
+      "new": {
+        "ms": 275,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 181,
+        "route": "site"
+      }
+    },
+    {
+      "query": "find EDGAR in application library",
+      "expected": "site",
+      "new": {
+        "ms": 266,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 142,
+        "route": "site"
+      }
+    },
+    {
+      "query": "open Climate Watch application",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 146,
+        "route": "site"
+      }
+    },
+    {
+      "query": "open Aqueduct details",
+      "expected": "site",
+      "new": {
+        "ms": 279,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 167,
+        "route": "site"
+      }
+    },
+    {
+      "query": "policy catalog explorer",
+      "expected": "site",
+      "new": {
+        "ms": 257,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 171,
+        "route": "site"
+      }
+    },
+    {
+      "query": "recovery policy database",
+      "expected": "site",
+      "new": {
+        "ms": 245,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 178,
+        "route": "site"
+      }
+    },
+    {
+      "query": "circularity decarbonisation data story",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 172,
+        "route": "site"
+      }
+    },
+    {
+      "query": "technology inventories data story",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 168,
+        "route": "site"
+      }
+    },
+    {
+      "query": "barriers and enablers database",
+      "expected": "site",
+      "new": {
+        "ms": 256,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 167,
+        "route": "site"
+      }
+    },
+    {
+      "query": "scenario metadata data story",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 175,
+        "route": "site"
+      }
+    },
+    {
+      "query": "custom analysis service",
+      "expected": "site",
+      "new": {
+        "ms": 237,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 345,
+        "route": "site"
+      }
+    },
+    {
+      "query": "contact IAM PARIS team",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 164,
+        "route": "site"
+      }
+    },
+    {
+      "query": "how can I request analysis support",
+      "expected": "site",
+      "new": {
+        "ms": 260,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 356,
+        "route": "site"
+      }
+    },
+    {
+      "query": "tell me about MESSAGEix model",
+      "expected": "model",
+      "new": {
+        "ms": 273,
+        "route": "model",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 666,
+        "route": "model"
+      }
+    },
+    {
+      "query": "MESSAGE IX assumptions",
+      "expected": "model",
+      "new": {
+        "ms": 256,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 296,
+        "route": "model"
+      }
+    },
+    {
+      "query": "tell me about REMIND model",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 748,
+        "route": "model"
+      }
+    },
+    {
+      "query": "tell me about WITCH model",
+      "expected": "model",
+      "new": {
+        "ms": 225,
+        "route": "site",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 704,
+        "route": "model"
+      }
+    },
+    {
+      "query": "tell me about PROMETHEUS",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 688,
+        "route": "model",
+        "region": "USA"
+      }
+    },
+    {
+      "query": "tell me about LEAP",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 605,
+        "route": "model"
+      }
+    },
+    {
+      "query": "tell me about GCAM PR",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 627,
+        "route": "model"
+      }
+    },
+    {
+      "query": "show data using GCAM",
+      "expected": "data",
+      "new": {
+        "ms": 1802,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1540,
+        "route": "data"
+      }
+    },
+    {
+      "query": "show data using MESSAGEix",
+      "expected": "data",
+      "new": {
+        "ms": 498,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1663,
+        "route": "data"
+      }
+    },
+    {
+      "query": "show data using PROMETHEUS",
+      "expected": "data",
+      "new": {
+        "ms": 509,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 895,
+        "route": "data"
+      }
+    },
+    {
+      "query": "compare GCAM and WITCH emissions",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "new": {
+        "ms": 508,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1358,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "compare MESSAGE and REMIND carbon emissions",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "new": {
+        "ms": 502,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1351,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "compare solar and wind capacity",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Wind",
+      "new": {
+        "ms": 465,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 666,
+        "route": "data",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot wind power in World",
+      "expected": "data",
+      "variable": "Secondary Energy|Electricity|Wind",
+      "region": "World",
+      "new": {
+        "ms": 462,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 92,
+        "route": "site"
+      }
+    },
+    {
+      "query": "plot methane emissions for World",
+      "expected": "data",
+      "variable": "Emissions|CH4",
+      "region": "World",
+      "new": {
+        "ms": 1160,
+        "route": "data",
+        "variable": "Emissions|CH4",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 92,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show latest CO2 for World",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 474,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2157,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show latest available GDP for World",
+      "expected": "data",
+      "variable": "GDP|MER",
+      "region": "World",
+      "new": {
+        "ms": 420,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1529,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show CO2 for World before 2030",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 462,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1446,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show CO2 for World after 2030",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 457,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1581,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show CO2 for World by 2050",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 403,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1457,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show CO2 for World from 2030 to 2050",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 540,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1535,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show data for EU under Baseline",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 418,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1664,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "show GDP for World under Baseline",
+      "expected": "data",
+      "variable": "GDP|MER",
+      "region": "World",
+      "new": {
+        "ms": 907,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1794,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show electricity for India",
+      "expected": "data",
+      "region": "India",
+      "new": {
+        "ms": 483,
+        "route": "data",
+        "region": "IND",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2285,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "show solar data for Greece",
+      "expected": "data",
+      "region": "Greece",
+      "new": {
+        "ms": 439,
+        "route": "data",
+        "region": "GRC",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1962,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "GRC"
+      }
+    },
+    {
+      "query": "show wind data for Greece",
+      "expected": "data",
+      "region": "Greece",
+      "new": {
+        "ms": 696,
+        "route": "data",
+        "variable": "Capacity|Electricity|Wind",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1947,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "GRC"
+      }
+    },
+    {
+      "query": "help me choose a variable",
+      "expected": "data",
+      "new": {
+        "ms": 433,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1144,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "GRC"
+      }
+    },
+    {
+      "query": "which scenarios are available for EU",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 454,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1058,
+        "route": "data"
+      }
+    },
+    {
+      "query": "which regions are available for CO2",
+      "expected": "data",
+      "new": {
+        "ms": 457,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 322,
+        "route": "data"
+      }
+    },
+    {
+      "query": "which models provide CO2 emissions",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "new": {
+        "ms": 250,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 230,
+        "route": "data"
+      }
+    },
+    {
+      "query": "show all data categories",
+      "expected": "data",
+      "new": {
+        "ms": 537,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 35453,
+        "route": "data"
+      }
+    },
+    {
+      "query": "what variables can I use",
+      "expected": "data",
+      "new": {
+        "ms": 1026,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 3052,
+        "route": "data"
+      }
+    },
+    {
+      "query": "what regions can I use",
+      "expected": "data",
+      "new": {
+        "ms": 238,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 560,
+        "route": "data"
+      }
+    },
+    {
+      "query": "what scenarios can I use",
+      "expected": "data",
+      "new": {
+        "ms": 596,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 485,
+        "route": "data"
+      }
+    },
+    {
+      "query": "what models can I use",
+      "expected": "data",
+      "new": {
+        "ms": 235,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 310,
+        "route": "data"
+      }
+    },
+    {
+      "query": "plot this",
+      "expected": "data",
+      "new": {
+        "ms": 515,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 122,
+        "route": "site"
+      }
+    },
+    {
+      "query": "compare to current policy",
+      "expected": "data",
+      "new": {
+        "ms": 775,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 8130,
+        "route": "data"
+      }
+    },
+    {
+      "query": "use the second scenario",
+      "expected": "data",
+      "new": {
+        "ms": 594,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2902,
+        "route": "data",
+        "variable": "Emissions|CO|AFOLU"
+      }
+    },
+    {
+      "query": "how much CO2 will the world emit in 2050?",
+      "expected": "data",
+      "new": {
+        "ms": 458,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1000,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "global emissions 2050",
+      "expected": "data",
+      "new": {
+        "ms": 463,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1597,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "co2 emisions world 2040",
+      "expected": "data",
+      "new": {
+        "ms": 461,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 986,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "What's the projected solar capacity in Greece by 2040?",
+      "expected": "data",
+      "new": {
+        "ms": 695,
+        "route": "data",
+        "variable": "Capacity|Electricity|Solar",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1601,
+        "route": "data",
+        "variable": "Capacity|Electricity|Solar",
+        "region": "GRC"
+      }
+    },
+    {
+      "query": "Will Germany's electricity demand grow?",
+      "expected": "data",
+      "new": {
+        "ms": 1029,
+        "route": "data",
+        "variable": "Final Energy|Electricity",
+        "region": "DEU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 2129,
+        "route": "data",
+        "variable": "Final Energy|Electricity",
+        "region": "DEU"
+      }
+    },
+    {
+      "query": "show me renewables share EU",
+      "expected": "data",
+      "new": {
+        "ms": 748,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1552,
+        "route": "data",
+        "variable": "Primary Energy|Non-Biomass Renewables",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "how does GCAM compare to REMIND on emissions in 2050",
+      "expected": "data",
+      "new": {
+        "ms": 529,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1118,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "which scenario has the lowest emissions in 2050 for the world?",
+      "expected": "data",
+      "new": {
+        "ms": 816,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 303,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "what is the highest carbon price in 2050?",
+      "expected": "data",
+      "new": {
+        "ms": 221,
+        "route": "site",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 3438,
+        "route": "model",
+        "variable": "Price|Carbon",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "by how much do emissions fall between 2020 and 2050 in the EU?",
+      "expected": "data",
+      "new": {
+        "ms": 459,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2121,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "is coal phased out in India by 2050?",
+      "expected": "data",
+      "new": {
+        "ms": 527,
+        "route": "data",
+        "region": "IND",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1941,
+        "route": "data",
+        "variable": "Primary Energy|Coal",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "tell me something interesting about the data",
+      "expected": "site",
+      "new": {
+        "ms": 442,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1301,
+        "route": "data",
+        "variable": "Primary Energy|Coal",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "which studies cover transport?",
+      "expected": "data",
+      "new": {
+        "ms": 649,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 233,
+        "route": "data",
+        "variable": "Primary Energy|Coal",
+        "region": "IND"
+      }
+    },
+    {
+      "query": "what scenarios exist for the EU?",
+      "expected": "data",
+      "new": {
+        "ms": 358,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1071,
+        "route": "data"
+      }
+    },
+    {
+      "query": "I want hydrogen data for Europe",
+      "expected": "data",
+      "new": {
+        "ms": 1375,
+        "route": "data",
+        "variable": "Final Energy|Hydrogen",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 533,
+        "route": "data",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "Greece",
+      "expected": "data",
+      "new": {
+        "ms": 488,
+        "route": "data",
+        "region": "GRC",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 592,
+        "route": "data",
+        "region": "GREECE"
+      }
+    },
+    {
+      "query": "methane",
+      "expected": "data",
+      "new": {
+        "ms": 570,
+        "route": "data",
+        "variable": "Emissions|CH4",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 727,
+        "route": "data",
+        "variable": "Emissions|CH4",
+        "region": "GREECE"
+      }
+    },
+    {
+      "query": "thanks!",
+      "expected": "site",
+      "new": {
+        "ms": 214,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 143,
+        "route": "site",
+        "variable": "Emissions|CH4",
+        "region": "GREECE"
+      }
+    },
+    {
+      "query": "what can you do?",
+      "expected": "site",
+      "new": {
+        "ms": 243,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 89,
+        "route": "site",
+        "variable": "Emissions|CH4",
+        "region": "GREECE"
+      }
+    },
+    {
+      "query": "explain the NDC scenario",
+      "expected": "site",
+      "new": {
+        "ms": 237,
+        "route": "site",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 119,
+        "route": "site"
+      }
+    },
+    {
+      "query": "what's the difference between NDC and current policies?",
+      "expected": "site",
+      "new": {
+        "ms": 256,
+        "route": "site",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 91,
+        "route": "site"
+      }
+    },
+    {
+      "query": "CO2 for the US in 2030",
+      "expected": "data",
+      "new": {
+        "ms": 1096,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1031,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "USA"
+      }
+    },
+    {
+      "query": "emissions in the UK",
+      "expected": "data",
+      "new": {
+        "ms": 631,
+        "route": "data",
+        "region": "GBR",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 2153,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "UK"
+      }
+    },
+    {
+      "query": "energy mix of China in 2050",
+      "expected": "data",
+      "new": {
+        "ms": 517,
+        "route": "data",
+        "region": "China",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1727,
+        "route": "data",
+        "variable": "Primary Energy",
+        "region": "CHN"
+      }
+    },
+    {
+      "query": "how many models are there?",
+      "expected": "data",
+      "new": {
+        "ms": 235,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 297,
+        "route": "data"
+      }
+    },
+    {
+      "query": "who developed PROMETHEUS?",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 242,
+        "route": "model"
+      }
+    },
+    {
+      "query": "which models are open source?",
+      "expected": "model",
+      "new": {
+        "ms": 280,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 133,
+        "route": "model"
+      }
+    },
+    {
+      "query": "give me final energy for transport in EU in 2030 under net zero",
+      "expected": "data",
+      "new": {
+        "ms": 331,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1353,
+        "route": "data"
+      }
+    },
+    {
+      "query": "average CO2 across models for World 2050",
+      "expected": "data",
+      "new": {
+        "ms": 452,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1082,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "what are the main uncertainties in IAM projections?",
+      "expected": "site",
+      "new": {
+        "ms": 461,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 11051,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show greenhouse gas emissions for World",
+      "expected": "data",
+      "variable": "Emissions|GHG",
+      "region": "World",
+      "new": {
+        "ms": 1159,
+        "route": "data",
+        "variable": "Emissions|Kyoto Gases",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1588,
+        "route": "data",
+        "variable": "Emissions|Kyoto Gases",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot CO2 emissions for China",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "China",
+      "new": {
+        "ms": 834,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "China",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 110,
+        "route": "site"
+      }
+    },
+    {
+      "query": "electricity",
+      "expected": "data",
+      "new": {
+        "ms": 506,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1587,
+        "route": "data",
+        "variable": "Emissions|Kyoto Gases",
+        "region": "World"
+      }
+    },
+    {
+      "query": "oil",
+      "expected": "data",
+      "new": {
+        "ms": 1108,
+        "route": "data",
+        "variable": "Primary Energy|Oil",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1166,
+        "route": "data",
+        "variable": "Emissions|Kyoto Gases",
+        "region": "World"
+      }
+    },
+    {
+      "query": "emissions",
+      "expected": "data",
+      "new": {
+        "ms": 554,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1242,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "policy",
+      "expected": "data",
+      "new": {
+        "ms": 243,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1373,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "NDC",
+      "expected": "data",
+      "new": {
+        "ms": 276,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1045,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show current policy emissions for EU",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU",
+      "new": {
+        "ms": 1229,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1664,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "what scenarios exist for solar capacity",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Solar",
+      "new": {
+        "ms": 207,
+        "route": "site",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 284,
+        "route": "data"
+      }
+    },
+    {
+      "query": "plot wind capacity for India",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Wind",
+      "region": "India",
+      "new": {
+        "ms": 740,
+        "route": "data",
+        "region": "IND",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 120,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show methane emissions for World",
+      "expected": "data",
+      "region": "World",
+      "new": {
+        "ms": 562,
+        "route": "data",
+        "variable": "Emissions|CH4",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 813,
+        "route": "data",
+        "variable": "Emissions|CH4",
+        "region": "World"
+      }
+    },
+    {
+      "query": "compare solar and wind electricity capacity",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Solar",
+      "new": {
+        "ms": 456,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 611,
+        "route": "data",
+        "region": "World"
+      }
+    },
+    {
+      "query": "what is the WITCH model",
+      "expected": "model",
+      "new": {
+        "ms": 233,
+        "route": "model",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 803,
+        "route": "model"
+      }
+    },
+    {
+      "query": "explain MESSAGEix assumptions",
+      "expected": "model",
+      "new": {
+        "ms": 226,
+        "route": "site",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 293,
+        "route": "model"
+      }
+    },
+    {
+      "query": "tell me about GCAM-PR 7",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 256,
+        "route": "model"
+      }
+    },
+    {
+      "query": "what are REMIND CCS assumptions",
+      "expected": "model",
+      "new": {
+        "ms": 3,
+        "route": "model",
+        "kind": "answer"
+      },
+      "old": {
+        "ms": 251,
+        "route": "model"
+      }
+    },
+    {
+      "query": "which models are available",
+      "expected": "data",
+      "new": {
+        "ms": 264,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 328,
+        "route": "data"
+      }
+    },
+    {
+      "query": "list all scenarios",
+      "expected": "data",
+      "new": {
+        "ms": 486,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 442,
+        "route": "data"
+      }
+    },
+    {
+      "query": "list all regions",
+      "expected": "data",
+      "new": {
+        "ms": 215,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 548,
+        "route": "data"
+      }
+    },
+    {
+      "query": "list variables related to electricity",
+      "expected": "data",
+      "variable": "Electricity",
+      "new": {
+        "ms": 472,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 3041,
+        "route": "data"
+      }
+    },
+    {
+      "query": "show GDP for World",
+      "expected": "data",
+      "variable": "GDP|MER",
+      "region": "World",
+      "new": {
+        "ms": 1003,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 902,
+        "route": "data",
+        "variable": "GDP|MER",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot GDP for EU",
+      "expected": "data",
+      "variable": "GDP|MER",
+      "region": "EU",
+      "new": {
+        "ms": 376,
+        "route": "data",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 99,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show solar photovoltaic capacity for Greece",
+      "expected": "data",
+      "variable": "Capacity|Electricity|Solar",
+      "region": "Greece",
+      "new": {
+        "ms": 690,
+        "route": "data",
+        "variable": "Capacity|Electricity|Solar|PV",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1833,
+        "route": "data",
+        "variable": "Capacity|Electricity|Solar|PV",
+        "region": "GRC"
+      }
+    },
+    {
+      "query": "plot renewable electricity for Europe",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 907,
+        "route": "data",
+        "variable": "Secondary Energy|Electricity",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 100,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show final energy in transport for EU",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 261,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1657,
+        "route": "data",
+        "variable": "Final Energy|Transportation",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "industry emissions in Europe",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 910,
+        "route": "data",
+        "variable": "Emissions|CO2|Energy|Demand|Industry",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1629,
+        "route": "data",
+        "variable": "Emissions|CO2|Energy|Demand|Industry",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "buildings energy demand for EU",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 805,
+        "route": "data",
+        "variable": "Final Energy|Buildings|Residential",
+        "region": "EU",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1705,
+        "route": "data",
+        "variable": "Final Energy|Residential and Commercial",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "AFOLU land use results",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 209,
+        "route": "site",
+        "variable": "Final Energy|Residential and Commercial",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "transportation transformation workspace",
+      "expected": "site",
+      "new": {
+        "ms": 308,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 104,
+        "route": "site",
+        "variable": "Final Energy|Residential and Commercial",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "buildings transformation results",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 98,
+        "route": "site",
+        "variable": "Final Energy|Residential and Commercial",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "where can I find Aqueduct",
+      "expected": "site",
+      "new": {
+        "ms": 197,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 149,
+        "route": "site"
+      }
+    },
+    {
+      "query": "open Climate Watch",
+      "expected": "site",
+      "new": {
+        "ms": 268,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 327,
+        "route": "site"
+      }
+    },
+    {
+      "query": "CDP Open Data Portal",
+      "expected": "site",
+      "new": {
+        "ms": 494,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 146,
+        "route": "site"
+      }
+    },
+    {
+      "query": "policy catalogue explorer",
+      "expected": "site",
+      "new": {
+        "ms": 229,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 164,
+        "route": "site"
+      }
+    },
+    {
+      "query": "recovery policy database",
+      "expected": "site",
+      "new": {
+        "ms": 274,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 170,
+        "route": "site"
+      }
+    },
+    {
+      "query": "technology inventories data story",
+      "expected": "site",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 201,
+        "route": "site"
+      }
+    },
+    {
+      "query": "barriers and enablers",
+      "expected": "site",
+      "new": {
+        "ms": 269,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 176,
+        "route": "site"
+      }
+    },
+    {
+      "query": "scenario metadata data story",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 173,
+        "route": "site"
+      }
+    },
+    {
+      "query": "Fit for 55 results",
+      "expected": "site",
+      "region": "EU",
+      "new": {
+        "ms": 4,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 161,
+        "route": "site"
+      }
+    },
+    {
+      "query": "cost of capital pathways",
+      "expected": "site",
+      "new": {
+        "ms": 489,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 160,
+        "route": "site"
+      }
+    },
+    {
+      "query": "technology constrained net zero pathways",
+      "expected": "site",
+      "new": {
+        "ms": 747,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 173,
+        "route": "site"
+      }
+    },
+    {
+      "query": "global impacts of NDCs",
+      "expected": "site",
+      "new": {
+        "ms": 975,
+        "route": "data",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 520,
+        "route": "site",
+        "variable": "Final Energy|Residential and Commercial",
+        "region": "EU"
+      }
+    },
+    {
+      "query": "NDC transport results",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 162,
+        "route": "site"
+      }
+    },
+    {
+      "query": "NDC buildings results",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 169,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show Emissions|CO2 for World under Baseline in 2050",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 1168,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1112,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show Emissions|CO2 for World under Baseline after 2030",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 672,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 1150,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "latest available CO2 emissions for World",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 558,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1293,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "plot Emissions|CO2 for World under Baseline",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 874,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "result"
+      },
+      "old": {
+        "ms": 108,
+        "route": "site"
+      }
+    },
+    {
+      "query": "CO2 emissions for EU28 under WWH",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "EU28",
+      "new": {
+        "ms": 687,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1286,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "CO2 emissions for World using REMIND",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "region": "World",
+      "new": {
+        "ms": 600,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1426,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "show data using GCAM",
+      "expected": "data",
+      "new": {
+        "ms": 732,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 853,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "compare GCAM and MESSAGE for emissions",
+      "expected": "data",
+      "variable": "Emissions|CO2",
+      "new": {
+        "ms": 281,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 998,
+        "route": "data",
+        "variable": "Emissions|CO2",
+        "region": "World"
+      }
+    },
+    {
+      "query": "what countries are included",
+      "expected": "data",
+      "new": {
+        "ms": 275,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 551,
+        "route": "data"
+      }
+    },
+    {
+      "query": "what variables can you plot",
+      "expected": "data",
+      "new": {
+        "ms": 461,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 99,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show all data categories",
+      "expected": "data",
+      "new": {
+        "ms": 568,
+        "route": "data",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 35461,
+        "route": "data"
+      }
+    },
+    {
+      "query": "custom analysis service",
+      "expected": "site",
+      "new": {
+        "ms": 241,
+        "route": "none",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 220,
+        "route": "site"
+      }
+    },
+    {
+      "query": "contact IAM PARIS team",
+      "expected": "site",
+      "new": {
+        "ms": 3,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 163,
+        "route": "site"
+      }
+    },
+    {
+      "query": "how can I browse online models",
+      "expected": "site",
+      "new": {
+        "ms": 252,
+        "route": "site",
+        "kind": "navigation"
+      },
+      "old": {
+        "ms": 152,
+        "route": "site"
+      }
+    },
+    {
+      "query": "show electricity for India",
+      "expected": "data",
+      "region": "India",
+      "new": {
+        "ms": 492,
+        "route": "data",
+        "region": "IND",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 631,
+        "route": "data"
+      }
+    },
+    {
+      "query": "show oil demand for EU",
+      "expected": "data",
+      "region": "EU",
+      "new": {
+        "ms": 982,
+        "route": "data",
+        "variable": "Primary Energy|Oil",
+        "region": "EU",
+        "kind": "ask"
+      },
+      "old": {
+        "ms": 1278,
+        "route": "data",
+        "variable": "Final Energy|Liquids",
+        "region": "EU"
+      }
+    }
+  ]
+}
