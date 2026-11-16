@@ -1,5 +1,5 @@
 {
-  "_comment": "Conversations the assistant must answer the same way every time. Each turn lists the expected reply kind and the filters that must match exactly (fields left out are not checked). For a study search the filters are its facets: sector, region, tag. Run with: node scripts/curation-check.mjs",
+  "_comment": "Conversations the assistant must answer the same way every time. Each turn lists the expected reply kind and the filters that must match exactly (fields left out are not checked). For a study search the filters are its facets: sector, region, tag. For a tool search they are type and topic, and `tools` lists the titles the reply must begin with. Run with: node scripts/curation-check.mjs",
   "cases": [
     {
       "turns": [
@@ -244,6 +244,33 @@
           "tag": ["hydrogen"]
         }
       ]
+    },
+    {
+      "turns": [
+        {
+          "text": "Is there a tool to explore countries' NDCs?",
+          "kind": "apps",
+          "tools": ["NDC Explorer"]
+        },
+        { "text": "what about forests?", "kind": "apps", "tools": ["Global Forest Watch (GFW)"] }
+      ]
+    },
+    {
+      "turns": [
+        { "text": "Where can I find Climate Watch?", "kind": "apps", "tools": ["Climate Watch"] }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "Show me interactive maps in the application library",
+          "kind": "apps",
+          "type": ["Interactive Maps"]
+        }
+      ]
+    },
+    {
+      "turns": [{ "text": "Where is the scenario metadata tool?", "kind": "navigation" }]
     }
   ]
 }

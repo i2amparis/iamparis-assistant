@@ -81,6 +81,29 @@ export type StudyCard = {
   question?: string;
   facets: { key: FacetKey; id: string; label: string; matched: boolean }[];
 };
+/** The Application Library's filters: a tool's types (the page's chips) and its main topics. */
+export const appFacetKeys = ["type", "topic"] as const;
+export type AppFacet = (typeof appFacetKeys)[number];
+/** Chosen values per facet: OR within a facet, AND between facets. */
+export type AppSelection = Partial<Record<AppFacet, string[]>>;
+/** The tool search in progress: what the user is looking for and the filters set so far. */
+export type Finder = { query: string; selection: AppSelection };
+/** A tool from the Application Library as shown in a reply. */
+export type AppCard = {
+  id: number;
+  title: string;
+  summary: string;
+  /** Site path of the tool's library page, and the same page as an absolute URL. */
+  path: string;
+  url: string;
+  /** The tool itself, on its owner's site. */
+  link?: string;
+  creator?: string;
+  year?: string;
+  /** The IAMPARIS network project the tool comes from, when it is one. */
+  project?: string;
+  chips: { key: AppFacet; label: string; matched: boolean }[];
+};
 export type Draft = {
   filters: Filters;
   years: string[];
@@ -94,7 +117,16 @@ export type Draft = {
 };
 export type Pending = {
   token: string;
-  kind: "route" | "navigation" | "answer" | "dimension" | "review" | "chart" | "model" | "studies";
+  kind:
+    | "route"
+    | "navigation"
+    | "answer"
+    | "dimension"
+    | "review"
+    | "chart"
+    | "model"
+    | "studies"
+    | "apps";
   options: Option[];
   dimension?: Dimension;
   /** The study facet being asked for; absent on a list of studies awaiting a change. */
@@ -176,7 +208,8 @@ export type Reply = {
     | "error"
     | "help"
     | "insight"
-    | "studies";
+    | "studies"
+    | "apps";
   text: string;
   title?: string;
   source?: string;
@@ -192,9 +225,21 @@ export type Reply = {
   actions?: ClientAction[];
   /** Studies picked for the user, and the facet selection that picked them. */
   studies?: StudyCard[];
-  selection?: { key: FacetKey; label: string; values: { id: string; label: string }[] }[];
+  /** Tools found in the Application Library. */
+  apps?: AppCard[];
+  /** The filters behind a list of studies or tools. */
+  selection?: {
+    key: FacetKey | AppFacet;
+    label: string;
+    values: { id: string; label: string }[];
+  }[];
   /** The conversation state this turn left behind, for the inspector. */
-  state?: { draft?: Draft; brief?: Brief; pending?: Pick<Pending, "kind" | "dimension" | "facet"> };
+  state?: {
+    draft?: Draft;
+    brief?: Brief;
+    finder?: Finder;
+    pending?: Pick<Pending, "kind" | "dimension" | "facet">;
+  };
   /** How long the whole turn took on the server. */
   ms?: number;
   trace: Decision[];
@@ -209,6 +254,8 @@ export type Conversation = {
   draft?: Draft;
   /** The study search in progress: who it is for and which facets are chosen. */
   brief?: Brief;
+  /** The tool search in progress in the Application Library. */
+  finder?: Finder;
   pending?: Pending;
   /** The model last described, so "who developed it?" can be answered. */
   subject?: { kind: "model"; id: string };

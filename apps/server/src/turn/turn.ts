@@ -34,6 +34,7 @@ import { curatedPick, headlineScenarios, namesStudy, scenarioLabel } from "../to
 import type { Results } from "../tools/results.ts";
 import { facetNames } from "../tools/studies.ts";
 import { buildPlan, requestedYears } from "./analysis.ts";
+import { appFlow, asksForTool } from "./apps.ts";
 import { chartFilters, describeChart, draftFromChart, planPatch, usableChart } from "./chart.ts";
 import { studyFlow } from "./studies.ts";
 
@@ -48,7 +49,13 @@ const routes: Option[] = [
     id: "navigation",
     label: "Find a page",
     detail:
-      "Where to find something on the site: a page about models or model comparison, studies, applications, data stories or documentation",
+      "Where to find something on the site: a page about models or model comparison, studies, data stories or documentation",
+  },
+  {
+    id: "apps",
+    label: "Find a tool",
+    detail:
+      "Find a tool in the Application Library: an external climate or energy data platform, dashboard, map, explorer, database or software package, by its name or by what it should do",
   },
   {
     id: "answer",
@@ -90,6 +97,11 @@ const subjects: Record<string, string> = {
   target: "page or definition",
   answer: "answer",
 };
+/** A message about studies keeps to the study search even when it also says "tools". */
+const mentionsStudies = /\bstud(y|ies)\b/i;
+/** The Application Library as a page, for "open the application library". */
+const libraryLink = links.find((link) => link.url === "https://iamparis.eu/application_library");
+const asksForLibrary = /\bapp(lication)?s? library\b/i;
 const asksAboutModel =
   /\b(tell me about|what is|what's|describe|explain|information on|assumptions?|who (developed|develops|built|made|created|runs))\b/i;
 /**
@@ -158,7 +170,7 @@ const subjectOfPending = (pending: Pending) =>
       ? dimensionLabels[pending.dimension]
       : pending.kind === "route"
         ? "task"
-        : pending.kind === "review" || pending.kind === "studies"
+        : pending.kind === "review" || pending.kind === "studies" || pending.kind === "apps"
           ? "change"
           : pending.kind;
 type SeriesDimension = Exclude<Dimension, "workspace_code">;
@@ -222,6 +234,7 @@ function guessRoute(text: string, chart: boolean) {
   const asksPlace = /\b(where|find|page|go to|take me|navigate|catalog(ue)?|link)\b/.test(t);
   if (asksMeaning && matchOption(answerOptions, text)) return "answer";
   if (asksPlace && matchOption(linkOptions, text)) return "navigation";
+  if (asksForTool(text) && !mentionsStudies.test(text)) return "apps";
   if (describesUser.test(text) || asksForStudies.test(text)) return "studies";
   // Data words, or a named region ("electricity for India"), mean a data request.
   if (
@@ -293,6 +306,7 @@ export async function handleTurn(
   const started = performance.now();
   const draftBefore = structuredClone(conversation.draft);
   const briefBefore = structuredClone(conversation.brief);
+  const finderBefore = structuredClone(conversation.finder);
   const pendingBefore = structuredClone(conversation.pending);
   const text = "text" in input ? input.text.trim() : "";
   const chart = usableChart(input.context?.chart) ? input.context.chart : undefined;
@@ -462,6 +476,7 @@ export async function handleTurn(
   }
 
   const studies = studyFlow({ conversation, trace, decide, ask, note });
+  const apps = appFlow({ conversation, trace, decide, ask, note });
 
   function others(except: Dimension): Filters {
     const filters = { ...conversation.draft!.filters };
@@ -992,7 +1007,10 @@ export async function handleTurn(
   ): Promise<Reply> {
     const request = conversation.pending?.request || text;
     if (kind === "studies") return studies.choose(selected, facet);
+    if (kind === "apps") return apps.choose(selected);
     if (kind === "route") {
+      if (selected === "apps") return (await apps.start(request))!;
+      conversation.finder = undefined;
       if (selected === "studies") return studies.start(request);
       conversation.brief = undefined;
       if (selected === "analysis") {
@@ -1194,8 +1212,37 @@ export async function handleTurn(
     conversation.pending = undefined;
     conversation.draft = undefined;
     conversation.brief = undefined;
+    conversation.finder = undefined;
     // With a chart open, "this chart" or a chart type is about that chart: no classifier needed.
     if (chart && aboutOpenChart.test(text)) return execute("route", "chart");
+    // A tool named from the Application Library, or a word for tools, is a tool search. When
+    // the message gives nothing to search by, it is read as any other request below.
+    let noSuchTool = false;
+    if (apps.wanted(text) && !mentionsStudies.test(text)) {
+      const at = trace.length;
+      const found = await apps.start(text, "pass");
+      if (found) {
+        note(
+          "task",
+          "The message names a tool or asks for one.",
+          "The Application Library is searched. A wording rule in code; the classifier was not asked.",
+          "apps",
+        );
+        // The task was decided before the search it led to.
+        trace.splice(at, 0, trace.pop()!);
+        return found;
+      }
+      // "Where is the GraphMaker tool?": nothing in the library, so not a tool search.
+      noSuchTool = true;
+      note(
+        "task",
+        "The message asks for a tool, but no word of it is in the Application Library.",
+        "Read as any other request; the tool search is offered only if nothing else fits.",
+      );
+    }
+    // The library named with nothing to search it for: the page itself.
+    if (libraryLink && asksForLibrary.test(text) && !noSuchTool)
+      return execute("navigation", libraryLink.id);
     // Someone describing themselves, or asking which studies matter, wants studies picked.
     if (describesUser.test(text) || asksForStudies.test(text)) {
       note(
@@ -1221,7 +1268,7 @@ export async function handleTurn(
       const named = modelByName(await registry(), text);
       if (named) return execute("model", named.id);
     }
-    // A study or application named outright opens its page.
+    // A study or data story named outright opens its page.
     const page = namedPage(text);
     if (page) return execute("navigation", page.id);
     // The study rides along with the route so an analysis can start without a second request.
@@ -1230,13 +1277,14 @@ export async function handleTurn(
         route: {
           question:
             "Which supported IAMPARIS task is the user requesting? Choose none for greetings or unrelated questions.",
-          options: availableRoutes,
+          options: noSuchTool ? availableRoutes.filter((r) => r.id !== "apps") : availableRoutes,
         },
         study: { question: dimensionQuestions.workspace_code, options: workspaceOptions },
       },
       text,
     );
-    const route = picks.route.choice ?? guessRoute(text, Boolean(chart));
+    const guess = picks.route.choice ? undefined : guessRoute(text, Boolean(chart));
+    const route = picks.route.choice ?? (noSuchTool && guess === "apps" ? undefined : guess);
     // Still unclear: a page from the site's catalogue ("post Glasgow results") before the menu.
     if (!route) {
       const { target } = await decide(
@@ -1270,11 +1318,13 @@ export async function handleTurn(
         route,
       );
     if (route) return execute("route", route);
+    // Nothing else fits a request for a tool: say the library has none, and offer its topics.
+    if (noSuchTool) return execute("route", "apps");
     return ask(
       "route",
       chart
-        ? "I can work with your current chart, show IAMPARIS data, find a page, explain a concept, or pick studies for you."
-        : "I can show IAMPARIS data, find a page, explain a concept, or pick the studies relevant to you.",
+        ? "I can work with your current chart, show IAMPARIS data, find a page or a tool, explain a concept, or pick studies for you."
+        : "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you.",
       availableRoutes,
     );
   }
@@ -1289,10 +1339,11 @@ export async function handleTurn(
       ) {
         conversation.draft = undefined;
         conversation.brief = undefined;
+        conversation.finder = undefined;
         conversation.pending = undefined;
         return {
           kind: "help",
-          text: "Cancelled. You can ask for data, find a page, ask about a concept, or have studies picked for you.",
+          text: "Cancelled. You can ask for data, find a page or a tool, ask about a concept, or have studies picked for you.",
           trace,
         };
       }
@@ -1367,7 +1418,14 @@ export async function handleTurn(
             pending.facet,
           );
         }
-        if (pending.kind === "studies") {
+        const aboutStudies = describesUser.test(text) || asksForStudies.test(text);
+        // A request for a tool is never an answer to a question about something else.
+        if (pending.kind !== "apps" && apps.wanted(text) && !mentionsStudies.test(text))
+          return await newRequest();
+        if (pending.kind === "apps") {
+          const found = aboutStudies ? undefined : await apps.typed(text);
+          if (found) return found;
+        } else if (pending.kind === "studies") {
           const picked = await studies.typed(text, pending);
           if (picked) return picked;
         } else if (pending.kind === "review") {
@@ -1400,6 +1458,7 @@ export async function handleTurn(
     } catch (error) {
       conversation.draft = draftBefore;
       conversation.brief = briefBefore;
+      conversation.finder = finderBefore;
       conversation.pending = pendingBefore;
       return {
         kind: "error",
@@ -1420,6 +1479,7 @@ export async function handleTurn(
   reply.state = structuredClone({
     draft: conversation.draft,
     brief: conversation.brief,
+    finder: conversation.finder,
     pending: conversation.pending && {
       kind: conversation.pending.kind,
       dimension: conversation.pending.dimension,

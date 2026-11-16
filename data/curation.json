@@ -224,6 +224,15 @@
     },
     "project": {}
   },
+  "apps": {
+    "_comment": "Everyday wording for the Application Library's type chips (data/apps.json), used when the assistant looks for a tool. A type is named when every word of one phrase appears in the message; a label of several words always counts. One-word labels (Analysis, Report) filter only when chosen. Keys are the types as the library writes them.",
+    "type": {
+      "Interactive Maps": ["map", "mapping"],
+      "Interactive Charts": ["chart"],
+      "Raw Data": ["downloadable data", "data download"],
+      "Game": ["game"]
+    }
+  },
   "units": {
     "_comment": "Spellings of the same unit, read as the first.",
     "EJ/yr": ["EJ/y"],

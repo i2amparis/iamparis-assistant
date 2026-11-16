@@ -98,7 +98,7 @@ function Choices({
   );
 }
 
-/** Render a deterministic answer, a list of studies, current choices, or a validated data preview. */
+/** Render a deterministic answer, a list of studies or tools, current choices, or a validated data preview. */
 export function ReplyCard({
   reply,
   active,
@@ -120,7 +120,7 @@ export function ReplyCard({
       {reply.title && <h3>{reply.title}</h3>}
       <p className={`reply-text ${reply.kind === "error" ? "notice" : ""}`}>{reply.text}</p>
       {reply.selection && reply.selection.length > 0 && (
-        <div className="selection" aria-label="Active study filters">
+        <div className="selection" aria-label="Active filters">
           {reply.selection.map((facet) => (
             <span key={facet.key}>
               <em>{facet.label}</em>
@@ -149,6 +149,38 @@ export function ReplyCard({
                 {study.facets.length > 7 && <span>+{study.facets.length - 7}</span>}
               </span>
             </a>
+          ))}
+        </div>
+      ) : reply.apps ? (
+        <div className="studies">
+          {reply.apps.map((app) => (
+            // Two destinations per tool, so the card itself is not one link.
+            <div className="study" key={app.id}>
+              <span className="study-project">
+                {[app.project, app.creator, app.year].filter(Boolean).join(" · ") ||
+                  "Application Library"}
+              </span>
+              <strong>{app.title}</strong>
+              <p>{app.summary}</p>
+              <span className="chips">
+                {app.chips.slice(0, 6).map((chip) => (
+                  <span key={`${chip.key}:${chip.label}`} className={chip.matched ? "matched" : ""}>
+                    {chip.label}
+                  </span>
+                ))}
+                {app.chips.length > 6 && <span>+{app.chips.length - 6}</span>}
+              </span>
+              <span className="app-links">
+                <a href={app.url} target="_blank" rel="noreferrer">
+                  Library page ↗
+                </a>
+                {app.link && (
+                  <a href={app.link} target="_blank" rel="noreferrer">
+                    Open the tool ↗
+                  </a>
+                )}
+              </span>
+            </div>
           ))}
         </div>
       ) : (

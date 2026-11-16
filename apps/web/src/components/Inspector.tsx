@@ -152,12 +152,14 @@ function Step({ decision, index }: { decision: Decision; index: number }) {
 function State({ message }: { message: Message }) {
   const state = message.reply?.state;
   if (!state) return null;
-  const { draft, brief, pending } = state;
+  const { draft, brief, finder, pending } = state;
   const rows: [string, string][] = [];
   if (pending)
     rows.push([
       "Waiting for",
-      pending.kind === "review" || (pending.kind === "studies" && !pending.facet)
+      pending.kind === "review" ||
+      pending.kind === "apps" ||
+      (pending.kind === "studies" && !pending.facet)
         ? "a change, or a new request"
         : `the user's ${dimensionNames[pending.facet ?? pending.dimension ?? ""] ?? pending.facet ?? pending.dimension ?? pending.kind}`,
     ]);
@@ -171,6 +173,11 @@ function State({ message }: { message: Message }) {
         ]);
     if (brief.settled.length)
       rows.push(["Not asked again", brief.settled.map((k) => dimensionNames[k] ?? k).join(", ")]);
+  }
+  if (finder) {
+    if (finder.query) rows.push(["Looking for", finder.query]);
+    for (const [key, values] of Object.entries(finder.selection))
+      if (values?.length) rows.push([`Tool ${key}`, values.join(", ")]);
   }
   if (draft) {
     for (const [key, values] of Object.entries(draft.filters))

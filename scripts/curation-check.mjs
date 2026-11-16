@@ -12,8 +12,19 @@ const rounds = Number(args[0] ?? 2);
 const { cases } = JSON.parse(
   readFileSync(new URL("./curation-cases.json", import.meta.url), "utf8"),
 );
-// Data-query filters, and the facets of a study search ("region" is a field of both).
-const fields = ["workspace_code", "variable", "region", "modelName", "scenario", "sector", "tag"];
+// Data-query filters, the facets of a study search ("region" is a field of both), and the type
+// and topic filters of a tool search. `tools` is compared with the titles of the tools listed.
+const fields = [
+  "workspace_code",
+  "variable",
+  "region",
+  "modelName",
+  "scenario",
+  "sector",
+  "tag",
+  "type",
+  "topic",
+];
 const headers = {
   "Content-Type": "application/json",
   "X-IAMPARIS-Session": crypto.randomUUID(),
@@ -49,6 +60,7 @@ async function run(turns) {
           (reply.selection ?? []).map((facet) => [facet.key, facet.values.map((v) => v.id)]),
         ),
       series: reply.plan?.rows.length,
+      tools: reply.apps?.map((app) => app.title),
       text: reply.text,
     });
   }
@@ -72,10 +84,16 @@ for (const { turns } of cases) {
         problems.push(
           `${f} ${JSON.stringify(first.filters[f])}, expected ${JSON.stringify(turn[f])}`,
         );
+    // A tool search: the listed tools begin with the expected ones, in order.
+    if (turn.tools && !same(first.tools?.slice(0, turn.tools.length), turn.tools))
+      problems.push(`tools ${JSON.stringify(first.tools)}, expected ${JSON.stringify(turn.tools)}`);
     if (
       replies.some(
         (r) =>
-          r.kind !== first.kind || !same(r.filters, first.filters) || r.series !== first.series,
+          r.kind !== first.kind ||
+          !same(r.filters, first.filters) ||
+          r.series !== first.series ||
+          !same(r.tools, first.tools),
       )
     )
       problems.push("differs between runs");
@@ -89,7 +107,9 @@ for (const { turns } of cases) {
       )
       .join(" · ");
     console.log(`${problems.length ? "✗" : "✓"} ${i ? "  → " : ""}${turn.text}`);
-    console.log(`    ${first.kind}${first.series ? ` (${first.series} series)` : ""} ${shown}`);
+    console.log(
+      `    ${first.kind}${first.series ? ` (${first.series} series)` : ""} ${shown}${first.tools ? ` ${first.tools.slice(0, 3).join(" · ")}` : ""}`,
+    );
     for (const p of problems) console.log(`    ! ${p}`);
     if (problems.length) console.log(`    ${first.text.slice(0, 240)}`);
   });

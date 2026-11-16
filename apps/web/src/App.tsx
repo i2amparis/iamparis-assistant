@@ -12,6 +12,7 @@ const prompts: [string, string][] = [
     "I work on industry policy at the German economics ministry. Which studies matter to me?",
   ],
   ["⌘ Find your way", "Where can I find the model catalogue?"],
+  ["▦ Find a tool", "Is there a tool to explore countries' NDCs?"],
   ["◇ Understand a concept", "What is a baseline scenario?"],
 ];
 /** What a reply is, in a word, for its tag. */
@@ -20,6 +21,7 @@ const kinds: Record<string, string> = {
   review: "Query",
   result: "Data",
   studies: "Studies",
+  apps: "Tools",
   answer: "Answer",
   insight: "Chart summary",
   navigation: "Page",
@@ -134,6 +136,9 @@ export function App() {
           <p>
             <i /> Study catalogue <small>Snapshot</small>
           </p>
+          <p>
+            <i /> Application Library <small>Snapshot</small>
+          </p>
           <p title={status.provider ? `Provider: ${status.provider}` : undefined}>
             <i className={classifierReady ? "" : "manual"} /> Classifier{" "}
             <small>
@@ -197,7 +202,7 @@ export function App() {
                 </h1>
                 <p>
                   Tell me who you are and I will pick the studies that matter to you. Or ask for
-                  data, a page, or a concept.
+                  data, a page, a tool, or a concept.
                 </p>
                 <div className="starter-grid">
                   {prompts.map(([label, p]) => (
