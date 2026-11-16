@@ -8,6 +8,7 @@ type Link = {
   keywords: string[];
   fallback_instruction: string;
   category: string;
+  item_type?: string;
 };
 type Term = { term: string; aliases: string[]; definition: string; source: string };
 function read(name: string): unknown {
@@ -161,9 +162,10 @@ const pageStopWords = new Set([
 const pageWords =
   /\b(results?|stud(y|ies)|application|app|data ?stor(y|ies)|policy questions|contact|service|team)\b/i;
 /**
- * A catalogued page named outright ("steel relocation EU results", "open the Aqueduct
- * application"): page words plus at least two distinctive words shared with the page's title or
- * keywords, or its whole one-word title. No classifier call.
+ * A catalogued page named outright ("steel relocation EU results", "the recovery policy data
+ * story"): page words plus at least two distinctive words shared with the page's title or
+ * keywords, or its whole one-word title. No classifier call. Tools from the Application Library
+ * are not pages here: tools/apps.ts finds them.
  */
 export function namedPage(text: string): Option | undefined {
   if (!pageWords.test(text)) return undefined;
@@ -184,6 +186,22 @@ export function namedPage(text: string): Option | undefined {
     if (score > bestScore) [best, bestScore] = [option, score];
   }
   return best;
+}
+
+/**
+ * A page of this site named by its whole title of two or more words ("Scenario Metadata Tool",
+ * "Model Comparison"): the site's own routes and data stories, not studies, projects or models,
+ * whose titles are everyday topics. The Application Library is left out: it is searched instead.
+ */
+export function namedSitePage(text: string): Option | undefined {
+  const page = links.find(
+    (link) =>
+      (link.item_type === "route" || link.item_type === "data_story") &&
+      link.category !== "application_library" &&
+      /\S\s+\S/.test(link.title) &&
+      says(text, link.title),
+  );
+  return page && linkOptions.find((option) => option.id === page.id);
 }
 
 export function mentionsOption(option: Option, text: string): boolean {
