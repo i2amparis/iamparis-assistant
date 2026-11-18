@@ -61,6 +61,16 @@ export const linkOptions: Option[] = links.map((l) => ({
   label: l.title,
   detail: [l.category, ...(l.keywords ?? [])].join(" "),
 }));
+/**
+ * A link's short keyword phrases (two to four words, such as "model catalogue"), one option each,
+ * so a message naming one picks its page outright. The id is `${link id}#${index}`.
+ */
+export const linkPhraseOptions: Option[] = links.flatMap((l) =>
+  (l.keywords ?? []).flatMap((phrase, i) => {
+    const count = phrase.match(/[a-z0-9]+/gi)?.length ?? 0;
+    return count >= 2 && count <= 4 ? [{ id: `${l.id}#${i}`, label: phrase }] : [];
+  }),
+);
 export const answerOptions: Option[] = terms.map((t, i) => ({
   id: `term${i}`,
   label: t.term,

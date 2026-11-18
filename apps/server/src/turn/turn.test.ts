@@ -342,6 +342,20 @@ describe("grounding and exports", () => {
     expect(reply.actions?.[0]).toMatchObject({ type: "navigate" });
     expect(reply.actions?.[0]).not.toHaveProperty("auto");
   });
+  it("takes a page named by its phrase over a classifier swayed by a shared word", async () => {
+    const reply = await handleTurn(
+      conversation(),
+      { text: "Where can I find the model catalogue?" },
+      api,
+      jev({
+        route: "navigation",
+        target: "story-policy-catalogue-interactive-explorer-iamparis-eu-datastories-policycatalog",
+      }),
+    );
+    expect(reply.kind).toBe("navigation");
+    expect(reply.actions?.[0]).toMatchObject({ type: "navigate", path: "/models" });
+    expect(reply.trace.at(-1)).toMatchObject({ source: "match", outcome: "accepted" });
+  });
   it("rejects mixed units, empty data, missing years and missing scenario coverage", () => {
     expect(() => buildPlan(draft(), [])).toThrow("No published data");
     expect(() => buildPlan(draft(), [row, { ...row, unit: "Gt CO2/yr" }])).toThrow(

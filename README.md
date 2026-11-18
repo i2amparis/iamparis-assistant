@@ -2,7 +2,9 @@
 
 An IAMPARIS assistant in which a System One classifier selects supplied options; application code decides what happens and renders the answer. No generative model writes replies or invents filters.
 
-It is built with React, Hono, TypeSafe's Jev SDK and local SQLite persistence: a dark conversation/sidebar/decision-inspector layout, constrained decisions, confirmation cards, expiring buttons, deterministic tool presentation, and a focused HTTP adapter for the IAMPARIS API.
+It is built with React, Hono, TypeSafe's Jev SDK and local SQLite persistence: a conversation layout styled after the IAMPARIS site (dark and light), with a "Behind the answer" panel, constrained decisions, confirmation cards, expiring buttons, deterministic tool presentation, and a focused HTTP adapter for the IAMPARIS API.
+
+New to it? [docs/user-guide.md](docs/user-guide.md) explains what it can do, with screenshots of each kind of conversation.
 
 ## Run
 
@@ -45,7 +47,7 @@ Open http://127.0.0.1:8788. Conversations and decision traces survive restarts i
 - **Variable dictionary:** `data/variables.json` gives each published variable its IAMC definition (from `iam-data-chatbot/definitions`, templates expanded) or its nearest defined parent's, about 68% coverage. The descriptions are the option text the classifier judges and feed the candidate ranking. Detail the user did not ask for is dropped ("carbon emissions" → Emissions|CO2, not …|Energy). Rebuild with `python scripts/build_variable_dictionary.py ../iam-data-chatbot/definitions/variable`.
 - **Years:** type a year, explicit year list, or bounded range. Ranges include published observation years only. No interpolation or zero-filling.
 - **Validation and preview:** every run rechecks returned row scope, scenario coverage and unit consistency, then displays observations, offers to open them in GraphMaker, and exports data or a GraphMaker configuration.
-- **Inspector:** every reply lists its decisions in order, named by what was decided (task, variable, sector…) rather than by provider, each with who decided (classifier, wording match, rule in code, or the user's click), how it ended (used, overruled, unsure, not mentioned, failed) and why. A step opens to the question asked, the text judged, every option's probability against the acceptance threshold, the model and token count. Rules that assumed a default, asked a follow-up, moved to another study or widened a filter are steps too. Below them is the state the turn left behind; "Copy JSON" exports the trace. Low confidence, close alternatives, missing keys and service failures fall back to searchable choices.
+- **Behind the answer:** the right panel explains a reply in sections a reader can follow without the code: what needs a look (classifier failures, grouped by cause, and unsure or overruled choices), what was understood from the message, what rules filled in (assumed defaults, follow-ups, widened filters), what was not mentioned, and, folded away, what is remembered for the next message. Each understood value is named by what was decided (task, variable, sector…) and badged by who decided it ("Your words", "Classifier · 82%", "You chose", "Rule"); it opens to the question asked, the text judged, every option's probability against the acceptance threshold, the model and token count. The copy button exports the reply as JSON. Low confidence, close alternatives, missing keys and service failures fall back to searchable choices.
 
 Examples: “Help me compare CO2 emissions in Europe in 2050”; “I advise the Greek energy ministry, which studies matter to me?”; “Where can I find the model catalogue?”; “Is there a tool to explore countries' NDCs?”; “What is a baseline scenario?” While choosing, select a button, type its exact label, or use natural language with Jev enabled. `cancel` / `start over` reset the draft. Changing years is supported at query review.
 

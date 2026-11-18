@@ -17,6 +17,7 @@ import {
 import {
   answerOptions,
   linkOptions,
+  linkPhraseOptions,
   links,
   matchOption,
   knownRegions,
@@ -1051,6 +1052,25 @@ export async function handleTurn(
       }
       const navigation = selected === "navigation";
       const options = navigation ? linkOptions : answerOptions;
+      // A page named by one of its short catalogue phrases ("model catalogue") is taken as said:
+      // the classifier is swayed by a shared word ("catalogue" in "Policy Catalogue").
+      const phrase = navigation ? matchOption(linkPhraseOptions, request) : undefined;
+      if (phrase) {
+        const link = linkOptions.find((o) => o.id === phrase.id.split("#")[0])!;
+        trace.push({
+          subject: subjects.target,
+          question: "Which IAMPARIS destination directly satisfies this navigation request?",
+          options: [link],
+          choice: link.id,
+          probabilities: {},
+          ms: 0,
+          source: "match",
+          outcome: "accepted",
+          reason: `Named in the message: “${phrase.label}”, a phrase of this page in data/links.json, so the classifier was not asked.`,
+          state: request,
+        });
+        return execute("navigation", link.id);
+      }
       const { target } = await decide(
         {
           target: {
