@@ -53,7 +53,7 @@ Example: *"I work on buildings policy for the Greek government"* → sector Buil
 
 ## Debugging a reply
 
-The decision inspector lists every step of a turn: which facet was read from which words, what the classifier was asked and how confident it was, which rule asked a question or widened the filter, and the selection the turn left behind. "Copy JSON" exports the whole trace.
+The "Behind the answer" panel shows every step of a turn: which facet was read from which words, what the classifier was asked and how confident it was, which rule asked a question or widened the filter, and the selection the turn left behind. Its copy button exports the whole trace as JSON.
 
 ## Limits
 

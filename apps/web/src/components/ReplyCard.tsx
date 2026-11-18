@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Reply, ResultRow, TurnInput } from "../../../server/src/shared/types.ts";
+import { Icon } from "./Icon.tsx";
 
 const site = "https://iamparis.eu";
 const fieldLabels: Record<string, string> = {
@@ -172,11 +173,11 @@ export function ReplyCard({
               </span>
               <span className="app-links">
                 <a href={app.url} target="_blank" rel="noreferrer">
-                  Library page ↗
+                  Library page <Icon name="openInNew" />
                 </a>
                 {app.link && (
                   <a href={app.link} target="_blank" rel="noreferrer">
-                    Open the tool ↗
+                    Open the tool <Icon name="openInNew" />
                   </a>
                 )}
               </span>
@@ -223,12 +224,12 @@ export function ReplyCard({
             target="_blank"
             rel="noreferrer"
           >
-            {action.label} ↗
+            {action.label} <Icon name="arrowRight" />
           </a>
         ))}
         {!pages.length && reply.url && (
           <a className="link-button" href={reply.url} target="_blank" rel="noreferrer">
-            {reply.plan ? "Open Analysis" : "Open IAMPARIS page"} ↗
+            {reply.plan ? "Open Analysis" : "Open IAMPARIS page"} <Icon name="arrowRight" />
           </a>
         )}
       </div>
@@ -267,9 +268,11 @@ export function ReplyCard({
             {reply.plan.rows.length > 40 && " · first 40 shown, the download has all"}
           </small>
           <div className="export-actions">
-            <button onClick={() => download(reply.plan, "iamparis-data.json")}>Data ↓</button>
+            <button onClick={() => download(reply.plan, "iamparis-data.json")}>
+              <Icon name="download" /> Data
+            </button>
             <button onClick={() => download(reply.plan!.graphConfig, "iamparis-analysis.json")}>
-              GraphMaker configuration ↓
+              <Icon name="download" /> GraphMaker configuration
             </button>
           </div>
         </>
