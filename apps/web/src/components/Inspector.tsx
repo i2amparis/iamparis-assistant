@@ -237,7 +237,10 @@ export function Inspector({
     (d) => d.source !== "policy" && outcomeOf(d) === "accepted" && d.choice,
   );
   const rules = trace.filter((d) => d.source === "policy" && outcomeOf(d) === "accepted");
-  const unmentioned = trace.filter((d) => outcomeOf(d) === "none");
+  // A subject can be asked twice in one turn (say, model before and after a study switch).
+  const unmentioned = [
+    ...new Map(trace.filter((d) => outcomeOf(d) === "none").map((d) => [subjectOf(d), d] as const)),
+  ];
   const model = trace.find((d) => d.model)?.model;
   const memory = message ? memoryRows(message) : [];
   // Errors usually share one cause (the classifier is down), so they read as one line.
@@ -348,9 +351,9 @@ export function Inspector({
           {unmentioned.length > 0 && (
             <Section heading="Not mentioned">
               <div className="chips">
-                {unmentioned.map((d, i) => (
-                  <span key={i} title={d.reason}>
-                    {subjectOf(d)}
+                {unmentioned.map(([subject, d]) => (
+                  <span key={subject} title={d.reason}>
+                    {subject}
                   </span>
                 ))}
               </div>
