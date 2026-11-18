@@ -4,6 +4,8 @@ An IAMPARIS assistant in which a System One classifier selects supplied options;
 
 It is built with React, Hono, TypeSafe's Jev SDK and local SQLite persistence: a conversation layout styled after the IAMPARIS site (dark and light), with a "Behind the answer" panel, constrained decisions, confirmation cards, expiring buttons, deterministic tool presentation, and a focused HTTP adapter for the IAMPARIS API.
 
+New to it? [docs/user-guide.md](docs/user-guide.md) explains what it can do, with screenshots of each kind of conversation.
+
 ## Run
 
 Node 24+ and pnpm 11 are required.
