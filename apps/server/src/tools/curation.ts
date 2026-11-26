@@ -8,6 +8,8 @@ type Curation = {
   headlineScenarios: Record<string, string[]>;
   scenarios: Record<string, { label: string; phrases?: string[] }>;
   variables: Record<string, string[]>;
+  featuredVariables: { order: string[] };
+  pages: Record<string, string[]>;
   units: Record<string, string[]>;
 };
 const curation = JSON.parse(
@@ -71,4 +73,24 @@ export function curatedPick(
     best.map((o) => o.id),
   );
   return headline.length === 1 ? best.find((o) => o.id === headline[0]) : undefined;
+}
+
+/** Variables shown first, in curated order, when the user is asked which variable they mean. */
+export const featuredVariables = curation.featuredVariables.order;
+
+/**
+ * The page a curated phrase names outright ("upload my results", "model documentation"): the
+ * longest phrase wins, a tie between pages decides nothing. Returns the link id.
+ */
+export function curatedPage(text: string): string | undefined {
+  let best: string[] = [];
+  let length = 0;
+  for (const [id, phrases] of entries(curation.pages))
+    for (const phrase of phrases) {
+      if (!says(text, phrase)) continue;
+      const size = phrase.split(/\s+/).length;
+      if (size > length) [best, length] = [[id], size];
+      else if (size === length && !best.includes(id)) best.push(id);
+    }
+  return best.length === 1 ? best[0] : undefined;
 }

@@ -243,6 +243,8 @@
       "aliases": [
         "prediction",
         "predictions",
+        "forecast",
+        "forecasts",
         "results forecasts",
         "results predictions",
         "projections forecasts",

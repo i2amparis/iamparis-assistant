@@ -65,7 +65,7 @@
   "variables": {
     "_comment": "Everyday phrases for IAMC variables that word matching misses. Each phrase's words must all appear; the longest phrase wins.",
     "Carbon Sequestration|CCS": ["ccs", "carbon capture"],
-    "Emissions|Kyoto Gases": ["greenhouse gas", "ghg", "kyoto gases"],
+    "Emissions|Kyoto Gases": ["greenhouse gas", "ghg", "kyoto gases", "total emissions"],
     "Emissions|CO2|Energy|Demand|Transportation": ["co2 transport", "transport emissions"],
     "Emissions|CO2|Energy|Demand|Industry": [
       "co2 industry",
@@ -96,7 +96,115 @@
     ],
     "Secondary Energy|Hydrogen": ["hydrogen production"],
     "Price|Carbon": ["carbon price", "co2 price", "carbon tax"],
-    "Population": ["population"]
+    "Population": ["population"],
+    "Emissions|CO2|AFOLU": [
+      "land use emissions",
+      "afolu emissions",
+      "lulucf emissions",
+      "emissions from land use",
+      "deforestation emissions"
+    ]
+  },
+  "featuredVariables": {
+    "_comment": "Shown first, in this order, when the user is asked which variable they mean and the request shares a word with them: the aggregates people usually want before the hundreds of detailed variables. Only the question shown to the user is reordered; the classifier's candidates are not.",
+    "order": [
+      "Emissions|Kyoto Gases",
+      "Emissions|CO2",
+      "Emissions|CH4",
+      "Emissions|N2O",
+      "Primary Energy",
+      "Final Energy",
+      "Secondary Energy|Electricity",
+      "Capacity|Electricity",
+      "Final Energy|Electricity",
+      "Price|Carbon",
+      "GDP|PPP",
+      "GDP|MER",
+      "Population",
+      "Temperature|Global Mean",
+      "Investment"
+    ]
+  },
+  "pages": {
+    "_comment": "Phrases that name a page of the site outright, checked before any other rule unless the message also names a region or a year (then it is a data request). Keys are ids in data/links.json (or study-<slug> for study pages); the longest phrase wins, a tie decides nothing.",
+    "docs-iamparis-eu-docs": [
+      "documentation",
+      "docs",
+      "help pages",
+      "contributor guide",
+      "user manual"
+    ],
+    "docs-uploading-results-iamparis-eu-docs-uploading-results": [
+      "upload results",
+      "upload data",
+      "upload my data",
+      "upload our results",
+      "submit results",
+      "submit data",
+      "publish results",
+      "publish my results",
+      "contribute results",
+      "share our results",
+      "share my results"
+    ],
+    "docs-file-format-iamparis-eu-docs-file-format": [
+      "file format",
+      "iamc format",
+      "data format",
+      "data template",
+      "excel template",
+      "validation error"
+    ],
+    "docs-creating-a-study-iamparis-eu-docs-creating-a-study": [
+      "create a study",
+      "add a study",
+      "set up a study"
+    ],
+    "docs-tutorial-iamparis-eu-docs-tutorial": ["tutorial", "getting started", "walkthrough"],
+    "main-register-iamparis-eu-register": [
+      "create an account",
+      "sign up",
+      "register",
+      "registration"
+    ],
+    "main-login-iamparis-eu-login": ["log in", "login", "sign in"],
+    "main-models-iamparis-eu-models": [
+      "model documentation",
+      "model docs",
+      "model catalogue",
+      "model catalog",
+      "list of models"
+    ],
+    "main-model-comparison-iamparis-eu-models-comparison": [
+      "compare models",
+      "models side by side",
+      "model comparison page"
+    ],
+    "main-sdg-model-coverage-matrix-iamparis-eu-models-sdg": [
+      "sdg",
+      "sdgs",
+      "sustainable development goals"
+    ],
+    "story-policy-catalogue-interactive-explorer-iamparis-eu-datastories-policycatalog": [
+      "policy catalogue",
+      "policy catalog",
+      "policy database",
+      "database of policies",
+      "climate policy database"
+    ],
+    "story-recovery-policy-db-iamparis-eu-datastories-recoverydb": [
+      "recovery policy database",
+      "recovery policies",
+      "green recovery"
+    ],
+    "main-configurable-analysis-iamparis-eu-analysis": [
+      "graphmaker",
+      "graph maker",
+      "configurable analysis",
+      "build my own chart"
+    ],
+    "main-projects-iamparis-eu-projects": ["research projects", "list of projects"],
+    "main-privacy-iamparis-eu-privacy": ["privacy", "personal data", "cookies"]
   },
   "facets": {
     "_comment": "Everyday wording for the Results page's study facets (data/studies.json), used when the assistant picks studies for someone. A value is named when every word of one phrase appears in the message; its label always counts. Keys are facet value ids.",

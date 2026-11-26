@@ -17,7 +17,7 @@ function read(name: string): unknown {
   );
 }
 export const workspaces = (read("workspaces") as { workspaces: Workspace[] }).workspaces;
-export const links = (read("links") as Link[]).filter((link) => {
+const curatedLinks = (read("links") as Link[]).filter((link) => {
   try {
     const url = new URL(link.url);
     return url.protocol === "https:" && url.hostname === "iamparis.eu";
@@ -25,6 +25,39 @@ export const links = (read("links") as Link[]).filter((link) => {
     return false;
   }
 });
+type StudyPage = { slug: string; title: string; path: string; project: string[] };
+const studyCatalogue = read("studies") as {
+  facets: { project: { id: string; label: string }[] };
+  studies: StudyPage[];
+};
+const projectLabel = (id: string) =>
+  studyCatalogue.facets.project.find((p) => p.id === id)?.label ?? id;
+/**
+ * Every study on the Results page has a page, so it can be asked for by name ("the policy
+ * questions of Where is the EU headed?"). data/links.json covers some; the rest come from
+ * data/studies.json, which is generated from the site's own taxonomy. One-word titles
+ * ("Baseline") carry their project, so they are not mistaken for an everyday word.
+ */
+const studyLinks: Link[] = studyCatalogue.studies
+  .filter(
+    (study) =>
+      !/^demo\b/i.test(study.title) &&
+      !curatedLinks.some((link) => new URL(link.url).pathname === study.path),
+  )
+  .map((study) => {
+    const projects = study.project.map(projectLabel);
+    const title = /\s/.test(study.title) ? study.title : `${projects[0]} ${study.title}`;
+    return {
+      id: `study-${study.slug}`,
+      title,
+      url: `https://iamparis.eu${study.path}`,
+      keywords: [title, "Workspace/policy questions", ...projects.map((p) => `${p} study`)],
+      fallback_instruction: "",
+      category: "results",
+      item_type: "workspace",
+    };
+  });
+export const links = [...curatedLinks, ...studyLinks];
 export const terms = (read("glossary") as { terms: Term[] }).terms;
 const regionNames = (read("regions") as { names: Record<string, string> }).names;
 const variableDictionary = (
@@ -91,6 +124,8 @@ const aliases: [RegExp, string][] = [
   // IAMC naming: power is electricity; generation is secondary energy; consumption is final energy.
   [/\bpower\b/, "electricity"],
   [/\bcarbon\b/, "co2"],
+  [/\bmethane\b/, "ch4"],
+  [/\bnitrous oxide\b/, "n2o"],
   [/\b(greenhouse gas(es)?|ghg)\b/, "ghg kyoto gases"],
   [/\b(electricity|power) generation\b/, "secondary energy electricity"],
   [/\b(energy|electricity) (consumption|demand|use)\b/, "final energy"],
@@ -192,7 +227,10 @@ export function namedPage(text: string): Option | undefined {
     ).length;
     const title = (option.label.toLowerCase().match(/[a-z0-9]+/g) ?? []).map(stem);
     const whole = title.length === 1 && said.has(title[0]);
-    const score = shared >= 2 ? shared : whole ? 1.5 : 0;
+    // A title said in full beats one that shares as many words ("Where is the EU headed?" over
+    // "Where is the world headed?").
+    const base = shared >= 2 ? shared : whole ? 1.5 : 0;
+    const score = base && says(text, option.label) ? base + 1 : base;
     if (score > bestScore) [best, bestScore] = [option, score];
   }
   return best;

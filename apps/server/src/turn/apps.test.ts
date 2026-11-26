@@ -199,10 +199,14 @@ describe("tool search", () => {
       expect(library.kind).toBe("navigation");
       expect(library.actions?.[0]).toMatchObject({ path: "/application_library" });
     }
+    // GraphMaker is this site's chart builder, named by a curated phrase: its page.
+    const graphmaker = await say(conversation(), "where is the GraphMaker tool?");
+    expect(graphmaker.kind).toBe("navigation");
+    expect(graphmaker.actions?.[0]).toMatchObject({ path: "/analysis" });
     // A "tool" the library does not have is not answered with a list of other tools.
-    const missing = await say(conversation(), "where is the GraphMaker tool?");
+    const missing = await say(conversation(), "where is the Frobnicator tool?");
     expect(missing.kind).toBe("ask");
-    expect(missing.text).toContain("No tool in the library mentions “graphmaker”");
+    expect(missing.text).toContain("No tool in the library mentions “frobnicator”");
     const c = conversation();
     const studies = await say(
       c,

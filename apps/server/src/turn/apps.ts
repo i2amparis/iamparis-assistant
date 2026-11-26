@@ -399,7 +399,9 @@ export function appFlow({ conversation, trace, decide, ask, note }: AppContext) 
     if (requestedYears(text).length || asksForData.test(text)) return undefined;
     conversation.finder ??= { query: "", selection: {} };
     const changed = readTypes(text);
-    const { words } = searchApps(text);
+    // Words that named a type ("only maps") are not a new subject: the search for "adaptation
+    // in Africa" keeps going, now limited to maps.
+    const { words } = searchApps(text, finder().selection);
     const short = text.trim().split(/\s+/).length <= 4 && !startsAnew.test(text);
     if (words.length && (continues.test(text) || short || toolNoun.test(text))) {
       note(
