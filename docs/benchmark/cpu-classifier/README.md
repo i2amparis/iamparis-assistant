@@ -143,7 +143,7 @@ Changing the pre-fill brings the letters back: they get a median 91% of the prob
 
 ### Live check after deploying
 
-On the VM (CPU), the curation check passed **39/40** turns over 2 runs ([`results/live-check.txt`](results/live-check.txt)). Production only accepts its own origins, so this run used a copy of `curation-check.mjs` that sends `Origin: https://chat.iamparis.eu`. The failing turn, "emissions in the USA under current policies", ended in "Which variable do you mean?" instead of a result. The region and scenario were still decided.
+On the VM (CPU), the curation check passed **39/40** turns over 2 runs ([`results/live-check.txt`](results/live-check.txt)). It ran on the VM over SSH against the deployed assistant at `http://127.0.0.1:8788`. The VM's `.env` only accepts the origins in `ALLOWED_ORIGINS`, so the run used a copy of `curation-check.mjs` whose `Origin` header is `https://chat.iamparis.eu`, one of those values. That is a header value only: no request went to the chat.iamparis.eu domain, which still points to the previous chatbot. The failing turn, "emissions in the USA under current policies", ended in "Which variable do you mean?" instead of a result. The region and scenario were still decided.
 
 The variable question was then asked directly on the VM with [`scripts/ab-variable.mjs`](scripts/ab-variable.mjs), using the live options:
 
