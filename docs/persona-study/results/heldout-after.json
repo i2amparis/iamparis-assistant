@@ -1,0 +1,1758 @@
+{
+  "label": "heldout-after",
+  "set": "heldout",
+  "api": "http://127.0.0.1:8797/api",
+  "started": "2026-11-26T13:10:35.818Z",
+  "personas": [
+    {
+      "id": "climate-teacher",
+      "who": "Secondary-school teacher preparing a lesson on climate scenarios",
+      "turns": [
+        {
+          "said": "what is the paris agreement?",
+          "want": "answer: Paris Agreement",
+          "kind": "answer",
+          "mode": "answered (rules)",
+          "text": "The Paris Agreement is an international treaty adopted in 2015 under the United Nations Framework Convention on Climate Change (UNFCCC). It aims to hold the increase in global average temperature to well below 2°C above pre-industrial levels and to pursue efforts to limit it to 1.5°C. Each party sets its own targets in a Nationally Determined Contribution (NDC), updated every five years, and progress is reviewed collectively in a global stocktake.",
+          "title": "Paris Agreement",
+          "decisions": [
+            {
+              "subject": "answer",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "term1",
+              "top": []
+            }
+          ],
+          "ms": 353,
+          "wall": 360
+        },
+        {
+          "said": "how much methane does the world emit?",
+          "want": "result: Emissions|CH4, World",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Emissions|CH4 in World, 2005–2100: 4 series from gcam, gemini_e3 and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Not named, so assumed: the “Where is the world headed?” study, all models with data, the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Emissions|CH4"
+            ],
+            "region": [
+              "World"
+            ],
+            "modelName": [
+              "gcam",
+              "gemini_e3"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "analysis",
+              "top": [
+                "analysis:79",
+                "studies:6"
+              ],
+              "none": 14
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "decarb-potentials:0",
+                "ndcs-impacts:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "Emissions|CH4",
+              "top": [
+                "Emissions|CH4:99",
+                "Emissions|CH4|Waste:1"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "World",
+              "top": [
+                "World:99",
+                "ARE:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:0",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 1198,
+          "wall": 1203
+        },
+        {
+          "said": "what does that look like in india?",
+          "want": "result: Emissions|CH4, India",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Emissions|CH4 in IND, 2005–2100: 4 series from gcam, gemini_e3 and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Emissions|CH4"
+            ],
+            "region": [
+              "IND"
+            ],
+            "modelName": [
+              "gcam",
+              "gemini_e3"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "refine",
+              "top": [
+                "refine:94",
+                "new:4"
+              ],
+              "none": 2
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "Emissions|CH4",
+              "top": [
+                "Emissions|CH4:85",
+                "Final Energy:0"
+              ],
+              "none": 14
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "IND:7",
+                "India:1"
+              ],
+              "none": 92
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "India",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "gcam:66",
+                "muse:2"
+              ],
+              "none": 32
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "PR_CurPol_CP:46",
+                "PR_CurPol_CPO:2"
+              ],
+              "none": 51
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "world-headed",
+              "top": []
+            }
+          ],
+          "ms": 991,
+          "wall": 996
+        },
+        {
+          "said": "is this a prediction?",
+          "want": "answer: Projections, not forecasts",
+          "kind": "answer",
+          "mode": "answered (rules)",
+          "text": "IAM results are scenario projections, not forecasts. Each scenario shows what would happen if its assumptions held (policies, technology costs, population, economic growth); it does not say how likely that future is. Comparing scenarios shows the effect of different policy choices, and comparing models on the same scenario shows how much the answer depends on model structure. Your data query is unchanged; type a change to carry on with it.",
+          "title": "Projections, not forecasts",
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "answer",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "term25",
+              "top": []
+            }
+          ],
+          "ms": 0,
+          "wall": 5
+        },
+        {
+          "said": "are there any games about climate change?",
+          "want": "apps: type Game",
+          "kind": "apps",
+          "mode": "answered (rules)",
+          "text": "31 tools in the Application Library match “game”, “climate”, “change”. No Game tool matches “game”, “climate”, “change”, so every type is included. The closest 6 are listed. Each opens its library page. Describe what you need differently, or name a tool.",
+          "selection": [],
+          "tools": [
+            "Shortfall - Power Grid Optimisation Game",
+            "Climate Change Knowledge Portal (CCKP)",
+            "Climate Change Performance Index (CCPI)",
+            "COACCH Climate Change Impact Scenario Explorer",
+            "Systems Change Lab",
+            "Atlas of Climate Policy Barriers"
+          ],
+          "url": "https://iamparis.eu/application_library?q=change",
+          "actions": [
+            "/application_library?q=change"
+          ],
+          "options": [
+            "Only Interactive Charts",
+            "Only Interactive Maps",
+            "Only Report",
+            "Browse by topic"
+          ],
+          "featured": 4,
+          "pending": {
+            "kind": "apps"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "apps",
+              "top": []
+            },
+            {
+              "subject": "type",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Game",
+              "top": []
+            },
+            {
+              "subject": "widening",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "search",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 3,
+          "wall": 8
+        }
+      ]
+    },
+    {
+      "id": "industry-consultant",
+      "who": "Consultant advising cement and steel producers",
+      "turns": [
+        {
+          "said": "industry emissions in Europe",
+          "want": "result: industry CO2 emissions, EU",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Emissions|CO2|Energy|Demand|Industry in EU, 2005–2050: 10 series from 10 models and Current policies (PR_WWH_CP). Not named, so assumed: the “Where is the EU headed?” study, all models with data. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Emissions|CO2|Energy|Demand|Industry"
+            ],
+            "modelName": [
+              "42",
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "FORECAST",
+              "GCAM-PR 5.3",
+              "GEMINI-E3 7.0",
+              "ICES-XPS 1.1",
+              "MUSE",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2050"
+          ],
+          "series": 10,
+          "assumed": [
+            "workspace_code",
+            "modelName"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "analysis:23",
+                "studies:1"
+              ],
+              "none": 74
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "industrial-transf",
+              "top": [
+                "industrial-transf:76",
+                "study-4:4"
+              ],
+              "none": 12
+            },
+            {
+              "subject": "region",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "EU",
+              "top": []
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Emissions|CO2|Energy|Demand|Industry",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "MUSE:0",
+                "E4SMA-EU-TIMES 1.0:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_WWH_NDC:0",
+                "PR_WWH_CP:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "PR_WWH_CP",
+              "top": []
+            }
+          ],
+          "ms": 622,
+          "wall": 626
+        },
+        {
+          "said": "and in poland",
+          "want": "result: same variable, Poland",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Final Energy|Industry in POL, 2010–2050: 4 series from e3me, ices and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Poland is not in “Where is the EU headed?”, so this uses “Where is the world headed?”. Not named, so assumed: all models with data, the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Final Energy|Industry"
+            ],
+            "region": [
+              "POL"
+            ],
+            "modelName": [
+              "e3me",
+              "ices"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2010",
+            "2050"
+          ],
+          "series": 4,
+          "assumed": [
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Industry",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "refine:18",
+                "new:9"
+              ],
+              "none": 73
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "EU:1"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "MUSE:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_WWH_NDC:2",
+                "PR_WWH_CP:1"
+              ],
+              "none": 97
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "world-headed",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "ices:0",
+                "e3me:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_Baseline:0",
+                "PR_CurPol_CP:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 689,
+          "wall": 694
+        },
+        {
+          "said": "Which studies look at cement?",
+          "want": "studies: topic cement",
+          "kind": "studies",
+          "mode": "answered (rules)",
+          "text": "3 studies match sector Industry, topic Cement. From your message: sector Industry (“cement”), topic Cement (“Cement”). Type a change, such as another country or a topic.",
+          "selection": [
+            "sector=industry",
+            "tag=cement"
+          ],
+          "studies": [
+            "Industrial decarbonisation in the Basque Country",
+            "Industrial transformation",
+            "Decarbonising the Polish cement sector"
+          ],
+          "url": "https://iamparis.eu/results?sector=industry&tag=cement",
+          "actions": [
+            "/results?sector=industry&tag=cement"
+          ],
+          "options": [
+            "Change sector",
+            "Choose a region",
+            "Change topic",
+            "Start over"
+          ],
+          "featured": 4,
+          "pending": {
+            "kind": "studies"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Industry",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "new:47",
+                "refine:38"
+              ],
+              "none": 15
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "AUS:0",
+                "Africa_Eastern:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "e3me",
+              "top": [
+                "e3me:96",
+                "muse:1"
+              ],
+              "none": 2
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_CurPol_CP:22",
+                "PR_CurPol_CPO:1"
+              ],
+              "none": 77
+            },
+            {
+              "subject": "task",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "studies",
+              "top": []
+            },
+            {
+              "subject": "sector",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "industry",
+              "top": []
+            },
+            {
+              "subject": "topic",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "cement",
+              "top": []
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "netherlands:0",
+                "united-states:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "follow-up",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 249,
+          "wall": 254
+        },
+        {
+          "said": "open the polish cement study",
+          "want": "navigation: Decarbonising the Polish cement sector",
+          "kind": "navigation",
+          "mode": "answered (rules)",
+          "text": "Open this page on IAMPARIS.",
+          "title": "Decarbonising the Polish cement sector",
+          "url": "https://iamparis.eu/results/transience/decarbonising-the-polish-cement-sector/policy_questions",
+          "actions": [
+            "/results/transience/decarbonising-the-polish-cement-sector/policy_questions"
+          ],
+          "decisions": [],
+          "ms": 1,
+          "wall": 5
+        }
+      ]
+    },
+    {
+      "id": "hydrogen-analyst",
+      "who": "Analyst at a hydrogen industry association",
+      "turns": [
+        {
+          "said": "hydrogen producton in germany by 2050",
+          "want": "result: Secondary Energy|Hydrogen, Germany, 2050",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Secondary Energy|Hydrogen in DE, 2050: 2 series from E4SMA-EU-TIMES 1.0 and Where is the world headed, 2021 (WWH21), Net zero with EU policies (NZE_EUPol_Stand). Germany is not in “Where is the world headed?”, so this uses “EU path to net zero”. Not named, so assumed: the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "net-zero"
+            ],
+            "variable": [
+              "Secondary Energy|Hydrogen"
+            ],
+            "region": [
+              "DE"
+            ],
+            "modelName": [
+              "E4SMA-EU-TIMES 1.0"
+            ],
+            "scenario": [
+              "WWH21",
+              "NZE_EUPol_Stand"
+            ]
+          },
+          "years": [
+            "2050",
+            "2050"
+          ],
+          "series": 2,
+          "assumed": [
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "spelling",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "analysis:16",
+                "studies:4"
+              ],
+              "none": 77
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:1",
+                "afolu:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Secondary Energy|Hydrogen",
+              "top": []
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "DEU",
+              "top": [
+                "DEU:100",
+                "Argentina:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:0",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "region",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "net-zero",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "E4SMA-EU-TIMES 1.0",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NZE_Bench_H:0",
+                "NZE_Bench_L:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 928,
+          "wall": 932
+        },
+        {
+          "said": "what about france?",
+          "want": "result: same variable, France",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Secondary Energy|Hydrogen in FR, 2050: 2 series from E4SMA-EU-TIMES 1.0 and Where is the world headed, 2021 (WWH21), Net zero with EU policies (NZE_EUPol_Stand). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "net-zero"
+            ],
+            "variable": [
+              "Secondary Energy|Hydrogen"
+            ],
+            "region": [
+              "FR"
+            ],
+            "modelName": [
+              "E4SMA-EU-TIMES 1.0"
+            ],
+            "scenario": [
+              "WWH21",
+              "NZE_EUPol_Stand"
+            ]
+          },
+          "years": [
+            "2050",
+            "2050"
+          ],
+          "series": 2,
+          "assumed": [
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "refine",
+              "top": [
+                "refine:80",
+                "new:20"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "Import:0",
+                "Agricultural Demand:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Secondary Energy|Hydrogen",
+              "top": []
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "FR:8",
+                "DE:0"
+              ],
+              "none": 92
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "FR",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NEMESIS 5.1:1",
+                "E4SMA-EU-TIMES 1.0:1"
+              ],
+              "none": 98
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "WWH21",
+              "top": [
+                "WWH21:100",
+                "Baseline:0"
+              ],
+              "none": 0
+            }
+          ],
+          "ms": 718,
+          "wall": 722
+        },
+        {
+          "said": "whats CCS",
+          "want": "answer: CCS definition",
+          "kind": "answer",
+          "mode": "answered (rules)",
+          "text": "Carbon capture and storage separates CO2 from industrial or energy-related sources, transports it and stores it long-term, usually in geological formations. Combined with bioenergy (BECCS) or direct air capture (DACCS) it can remove CO2 from the atmosphere. Your data query is unchanged; type a change to carry on with it.",
+          "title": "Carbon capture and storage (CCS)",
+          "assumed": [
+            "scenario"
+          ],
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "answer",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "term16",
+              "top": []
+            }
+          ],
+          "ms": 0,
+          "wall": 4
+        },
+        {
+          "said": "carbon capture in the world",
+          "want": "result: Carbon Sequestration|CCS, World",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Carbon Sequestration|CCS in World, 2050: 1 series from GCAM and Current policies (CP_EI). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "net-zero"
+            ],
+            "variable": [
+              "Carbon Sequestration|CCS"
+            ],
+            "region": [
+              "World"
+            ],
+            "modelName": [
+              "GCAM"
+            ],
+            "scenario": [
+              "CP_EI"
+            ]
+          },
+          "years": [
+            "2050",
+            "2050"
+          ],
+          "series": 1,
+          "assumed": [
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Carbon Sequestration|CCS",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "refine:38",
+                "new:30"
+              ],
+              "none": 33
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "CY:0",
+                "World:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "World",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NEMESIS 5.1:0",
+                "ALADIN:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "NZE_EUPol_Stand",
+              "top": [
+                "NZE_EUPol_Stand:91",
+                "WWH21:1"
+              ],
+              "none": 8
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "GCAM",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "CP_EI",
+              "top": []
+            }
+          ],
+          "ms": 587,
+          "wall": 591
+        },
+        {
+          "said": "how do i register for an account",
+          "want": "navigation: Create an account",
+          "kind": "navigation",
+          "mode": "answered (rules)",
+          "text": "Register for an IAM PARIS account to save work or contribute results.",
+          "title": "Create an account",
+          "url": "https://iamparis.eu/register",
+          "actions": [
+            "/register"
+          ],
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Carbon Sequestration|CCS",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "new:63",
+                "refine:5"
+              ],
+              "none": 32
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "DE:0",
+                "IS:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NEMESIS 5.1:0",
+                "ALADIN:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "CP_EI:0",
+                "Baseline:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "page or definition",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "main-register-iamparis-eu-register",
+              "top": []
+            }
+          ],
+          "ms": 180,
+          "wall": 184
+        }
+      ]
+    },
+    {
+      "id": "ev-researcher",
+      "who": "PhD student researching electric mobility in India",
+      "turns": [
+        {
+          "said": "electric vehicles in india",
+          "want": "data, a question, or studies on electric vehicles",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Capacity|Electricity in IND, 2005–2100: 4 series from gcam, tiam and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Not named, so assumed: the “Where is the world headed?” study, all models with data, the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Capacity|Electricity"
+            ],
+            "region": [
+              "IND"
+            ],
+            "modelName": [
+              "gcam",
+              "tiam"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "studies:0",
+                "analysis:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "transp-transf",
+              "top": [
+                "transp-transf:99",
+                "study-2:0"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "Capacity|Electricity",
+              "top": [
+                "Capacity|Electricity:76",
+                "Investment:1"
+              ],
+              "none": 22
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "IND",
+              "top": [
+                "IND:100",
+                "ARG:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:0",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 673,
+          "wall": 677
+        },
+        {
+          "said": "final energy in transport in india",
+          "want": "result: Final Energy|Transportation, India",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Final Energy|Transportation in IND, 2005–2100: 4 series from gcam, tiam and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Final Energy|Transportation"
+            ],
+            "region": [
+              "IND"
+            ],
+            "modelName": [
+              "gcam",
+              "tiam"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Transportation",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "refine",
+              "top": [
+                "refine:73",
+                "new:13"
+              ],
+              "none": 14
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "IND:15",
+                "India:1"
+              ],
+              "none": 84
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "India",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "gcam:46",
+                "tiam:11"
+              ],
+              "none": 38
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "PR_CurPol_CP:33",
+                "PR_Baseline:1"
+              ],
+              "none": 65
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "world-headed",
+              "top": []
+            }
+          ],
+          "ms": 863,
+          "wall": 867
+        },
+        {
+          "said": "only electricity",
+          "want": "result: Final Energy|Transportation|Electricity",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Final Energy|Transportation|Electricity in IND, 2005–2100: 4 series from gcam, tiam and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Final Energy|Transportation|Electricity"
+            ],
+            "region": [
+              "IND"
+            ],
+            "modelName": [
+              "gcam",
+              "tiam"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "refine:26",
+                "new:25"
+              ],
+              "none": 49
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "AUS:0",
+                "Africa_Eastern:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "gcam",
+              "top": [
+                "gcam:90",
+                "muse:2"
+              ],
+              "none": 8
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "PR_CurPol_CP:66",
+                "PR_Baseline:1"
+              ],
+              "none": 31
+            },
+            {
+              "subject": "variable",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "Final Energy|Transportation|Electricity",
+              "top": []
+            }
+          ],
+          "ms": 529,
+          "wall": 533
+        },
+        {
+          "said": "what models are available for this?",
+          "want": "answer: the models of the current study",
+          "kind": "answer",
+          "mode": "answered (rules)",
+          "text": "“Where is the world headed?” has data for 11 models. Your data query is unchanged; name one of these to use it.",
+          "title": "Models in “Where is the world headed?”",
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "actions": [
+            "/results/paris-reinforce/where-is-the-world-headed/graphs"
+          ],
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "world-headed",
+              "top": []
+            }
+          ],
+          "ms": 1,
+          "wall": 5
+        },
+        {
+          "said": "where is the privacy policy",
+          "want": "navigation: Privacy policy",
+          "kind": "navigation",
+          "mode": "answered (rules)",
+          "text": "How IAM PARIS handles personal data.",
+          "title": "Privacy policy",
+          "url": "https://iamparis.eu/privacy",
+          "actions": [
+            "/privacy"
+          ],
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "new:30",
+                "refine:1"
+              ],
+              "none": 68
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "Export:0",
+                "Policy Cost|Consumption Loss:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Transportation|Electricity",
+              "top": []
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "Argentina:0",
+                "POL:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "PR_CurPol_CP",
+              "top": [
+                "PR_CurPol_CP:95",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 5
+            },
+            {
+              "subject": "page or definition",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "main-privacy-iamparis-eu-privacy",
+              "top": []
+            }
+          ],
+          "ms": 324,
+          "wall": 328
+        }
+      ]
+    }
+  ],
+  "finished": "2026-11-26T13:10:44.852Z"
+}

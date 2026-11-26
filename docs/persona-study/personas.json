@@ -1,0 +1,653 @@
+{
+  "_comment": "Realistic multi-turn conversations with the IAMPARIS assistant. Each turn has what the user types and `want`: what a good guide would do. A text of \"#2\" clicks the second offered option. Run with run-personas.mjs.",
+  "personas": [
+    {
+      "id": "policy-analyst",
+      "who": "Policy analyst at the Greek environment ministry, drafting the national climate plan",
+      "turns": [
+        {
+          "text": "Hi, I'm a policy analyst at the Greek environment ministry working on our national climate plan. Which studies should I look at?",
+          "want": "studies: region Greece, sector economy-wide",
+          "expect": {
+            "kind": "studies",
+            "has": ["greece"]
+          }
+        },
+        {
+          "text": "what about buildings?",
+          "want": "studies: add or switch to sector buildings, keep Greece",
+          "expect": {
+            "kind": "studies",
+            "has": ["buildings"]
+          }
+        },
+        {
+          "text": "what's an NDC?",
+          "want": "answer: NDC definition",
+          "expect": {
+            "kind": "answer",
+            "has": ["ndc"]
+          }
+        },
+        {
+          "text": "show me greenhouse gas emissions for Greece",
+          "want": "result: Emissions|Kyoto Gases, region Greece (GRC or Greece in a study that has it)",
+          "expect": {
+            "kind": ["ask", "result"],
+            "has": ["grc"]
+          }
+        },
+        {
+          "text": "only current policies",
+          "want": "result: scenario current policies",
+          "expect": {
+            "kind": "result",
+            "has": ["pr_curpol_cp", "grc"]
+          }
+        },
+        {
+          "text": "from 2030 to 2050",
+          "want": "result: years 2030-2050",
+          "expect": {
+            "kind": "result",
+            "has": ["grc", "2030", "2050"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "model-researcher",
+      "who": "Researcher comparing integrated assessment models",
+      "turns": [
+        {
+          "text": "Compare GCAM and TIAM on CO2 emissions for the world",
+          "want": "result: Emissions|CO2, World, two models GCAM and TIAM",
+          "expect": {
+            "kind": "result",
+            "has": ["emissions|co2\"", "world"]
+          }
+        },
+        {
+          "text": "add baseline",
+          "want": "result: adds baseline scenario",
+          "expect": {
+            "kind": "result",
+            "has": ["pr_baseline"]
+          }
+        },
+        {
+          "text": "what does harmonised mean?",
+          "want": "answer: Harmonisation definition",
+          "expect": {
+            "kind": "answer",
+            "has": ["harmonisation"]
+          }
+        },
+        {
+          "text": "tell me about TIAM",
+          "want": "answer: TIAM_Grantham profile",
+          "expect": {
+            "kind": "answer",
+            "has": ["tiam"]
+          }
+        },
+        {
+          "text": "who built it?",
+          "want": "answer: developer of TIAM",
+          "expect": {
+            "kind": "answer",
+            "has": ["grantham"]
+          }
+        },
+        {
+          "text": "where can I compare models side by side?",
+          "want": "navigation: Model Comparison page",
+          "expect": {
+            "kind": "navigation",
+            "has": ["model comparison"]
+          }
+        },
+        {
+          "text": "which models cover SDGs like water or health?",
+          "want": "navigation: SDG Model Coverage Matrix",
+          "expect": {
+            "kind": "navigation",
+            "has": ["sdg"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "journalist",
+      "who": "Science journalist writing about whether the world is on track",
+      "turns": [
+        {
+          "text": "how much will global emissions fall by 2050?",
+          "want": "result: Emissions (CO2 or Kyoto), World, headline scenarios",
+          "expect": {
+            "kind": ["ask", "result"],
+            "has": ["emissions|kyoto gases"]
+          }
+        },
+        {
+          "text": "is that a forecast?",
+          "want": "answer: Projections, not forecasts",
+          "expect": {
+            "kind": "answer",
+            "has": ["forecast"]
+          }
+        },
+        {
+          "text": "what does current policies mean",
+          "want": "answer: Current policies scenario definition",
+          "expect": {
+            "kind": "answer",
+            "has": ["current policies"]
+          }
+        },
+        {
+          "text": "and under the paris pledges?",
+          "want": "result: back to the data, scenario NDC; or definition of NDC (acceptable)",
+          "expect": {
+            "kind": ["ask", "result", "answer"],
+            "has": []
+          }
+        },
+        {
+          "text": "what about temperature?",
+          "want": "result or question: a temperature variable for the world",
+          "expect": {
+            "kind": "result",
+            "has": ["temperature"]
+          }
+        },
+        {
+          "text": "is there a map of climate impacts I could embed?",
+          "want": "apps: interactive maps about climate impacts",
+          "expect": {
+            "kind": "apps",
+            "has": ["interactive maps"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "student",
+      "who": "Master's student learning about IAMs, writes with typos",
+      "turns": [
+        {
+          "text": "what is an integrated assesment model",
+          "want": "answer: IAM definition despite typo",
+          "expect": {
+            "kind": "answer",
+            "has": ["integrated assessment model"]
+          }
+        },
+        {
+          "text": "which models are on the site?",
+          "want": "navigation: Models page",
+          "expect": {
+            "kind": "navigation",
+            "has": ["models"]
+          }
+        },
+        {
+          "text": "explain the difference between primary and final energy",
+          "want": "answer: primary or final energy definition (ask which is fine)",
+          "expect": {
+            "kind": ["answer", "ask"],
+            "has": ["primary energy"]
+          }
+        },
+        {
+          "text": "show primary energy in india",
+          "want": "result: Primary Energy, India",
+          "expect": {
+            "kind": "result",
+            "has": ["primary energy", "ind"]
+          }
+        },
+        {
+          "text": "only coal",
+          "want": "result: Primary Energy|Coal",
+          "expect": {
+            "kind": "result",
+            "has": ["primary energy|coal"]
+          }
+        },
+        {
+          "text": "same for china",
+          "want": "result: Primary Energy|Coal, China",
+          "expect": {
+            "kind": "result",
+            "has": ["primary energy|coal", "chn"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "utility-planner",
+      "who": "Investment planner at a Spanish electricity utility",
+      "turns": [
+        {
+          "text": "We are a utility planning renewable investments in Spain. Which studies should we read?",
+          "want": "studies: sector energy-supply, region Spain",
+          "expect": {
+            "kind": "studies",
+            "has": ["energy-supply", "spain"]
+          }
+        },
+        {
+          "text": "solar electricity generation in Spain",
+          "want": "result: Secondary Energy|Electricity|Solar, Spain",
+          "expect": {
+            "kind": "result",
+            "has": ["secondary energy|electricity|solar", "esp"]
+          }
+        },
+        {
+          "text": "and wind",
+          "want": "result: Secondary Energy|Electricity|Wind, Spain",
+          "expect": {
+            "kind": "result",
+            "has": ["secondary energy|electricity|wind"]
+          }
+        },
+        {
+          "text": "installed capacity instead",
+          "want": "result: Capacity|Electricity|Wind, Spain",
+          "expect": {
+            "kind": "result",
+            "has": ["capacity|electricity|wind"]
+          }
+        },
+        {
+          "text": "carbon price in europe",
+          "want": "result: Price|Carbon, EU",
+          "expect": {
+            "kind": "result",
+            "has": ["price|carbon"],
+            "any": ["\"eu\"", "eu27"]
+          }
+        },
+        {
+          "text": "is there a tool with power grid data?",
+          "want": "apps: tools about power grids",
+          "expect": {
+            "kind": "apps",
+            "has": ["grid"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "transport-official",
+      "who": "Official at a national transport ministry",
+      "turns": [
+        {
+          "text": "transport emissions in the EU up to 2050",
+          "want": "result: Emissions|CO2|Energy|Demand|Transportation, EU, years to 2050",
+          "expect": {
+            "kind": "result",
+            "has": ["emissions|co2|energy|demand|transportation", "\"eu\""]
+          }
+        },
+        {
+          "text": "how much energy does transport use in Germany?",
+          "want": "result: Final Energy|Transportation, Germany",
+          "expect": {
+            "kind": "result",
+            "has": ["final energy|transportation", "deu"]
+          }
+        },
+        {
+          "text": "how much of that is electricity?",
+          "want": "result: Final Energy|Transportation|Electricity, Germany",
+          "expect": {
+            "kind": "result",
+            "has": ["final energy|transportation|electricity"]
+          }
+        },
+        {
+          "text": "open the transportation transformation study",
+          "want": "navigation: Transportation Transformation page",
+          "expect": {
+            "kind": "navigation",
+            "has": ["transportation transformation"]
+          }
+        },
+        {
+          "text": "I advise the transport ministry. Which studies are for me?",
+          "want": "studies: sector transport",
+          "expect": {
+            "kind": "studies",
+            "has": ["transport"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "finance-ngo",
+      "who": "Analyst at an NGO working on climate finance and adaptation in Africa",
+      "turns": [
+        {
+          "text": "Where can I find data on climate finance?",
+          "want": "apps: tools on topic Finance (or a question)",
+          "expect": {
+            "kind": "apps",
+            "has": ["finance"]
+          }
+        },
+        {
+          "text": "tools for adaptation in Africa",
+          "want": "apps: topic Adaptation, geography Africa",
+          "expect": {
+            "kind": "apps",
+            "has": ["adaptation"]
+          }
+        },
+        {
+          "text": "only maps",
+          "want": "apps: type Interactive Maps",
+          "expect": {
+            "kind": "apps",
+            "has": ["interactive maps", "adaptation"]
+          }
+        },
+        {
+          "text": "investment needs in the energy sector in Africa",
+          "want": "result: an investment variable for Africa, or ask which",
+          "expect": {
+            "kind": "result",
+            "has": ["investment"]
+          }
+        },
+        {
+          "text": "population projections for Africa",
+          "want": "result: Population, an Africa region",
+          "expect": {
+            "kind": "result",
+            "has": ["population", "afr"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "newcomer",
+      "who": "First-time visitor who does not know what to ask",
+      "turns": [
+        {
+          "text": "hi",
+          "want": "help/menu",
+          "expect": {
+            "kind": "ask",
+            "has": ["build an analysis"]
+          }
+        },
+        {
+          "text": "what can you do?",
+          "want": "help/menu",
+          "expect": {
+            "kind": "ask",
+            "has": ["build an analysis"]
+          }
+        },
+        {
+          "text": "emissions",
+          "want": "result with assumptions, or a variable question",
+          "expect": {
+            "kind": "ask",
+            "has": ["emissions|kyoto gases"]
+          }
+        },
+        {
+          "text": "help me find something about steel",
+          "want": "studies (steel tag) or the steel relocation study page",
+          "expect": {
+            "kind": ["studies", "navigation"],
+            "has": ["steel"]
+          }
+        },
+        {
+          "text": "steel industry relocation results",
+          "want": "navigation: Implications of EU steel industry relocation",
+          "expect": {
+            "kind": "navigation",
+            "has": ["steel industry relocation"]
+          }
+        },
+        {
+          "text": "what is IAM PARIS?",
+          "want": "answer: IAM PARIS definition",
+          "expect": {
+            "kind": "answer",
+            "has": ["iam paris"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "modeller-uploader",
+      "who": "Modelling team member who wants to publish results on the platform",
+      "turns": [
+        {
+          "text": "How do I upload my model results to IAM PARIS?",
+          "want": "navigation: docs on uploading results",
+          "expect": {
+            "kind": "navigation",
+            "has": ["upload"]
+          }
+        },
+        {
+          "text": "what file format do you need?",
+          "want": "navigation: docs on the IAMC file format",
+          "expect": {
+            "kind": "navigation",
+            "has": ["format"]
+          }
+        },
+        {
+          "text": "where is the documentation?",
+          "want": "navigation: documentation (/docs)",
+          "expect": {
+            "kind": "navigation",
+            "has": ["documentation"]
+          }
+        },
+        {
+          "text": "I want to contact the team",
+          "want": "navigation: Contact",
+          "expect": {
+            "kind": "navigation",
+            "has": ["contact"]
+          }
+        },
+        {
+          "text": "how do I add my model to the model documentation?",
+          "want": "navigation: Models or Contact",
+          "expect": {
+            "kind": "navigation",
+            "has": ["models"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "land-use-researcher",
+      "who": "Agricultural economist interested in land use and forests",
+      "turns": [
+        {
+          "text": "land use emissions in Brazil",
+          "want": "result: an AFOLU/land-use emissions variable, Brazil",
+          "expect": {
+            "kind": "result",
+            "has": ["afolu", "bra"]
+          }
+        },
+        {
+          "text": "what is AFOLU?",
+          "want": "answer: AFOLU definition",
+          "expect": {
+            "kind": "answer",
+            "has": ["afolu"]
+          }
+        },
+        {
+          "text": "take me to the AFOLU transformation study",
+          "want": "navigation: AFOLU transformation",
+          "expect": {
+            "kind": "navigation",
+            "has": ["afolu transformation"]
+          }
+        },
+        {
+          "text": "forest area in the world",
+          "want": "result: Land Cover|Forest, World",
+          "expect": {
+            "kind": "result",
+            "has": ["land cover|forest"]
+          }
+        },
+        {
+          "text": "Which studies are relevant for agriculture and forestry?",
+          "want": "studies: sector afolu",
+          "expect": {
+            "kind": "studies",
+            "has": ["afolu"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "typos",
+      "who": "Hurried user who types fast and misspells",
+      "turns": [
+        {
+          "text": "co2 emisions in germny 2040",
+          "want": "result: Emissions|CO2, Germany, 2040",
+          "expect": {
+            "kind": "result",
+            "has": ["emissions|co2\"", "deu", "2040"]
+          }
+        },
+        {
+          "text": "electrcity demand world",
+          "want": "result: Final Energy|Electricity, World",
+          "expect": {
+            "kind": "result",
+            "has": ["final energy|electricity", "world"]
+          }
+        },
+        {
+          "text": "solar capasity china",
+          "want": "result: Capacity|Electricity|Solar, China",
+          "expect": {
+            "kind": "result",
+            "has": ["capacity|electricity|solar", "chn"]
+          }
+        },
+        {
+          "text": "wat is a carbon budjet",
+          "want": "answer: Carbon budget",
+          "expect": {
+            "kind": "answer",
+            "has": ["carbon budget"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "net-zero-analyst",
+      "who": "Think-tank analyst following the EU's net-zero pathway",
+      "turns": [
+        {
+          "text": "net zero CO2 emissions in the EU in the net zero study",
+          "want": "result: study net-zero, Emissions|CO2, EU",
+          "expect": {
+            "kind": "result",
+            "has": ["net-zero", "emissions|co2\""]
+          }
+        },
+        {
+          "text": "what scenarios are in this study?",
+          "want": "list the study's scenarios or offer a scenario choice",
+          "expect": {
+            "kind": "answer",
+            "has": ["scenarios in"]
+          }
+        },
+        {
+          "text": "what's the remaining carbon budget?",
+          "want": "answer: Carbon budget",
+          "expect": {
+            "kind": "answer",
+            "has": ["carbon budget"]
+          }
+        },
+        {
+          "text": "hydrogen production in the EU",
+          "want": "result: Secondary Energy|Hydrogen, EU",
+          "expect": {
+            "kind": "result",
+            "has": ["secondary energy|hydrogen"]
+          }
+        },
+        {
+          "text": "where can I read the policy questions of the Where is the EU headed study?",
+          "want": "navigation: that study's policy questions page",
+          "expect": {
+            "kind": "navigation",
+            "has": ["where-is-the-eu-headed"]
+          }
+        },
+        {
+          "text": "show me the post-glasgow study page",
+          "want": "navigation: Post-Glasgow targets page",
+          "expect": {
+            "kind": "navigation",
+            "has": ["paris-reinforce/post-glasgow"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "city-energy-officer",
+      "who": "Energy officer at a Dutch city looking at citizen energy and heat pumps",
+      "turns": [
+        {
+          "text": "I work for the city of Rotterdam on energy communities and heat pumps",
+          "want": "studies: region Netherlands, tags citizens / heat pumps",
+          "expect": {
+            "kind": "studies",
+            "has": ["netherlands"]
+          }
+        },
+        {
+          "text": "data stories about policies",
+          "want": "navigation: Data Stories or the Policy Catalogue story",
+          "expect": {
+            "kind": "navigation",
+            "has": [],
+            "any": ["data stories", "policy catalogue"]
+          }
+        },
+        {
+          "text": "Is there a policy database I can search?",
+          "want": "navigation: Policy Catalogue Interactive Explorer (or apps)",
+          "expect": {
+            "kind": "navigation",
+            "has": ["policy catalogue"]
+          }
+        },
+        {
+          "text": "heat pumps in buildings in the EU",
+          "want": "result: a buildings heat-pump or final energy variable, EU, or ask",
+          "expect": {
+            "kind": ["result", "ask"],
+            "has": ["buildings"]
+          }
+        }
+      ]
+    }
+  ]
+}

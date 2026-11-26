@@ -1,0 +1,223 @@
+
+## policy-analyst: Policy analyst at the Greek environment ministry, drafting the national climate plan
+> Hi, I'm a policy analyst at the Greek environment ministry working on our national climate plan. Which studies should I look at?
+  studies [answered (rules)] sector=economy-wide region=greece+eu
+  "8 studies match sector Economy-wide, region Greece or EU. From your message: sector Economy-wide (“national climate plan”), region Greece or EU (“greek”). No st"
+> what about buildings?
+  studies [answered (rules)] sector=buildings region=greece+eu
+  "1 study matches sector Buildings, region Greece or EU. From your message: sector Buildings (“Buildings”). Type a change, such as another country or a topic."
+> what's an NDC?
+  studies [answered (rules)] sector=economy-wide region=greece+eu tag=ndcs
+  "5 studies match sector Economy-wide, region Greece or EU, topic NDCs. From your message: sector Economy-wide (“ndc”), topic NDCs (“NDCs”). Type a change, such a"
+> show me greenhouse gas emissions for Greece
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|Kyoto Gases region=World modelName=gcam scenario=PR_CurPol_CP+PR_NDC_CP
+> only current policies
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|Kyoto Gases region=World modelName=gcam scenario=PR_CurPol_CP
+> from 2030 to 2050
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|Kyoto Gases region=World modelName=gcam scenario=PR_CurPol_CP
+
+## model-researcher: Researcher comparing integrated assessment models
+> Compare GCAM and TIAM on CO2 emissions for the world
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CO2 region=World modelName=gcam scenario=PR_CurPol_CP+PR_NDC_CP
+> add baseline
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CO2 region=World modelName=gcam scenario=PR_CurPol_CP+PR_NDC_CP+PR_Baseline
+> what does harmonised mean?
+  answer [answered (rules)] Harmonisation
+  "Harmonisation adjusts model results so that they match common historical data in a base year, making results from different models easier to compare. In IAM PAR"
+> tell me about TIAM
+  ask [asked] AFOLU | Baseline scenario | Carbon budget | Carbon capture and storage (CCS)
+  "Which topic do you mean?"
+> who built it?
+  ask [asked] Build an analysis | Find a page | Find a tool | Explain a concept
+  "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you."
+> where can I compare models side by side?
+  navigation [answered (rules)] Model Comparison
+  "Open this page on IAMPARIS."
+> which models cover SDGs like water or health?
+  navigation [answered (rules)] SDG Model Coverage Matrix
+  "Open this page on IAMPARIS."
+
+## journalist: Science journalist writing about whether the world is on track
+> how much will global emissions fall by 2050?
+  ask [asked] Emissions|CO2 | Temperature|Global Mean | Price|Primary Energy|Coal | Price|Primary Energy|Gas
+  "Which variable do you mean? These are the closest matches; search for others."
+> is that a forecast?
+  review [asked] Change variable | Change region | Add a scenario | Change model
+  "There is no undefined data for forecast in “Where is the world headed?”, so your query is unchanged. Try another model or variable."
+> what does current policies mean
+  ask [asked] Final Energy | Temperature|Global Mean | Price|Primary Energy|Coal | Price|Primary Energy|Gas
+  "Which variable do you mean? These are the closest matches; search for others."
+> and under the paris pledges?
+  ask [asked] Final Energy | Temperature|Global Mean | Price|Primary Energy|Coal | Price|Primary Energy|Gas
+  "Which variable do you mean? These are the closest matches; search for others."
+> what about temperature?
+  result [answered+assumed] workspace_code=world-headed region=World scenario=PR_NDC_CP variable=Temperature|Global Mean modelName=5 values
+> is there a map of climate impacts I could embed?
+  apps [answered (rules)] type=Interactive Maps
+  "9 tools in the Application Library match “climate”, “impact”, type Interactive Maps. The closest 6 are listed. Each opens its library page. Describe what you ne"
+
+## student: Master's student learning about IAMs, writes with typos
+> what is an integrated assesment model
+  ask [asked] Integrated assessment model (IAM) | AFOLU | Baseline scenario | Carbon budget
+  "Which topic do you mean?"
+> which models are on the site?
+  navigation [answered (rules)] Models
+  "Open this page on IAMPARIS."
+> explain the difference between primary and final energy
+  ask [asked] Final energy | Primary energy | Model intercomparison | Secondary energy
+  "Which topic do you mean?"
+> show primary energy in india
+  answer [answered (rules)] Primary energy
+  "Primary energy is energy embodied in natural resources (coal, oil, gas, uranium, biomass, renewable flows) before any conversion. In IAM PARIS it is reported as"
+> only coal
+  ask [asked] Primary Energy|Coal | Final Energy|Liquids | Final Energy|Solids | Primary Energy|Fossil
+  "Which variable do you mean? These are the closest matches; search for others."
+> same for china
+  ask [asked] Capacity Additions|Electricity|Coal | Emissions|CO2|Energy | Emissions|CO2|Energy|Supply|Liquids | Emissions|CO2|Energy|Supply|Solids
+  "Which variable do you mean? These are the closest matches; search for others."
+
+## utility-planner: Investment planner at a Spanish electricity utility
+> We are a utility planning renewable investments in Spain. Which studies should we read?
+  studies [answered (rules)] sector=energy-supply region=spain+eu tag=investment
+  "1 study matches sector Energy supply, region Spain or EU, topic Investment & finance. From your message: sector Energy supply (“utility”), region Spain or EU (“"
+> solar electricity generation in Spain
+  result [answered+assumed] workspace_code=world-headed variable=Secondary Energy|Electricity|Solar region=ESP modelName=e3me+ices scenario=PR_CurPol_CP+PR_NDC_CP
+> and wind
+  ask [asked] Capacity|Electricity|Wind|Onshore | Primary Energy|Wind | Capacity Additions|Electricity|Wind | Capacity|Electricity|Wind
+  "Which variable do you mean? These are the closest matches; search for others."
+> installed capacity instead
+  ask [asked] Capacity|Electricity|Oil | Capacity|Electricity | Capacity|Electricity|Biomass | Capacity|Electricity|Coal
+  "Which variable do you mean? These are the closest matches; search for others."
+> carbon price in europe
+  result [answered+assumed] workspace_code=world-headed variable=Price|Carbon region=World modelName=5 values scenario=PR_CurPol_CP+PR_NDC_CP
+> is there a tool with power grid data?
+  apps [answered (rules)] 
+  "3 tools in the Application Library match “power”, “grid”, “data”. Each opens its library page. Describe what you need differently, or name a tool."
+
+## transport-official: Official at a national transport ministry
+> transport emissions in the EU up to 2050
+  result [answered+assumed] workspace_code=eu-headed region=EU variable=Emissions|CO2|Energy|Demand|Transportation modelName=10 values scenario=PR_WWH_CP+PR_WWH_NDC
+> how much energy does transport use in Germany?
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CO2|Energy|Demand|Transportation region=DEU modelName=e3me+ices scenario=PR_CurPol_CP+PR_NDC_CP
+> how much of that is electricity?
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CO2|Energy|Supply|Electricity region=DEU modelName=e3me+ices scenario=PR_CurPol_CP+PR_NDC_CP
+> open the transportation transformation study
+  navigation [answered (rules)] Transportation Transformation
+  "Open this page on IAMPARIS."
+> I advise the transport ministry. Which studies are for me?
+  studies [answered (rules)] sector=transport
+  "2 studies match sector Transport. From your message: sector Transport (“Transport”). Type a change, such as another country or a topic."
+
+## finance-ngo: Analyst at an NGO working on climate finance and adaptation in Africa
+> Where can I find data on climate finance?
+  navigation [answered (rules)] Cost of capital evolution effects on regional mitigation pathways
+  "Open this page on IAMPARIS."
+> tools for adaptation in Africa
+  apps [answered (rules)] 
+  "2 tools in the Application Library match “adaptation”, “africa”. Each opens its library page. Describe what you need differently, or name a tool."
+> only maps
+  apps [answered (rules)] type=Interactive Maps
+  "61 tools in the Application Library: type Interactive Maps. The first 6 are listed. Each opens its library page. Describe what you need differently, or name a t"
+> investment needs in the energy sector in Africa
+  result [answered+assumed] workspace_code=post-glasgow variable=Investment region=AFR modelName=GEMINI-E3 7.0 scenario=CP_EI+NDC_EI+NDC_LTT
+> population projections for Africa
+  result [answered+assumed] workspace_code=post-glasgow variable=Population region=AFR modelName=GEMINI-E3 7.0 scenario=CP_EI+NDC_EI+NDC_LTT
+
+## newcomer: First-time visitor who does not know what to ask
+> hi
+  ask [asked] Build an analysis | Find a page | Find a tool | Explain a concept
+  "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you."
+> what can you do?
+  ask [asked] Build an analysis | Find a page | Find a tool | Explain a concept
+  "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you."
+> emissions
+  ask [asked] Emissions|NH3 | Emissions|C2F6 | Emissions|CH4 | Emissions|CO
+  "Which variable do you mean? These are the closest matches; search for others."
+> help me find something about steel
+  navigation [answered (rules)] Circularity & decarbonisation interventions
+  "Open this page on IAMPARIS."
+> steel industry relocation results
+  navigation [answered (rules)] Implications of EU steel industry relocation
+  "Open this page on IAMPARIS."
+> what is IAM PARIS?
+  answer [answered (rules)] IAM PARIS
+  "IAM PARIS (https://iamparis.eu) is an open platform that documents integrated assessment and energy-system models and publishes their results. It offers a model"
+
+## modeller-uploader: Modelling team member who wants to publish results on the platform
+> How do I upload my model results to IAM PARIS?
+  navigation [answered (rules)] Models
+  "Open this page on IAMPARIS."
+> what file format do you need?
+  ask [asked] Build an analysis | Find a page | Find a tool | Explain a concept
+  "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you."
+> where is the documentation?
+  ask [asked] Models | 42 | AFOLU transformation | AIM/Enduse India 3.3
+  "Which page are you looking for?"
+> I want to contact the team
+  navigation [answered (rules)] Contact
+  "Open this page on IAMPARIS."
+> how do I add my model to the model documentation?
+  navigation [answered (rules)] Models
+  "Open this page on IAMPARIS."
+
+## land-use-researcher: Agricultural economist interested in land use and forests
+> land use emissions in Brazil
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CO2 region=BRA modelName=4 values scenario=PR_CurPol_CP+PR_NDC_CP
+> what is AFOLU?
+  answer [answered (rules)] AFOLU
+  "AFOLU (agriculture, forestry and other land use) covers emissions and removals from farming, forests and land-use change. In IAM PARIS it appears in variables s"
+> take me to the AFOLU transformation study
+  navigation [answered (rules)] AFOLU transformation
+  "Open this page on IAMPARIS."
+> forest area in the world
+  result [answered+assumed] workspace_code=world-headed variable=Land Cover|Forest region=World modelName=gcam scenario=PR_CurPol_CP+PR_NDC_CP
+> Which studies are relevant for agriculture and forestry?
+  studies [answered (rules)] sector=afolu tag=land-use
+  "1 study matches sector Agriculture & land use, topic Land use & forests. From your message: sector Agriculture & land use (“agriculture”), topic Land use & fore"
+
+## typos: Hurried user who types fast and misspells
+> co2 emisions in germny 2040
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CO2 region=World modelName=4 values scenario=PR_CurPol_CP+PR_NDC_CP
+> electrcity demand world
+  ask [asked] Agricultural Demand|Livestock|Other | Agricultural Demand | Agricultural Demand|Livestock | Temperature|Global Mean
+  "Which variable do you mean? These are the closest matches; search for others."
+> solar capasity china
+  ask [asked] Capacity Additions|Electricity|Solar | Agricultural Demand | Agricultural Demand|Livestock | Final Energy|Electricity
+  "Which variable do you mean? These are the closest matches; search for others."
+> wat is a carbon budjet
+  ask [asked] Carbon Sequestration|CCS|Industrial Processes | Carbon Sequestration|CCS | Carbon Sequestration|Direct Air Capture | Emissions|CO
+  "Which variable do you mean? These are the closest matches; search for others."
+
+## net-zero-analyst: Think-tank analyst following the EU's net-zero pathway
+> net zero CO2 emissions in the EU in the net zero study
+  navigation [answered (rules)] IAM COMPACT
+  "Open this page on IAMPARIS."
+> what scenarios are in this study?
+  ask [asked] Emissions|CO2 | Emissions|CO2|Energy and Industrial Processes | Emissions|CO2|Energy|Demand | Emissions|CO2|Energy|Demand|Residential&Commercial
+  "Which variable do you mean? These are the closest matches; search for others."
+> what's the remaining carbon budget?
+  answer [answered (rules)] Carbon budget
+  "A carbon budget is the maximum cumulative net amount of CO2 that can be emitted globally while limiting warming to a given level (for example 1.5°C or 2°C) with"
+> hydrogen production in the EU
+  result [answered+assumed] workspace_code=eu-headed region=EU variable=Secondary Energy|Hydrogen modelName=E4SMA-EU-TIMES 1.0+GCAM-PR 5.3+TIAM_Grantham 3.2 scenario=PR_WWH_CP
+> where can I read the policy questions of the Where is the EU headed study?
+  navigation [answered (rules)] Comparison of Fit-for-55 Policy and Cost Optimal Scenarios for the EU
+  "Open this page on IAMPARIS."
+> show me the post-glasgow study page
+  navigation [answered (rules)] Post-Glasgow targets
+  "Open this page on IAMPARIS."
+
+## city-energy-officer: Energy officer at a Dutch city looking at citizen energy and heat pumps
+> I work for the city of Rotterdam on energy communities and heat pumps
+  studies [answered (rules)] sector=buildings region=netherlands+eu tag=citizens+heat-pumps
+  "1 study matches sector Buildings, region Netherlands or EU, topic Citizens & prosumers or Heat pumps. From your message: region Netherlands or EU (“rotterdam”),"
+> data stories about policies
+  navigation [answered (rules)] Data Stories
+  "Open this page on IAMPARIS."
+> Is there a policy database I can search?
+  apps [answered (rules)] 
+  "6 tools in the Application Library match “policy”, “database”. Each opens its library page. Describe what you need differently, or name a tool."
+> heat pumps in buildings in the EU
+  result [answered+assumed] workspace_code=eu-headed region=EU variable=Final Energy|Buildings|Residential modelName=GEMINI-E3 7.0 scenario=PR_WWH_CP
+
+Saved results/baseline.json

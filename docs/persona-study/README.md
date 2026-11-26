@@ -1,0 +1,113 @@
+# Persona study: does the assistant guide real users along the right paths?
+
+Run on 2026-11-26 on branch `curated-user-paths` (from `classifier-short-descriptions`, 0ca601e). The aim was better curated paths: the assistant should lead people to the right data, studies, models, tools and pages over a whole conversation, not only on a first message. The map of every path is in [../user-paths.md](../user-paths.md).
+
+## Method
+
+1. **Personas.** [personas.json](personas.json) holds 13 people who use IAM PARIS, each with a chained conversation of 4 to 7 turns (71 turns in all): a policy analyst at a Greek ministry, a researcher comparing models, a journalist, a student who types with typos, a utility planner, a transport official, an NGO analyst working on finance and adaptation, a first-time visitor, a modeller who wants to publish results, a land-use researcher, a hurried typist, a net-zero analyst and a city energy officer. The conversations include follow-ups, refinements, vague wording, typos, topic switches and definitions asked mid-analysis.
+2. **What a good guide would do.** Each turn has a `want` in plain words, written before the first run, and an `expect` that encodes it: the acceptable reply kinds and strings the reply must contain (a variable, a region code, a page title). A few turns accept several kinds where more than one answer is reasonable (for example, either definition for "explain the difference between primary and final energy").
+3. **Recording.** [run-personas.mjs](run-personas.mjs) drives each conversation through a running assistant and records, per turn, the reply kind, the filters, the options offered, the studies, tools, page or definition it led to, and every decision with who made it (classifier with its probabilities, a curated phrase or exact wording, a rule in code, or a click). Raw records are in `results/*.json`, the printed transcripts in `results/*.log`.
+4. **Grading.** [compare.mjs](compare.mjs) checks each recorded reply against its `expect` and writes a before/after table: [results/comparison.md](results/comparison.md).
+5. **Held-out check.** After the fixes, four more personas (19 turns, [heldout.json](heldout.json)) were written and graded before either version saw them, to check that the fixes generalise rather than fit the 13 personas: [results/comparison-heldout.md](results/comparison-heldout.md).
+
+**Reply kinds:** `result` (data), `ask` (a question back), `review` (a question about the current query), `studies`, `apps` (tools), `navigation` (a page button), `answer` (a definition or a model profile).
+
+## Environment
+
+|               |                                                                                                                                                             |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Local machine | Windows 11, NVIDIA GeForce RTX 5070 Ti (driver 616.64), Node 24.12.0                                                                                        |
+| Classifier    | Ollama 0.40.13, `qwen3:4b` Q4_K_M, digest `359d7dd4bcda…` (the same on the EOSC VM)                                                                         |
+| Data          | Live IAMPARIS results API (`api.iamparis.eu`) and model registry, 2026-11-26                                                                                |
+| Before        | Commit 0ca601e: `results/baseline.json` (port 8797) and `results/heldout-baseline.json` (port 8798, the `iamparis-chat-verify` config on the main checkout) |
+| After         | Commit 132b281: `results/after.json`, `results/heldout-after.json` (port 8797)                                                                              |
+| EOSC VM       | Ubuntu 22.04, 16 vCPU, no GPU; a temporary loopback test instance on port 8789, separate from the deployed service on 8788                                  |
+
+## Results
+
+|                                                                              | Before                                               | After                   |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------- | ----------------------- |
+| Persona turns that went where they should (of 71)                            | **36**                                               | **70**                  |
+| Turns that asked the user instead of answering                               | 21                                                   | 7                       |
+| Held-out turns (of 19), first pass with commit b6d6a66                       | 8                                                    | 13                      |
+| Held-out turns (of 19) after fixing the 3 bugs they exposed (commit 132b281) | 8                                                    | 17                      |
+| Curation check, local GPU (`scripts/curation-check.mjs`, 2 runs per case)    | 40/40 (reported in `docs/benchmark/cpu-classifier/`) | 61/61 (40 old + 21 new) |
+| Curation check on the EOSC VM, commit b6d6a66                                | 39/40 on the deployed branch (2026-11-26)            | 60/61                   |
+| Curation check on the EOSC VM, commit 132b281                                |                                                      | 60/61                   |
+| Median turn time, local                                                      | 510 ms                                               | 312 ms                  |
+| Unit tests (`pnpm test`)                                                     | 94                                                   | 99, all passing         |
+
+The only VM failure, "emissions in the USA under current policies" (CO2 at 65%, below the 72% needed, so it asks), is the one the deployed `classifier-short-descriptions` branch already had. None of the 21 new turns failed on the VM.
+
+The two held-out turns still marked ✗ are a mistake in their `expect`, not in the assistant: Germany and France have hydrogen data only in "EU path to net zero", which writes them DE and FR, while the expectation asked for DEU and FRA. The assistant moved there and said so.
+
+## What was wrong, and what changed
+
+| #   | Weak spot (persona turn)                                                                                                                                                                 | Cause                                                                                                               | Change                                                                                                                                                                                            |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | "what's an NDC?" during a study search added an NDC filter; "is that a forecast?" during a query was read as the model FORECAST; "what does current policies mean" re-asked the variable | Open questions captured every message                                                                               | Definition questions naming a glossary term are answered on the side, keeping the query, study search or tool search (`definitionAside`)                                                          |
+| 2   | "tell me about TIAM" asked which glossary topic; "who built it?" fell to the menu                                                                                                        | Model families were split on spaces and hyphens, not `_` (TIAM_Grantham); a query in progress captured the question | Families split on `_`; model questions are answered before the open question                                                                                                                      |
+| 3   | "and wind" after solar generation asked which variable; "installed capacity instead" too                                                                                                 | Combined wording scored the current variable highest                                                                | `switchedVariable`: a follow-up's new words plus the rest of the current variable name one variable exactly, without the classifier                                                               |
+| 4   | "how much energy does transport use in Germany?" showed transport _emissions_                                                                                                            | Moving to a study with Germany used the old variable                                                                | The new variable is applied before the move; likewise when only the region's spelling differs (held-out)                                                                                          |
+| 5   | "how much of that is electricity?" gave power-sector CO2                                                                                                                                 | A curated phrase matched words of the old variable                                                                  | Fixed by 3 and 4                                                                                                                                                                                  |
+| 6   | "co2 emisions in germny", "electrcity demand", "solar capasity", "carbon budjet", "integrated assesment"                                                                                 | Exact wording and the classifier both missed typos                                                                  | `tools/spelling.ts`: a word found nowhere in the assistant's data (about 10k words) is corrected to a unique place name or domain term one edit away (two for long words); shown in the inspector |
+| 7   | "show primary energy in india" while asked "which topic?" gave the definition of primary energy                                                                                          | A data request was read as an answer                                                                                | A data request (place, year, "show…") during a page, topic, model or task question starts afresh                                                                                                  |
+| 8   | "carbon price in europe" while asked which wind variable kept Spain's query                                                                                                              | Same                                                                                                                | A request naming another place during a variable question starts afresh; "Europe" in a follow-up is the study's own EU region                                                                     |
+| 9   | "net zero CO2 emissions in the EU in the net zero study" opened the IAM COMPACT page                                                                                                     | `namedPage` fired on any message with "study"                                                                       | Not for data requests unless they ask for a page                                                                                                                                                  |
+| 10  | "where can I read the policy questions of the Where is the EU headed study?" opened the Fit-for-55 study                                                                                 | 9 of the 21 data studies and all TRANSIENCE studies had no page in the link catalogue                               | One link per Results study, generated from `data/studies.json`; a title said in full wins ties                                                                                                    |
+| 11  | The Post-Glasgow study link                                                                                                                                                              | Pointed to `/results/iam-compact/…`; the study is under `paris-reinforce`                                           | URL fixed in `data/links.json`                                                                                                                                                                    |
+| 12  | "How do I upload my model results?" opened Models; "what file format…", "where is the documentation?" got menus                                                                          | No route to the contributor docs, account or projects pages                                                         | Docs (5), projects, register, sign-in and privacy pages added; curated page phrases (`curation.json` → `pages`)                                                                                   |
+| 13  | "Is there a policy database I can search?" listed external tools                                                                                                                         | The site's own Policy Catalogue had no phrase                                                                       | Curated phrase (debatable: the library's Climate Policy Database is also a good answer)                                                                                                           |
+| 14  | "emissions" offered NH3, C2F6, CH4, CO                                                                                                                                                   | Alphabetical ranking and a 0% classifier "guess" first                                                              | Curated aggregates lead variable questions (`featuredVariables`); a guess leads only at ≥15%                                                                                                      |
+| 15  | "land use emissions in Brazil" gave total CO2                                                                                                                                            | Detail the user did not name was dropped                                                                            | Curated phrases for Emissions\|CO2\|AFOLU; "methane", "nitrous oxide" read as CH4, N2O                                                                                                            |
+| 16  | "greenhouse gas emissions for Greece" silently showed World                                                                                                                              | No catalogued study has GHG totals for Greece                                                                       | The region's variables of the same family are offered (Emissions\|CO2 for GRC)                                                                                                                    |
+| 17  | "only maps" after "tools for adaptation in Africa" dropped the subject                                                                                                                   | "maps" was read as a new subject                                                                                    | Words that name a type are not a new subject                                                                                                                                                      |
+| 18  | "what scenarios are in this study?" asked for a variable                                                                                                                                 | No route                                                                                                            | `studyContents`: lists a study's scenarios, models, regions or variables, keeping the query                                                                                                       |
+| 19  | "help me find something about steel" opened a model page                                                                                                                                 | No route from a topic to studies                                                                                    | "something / information about X" with a Results topic or sector starts a study search                                                                                                            |
+| 20  | "Which studies look at cement?" (held-out) gave data                                                                                                                                     | The study-question rule lacked "look at", "focus on", "address"                                                     | Added                                                                                                                                                                                             |
+| 21  | "are there any games about climate change?" (held-out, a regression from 6) read "games" as "gases"                                                                                      | Plurals of known words were unknown                                                                                 | Plural, -ing and -ed forms of known words are never corrected                                                                                                                                     |
+
+New regression cases: 21 turns in `scripts/curation-cases.json`; new unit tests in `apps/server/src/turn/turn.test.ts` and `apps.test.ts`.
+
+### Which changes touch classifier prompts
+
+The classifier sees the message, the question and up to 25 lettered options. Prompts change where options changed: the navigation question now has 16 study pages and 9 site pages more, and the glossary term "Projections, not forecasts" has two more aliases. Spelling repair changes the message for misspelled words only. Featured variables reorder only the question shown to the user. Several rules now decide without the classifier (curated pages, switched variables, definitions, study contents), which removes questions rather than changing them. Hence the VM check.
+
+## EOSC VM check
+
+Run over SSH on the VM with `bench/curated-user-paths/run-check.sh`: a copy of the committed tree (`git archive`) started on loopback port 8789 with the VM's Ollama (`qwen3:4b`, CPU), then `node scripts/curation-check.mjs 2 --api http://127.0.0.1:8789/api`, then stopped. The deployed service (`iamparis-assistant` on 8788, branch `classifier-short-descriptions`) was not changed.
+
+- Commit b6d6a66: 60/61, median 692 ms per turn ([log](results/curation-check-vm-b6d6a66.log)). The one failure is the known one above.
+- Commit 132b281: 60/61, median 612 ms ([log](results/curation-check-vm-132b281.log)). The same single known failure; the test instance was stopped afterwards.
+
+## Caveats
+
+- The `expect` strings are mine. The `want` of each persona turn was written before the first run; the `expect` encoding was added after, from the `want`. The persona set was also used to find the bugs, so its after-score is optimistic; the held-out set's first pass (8 → 13 of 19) is the fairer measure, and it then exposed three more bugs, now fixed.
+- One run per version. At temperature 0 the classifier is deterministic on one machine; the curation check runs every case twice and found no differences between runs.
+- Live data: the results API and the model registry may change. Rerunning later can differ for reasons outside the assistant.
+- Local GPU and VM CPU can disagree (see `docs/benchmark/cpu-classifier/`), hence the VM check.
+- Nothing was deployed. The VM runs `classifier-short-descriptions` as before.
+
+## Remaining gaps
+
+1. **"Data on climate finance"** opens the cost-of-capital study rather than the Application Library's 23 Finance tools. A rule for "data on <library topic>" would need care: "data on emissions" must stay a data query.
+2. **Several named models or scenarios in one request** ("compare GCAM and TIAM") keep one: the classifier picks a single option. A multi-value pick for names said outright would fix it.
+3. **A variable named only loosely stays a question**: "how much will global emissions fall" asks between GHG and CO2 (by policy, a variable is never assumed). The question now leads with the right options.
+4. **Study sub-pages** (graphs, harmonisation, insights, library) are not linked separately; the assistant opens the policy-questions page.
+5. **Heat pumps, electric vehicles** as data: "heat pumps in buildings in the EU" shows residential final energy and "electric vehicles in India" shows electricity capacity, because the general studies have no heat-pump or EV variables. Offering the Buildings or Transportation Transformation study instead would be the better path.
+6. **"Explain the difference between primary and final energy"** asks which of the two terms; answering both would be friendlier.
+7. **Spelling repair is conservative by design**: two-letter typos in short words ("wnd") and misspelled tool names are not corrected.
+8. **Unassigned data**: Greece's GHG totals exist in the API under `eu_china_baseline` and `-`, which are not catalogued studies, so the assistant cannot reach them.
+
+## Reproduce
+
+```powershell
+# from IAMPARIS/: start the assistant (launch config iamparis-chat-paths, port 8797) with Ollama qwen3:4b running
+node iamparis-bot/iamparis-chat-paths/docs/persona-study/run-personas.mjs after
+node iamparis-bot/iamparis-chat-paths/docs/persona-study/run-personas.mjs heldout-after --set heldout
+node iamparis-bot/iamparis-chat-paths/docs/persona-study/compare.mjs baseline after
+node iamparis-bot/iamparis-chat-paths/docs/persona-study/compare.mjs heldout-baseline heldout-after --set heldout
+node iamparis-bot/iamparis-chat-paths/scripts/curation-check.mjs 2 --api http://127.0.0.1:8797/api
+```
+
+For the "before" runs, start the same server on commit 0ca601e. `--only id,id` runs some personas; a turn text of `#2` clicks the second offered option.
