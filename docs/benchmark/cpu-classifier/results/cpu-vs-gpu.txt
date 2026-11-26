@@ -1,0 +1,12 @@
+# The failing variable question on the local GPU (RTX 5070 Ti), same model digest 359d7dd4bcda, Ollama 0.40.13
+full   1278 tokens Emissions|CO2 99%, none 1%, Emissions|NH3 0%
+short  788 tokens Emissions|CO2 97%, none 2%, Emissions|NH3 1%
+ipcc   831 tokens Emissions|CO2 60%, none 38%, Emissions|NH3 2%
+cap160 1019 tokens Emissions|CO2 94%, none 4%, Emissions|NH3 2%
+cap200 1089 tokens Emissions|CO2 68%, none 29%, Emissions|NH3 3%
+
+# 95 prompts, today's prompt: VM CPU vs local GPU
+  differs: Which supported IAMPARIS task … CPU - (? 84%)  GPU A (A 85%)
+same top answer 92/95, same decision 94/95; gap in top probability: median 0.1 points, max 18.7 points
+# 95 prompts, shorter descriptions: VM CPU vs local GPU
+same top answer 92/95, same decision 95/95; gap in top probability: median 0.1 points, max 22.7 points

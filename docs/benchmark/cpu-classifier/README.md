@@ -155,7 +155,15 @@ The variable question was then asked directly on the VM with [`scripts/ab-variab
 | capped at 160 characters | 1,019 | 71% | 28% |
 | capped at 200 characters | 1,089 | 46% | 51% |
 
-The confidence is not monotonic in how much is cut: on this question, any change to the descriptions moves the model's confidence. The 95-prompt sample did not include this question. On the GPU copy, the same prompt stayed above the 72% threshold, so the earlier checks passed. **Lesson:** a prompt change needs the curation check on the target machine before deploying, not only on a local GPU copy.
+The confidence is not monotonic in how much is cut: on this question, any change to the descriptions moves the model's confidence. The 95-prompt sample did not include this question.
+
+**Why the GPU copy passed.** It is the same model file (digest `359d7dd4bcda`), the same Ollama version and the same prompt, but the arithmetic differs ([`results/cpu-vs-gpu.txt`](results/cpu-vs-gpu.txt), [`scripts/cpu-vs-gpu.mjs`](scripts/cpu-vs-gpu.mjs)). The CPU and the GPU run different matrix kernels: different rounding, and floating-point sums added in a different order. Tiny differences build up over the model's 36 layers.
+
+- **Usually negligible:** on the 95 sampled prompts, the top probability differs by a median of 0.1 points between the VM and the GPU, and decisions match on 94/95 (95/95 with shorter descriptions).
+- **Sometimes large:** a few prompts differ by about 20 points. This question is one of them. Shortened, it scores 65% on the VM's CPU and 97–98% on the GPU.
+- **Even one machine varies slightly:** the identical full prompt gave 91% then 99% on the GPU. How much of the prompt Ollama reuses from the previous request changes how the rest is computed.
+
+A decision near the 72% threshold can therefore flip between machines. **Lesson:** a prompt change needs the curation check on the target machine before deploying, not only on a local GPU copy.
 
 ### Next steps worth testing
 
