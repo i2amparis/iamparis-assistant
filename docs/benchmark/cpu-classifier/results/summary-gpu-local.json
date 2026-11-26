@@ -1,0 +1,260 @@
+{
+  "summary": [
+    {
+      "config": "base",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.7,
+      "totalSeconds": 10,
+      "promptMsMedian": 84,
+      "promptTokensPerSecond": 6810,
+      "sameDecision": 95,
+      "sameTop": 95,
+      "compared": 95,
+      "decided": 24,
+      "conflict": 0,
+      "gained": 0,
+      "lost": 0
+    },
+    {
+      "config": "current-p-letter",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.5,
+      "turnSecondsP90": 0.7,
+      "totalSeconds": 10,
+      "promptMsMedian": 87,
+      "promptTokensPerSecond": 6948,
+      "sameDecision": 90,
+      "sameTop": 91,
+      "compared": 95,
+      "decided": 21,
+      "conflict": 0,
+      "gained": 1,
+      "lost": 4
+    },
+    {
+      "config": "current-short",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.3,
+      "turnSecondsP90": 0.5,
+      "totalSeconds": 7,
+      "promptMsMedian": 66,
+      "promptTokensPerSecond": 11671,
+      "sameDecision": 94,
+      "sameTop": 95,
+      "compared": 95,
+      "decided": 25,
+      "conflict": 0,
+      "gained": 1,
+      "lost": 0
+    },
+    {
+      "config": "optfirst",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.6,
+      "totalSeconds": 8,
+      "promptMsMedian": 68,
+      "promptTokensPerSecond": 11499,
+      "sameDecision": 77,
+      "sameTop": 67,
+      "compared": 95,
+      "decided": 17,
+      "conflict": 1,
+      "gained": 5,
+      "lost": 12
+    },
+    {
+      "config": "qfirst-letter",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.3,
+      "turnSecondsP90": 0.4,
+      "totalSeconds": 6,
+      "promptMsMedian": 61,
+      "promptTokensPerSecond": 23435,
+      "sameDecision": 80,
+      "sameTop": 65,
+      "compared": 95,
+      "decided": 10,
+      "conflict": 1,
+      "gained": 0,
+      "lost": 14
+    },
+    {
+      "config": "qfirst-p-best",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.3,
+      "turnSecondsP90": 0.5,
+      "totalSeconds": 7,
+      "promptMsMedian": 64,
+      "promptTokensPerSecond": 19073,
+      "sameDecision": 77,
+      "sameTop": 73,
+      "compared": 95,
+      "decided": 17,
+      "conflict": 1,
+      "gained": 5,
+      "lost": 12
+    },
+    {
+      "config": "qfirst-p-letter",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.5,
+      "totalSeconds": 7,
+      "promptMsMedian": 64,
+      "promptTokensPerSecond": 18473,
+      "sameDecision": 77,
+      "sameTop": 73,
+      "compared": 95,
+      "decided": 17,
+      "conflict": 1,
+      "gained": 5,
+      "lost": 12
+    },
+    {
+      "config": "qfirst-restate",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.5,
+      "totalSeconds": 8,
+      "promptMsMedian": 69,
+      "promptTokensPerSecond": 15578,
+      "sameDecision": 76,
+      "sameTop": 53,
+      "compared": 95,
+      "decided": 8,
+      "conflict": 1,
+      "gained": 1,
+      "lost": 17
+    },
+    {
+      "config": "qfirst",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.7,
+      "totalSeconds": 9,
+      "promptMsMedian": 79,
+      "promptTokensPerSecond": 8867,
+      "sameDecision": 79,
+      "sameTop": 69,
+      "compared": 95,
+      "decided": 14,
+      "conflict": 2,
+      "gained": 2,
+      "lost": 12
+    },
+    {
+      "config": "qrepeat-p-best",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.5,
+      "totalSeconds": 8,
+      "promptMsMedian": 71,
+      "promptTokensPerSecond": 18514,
+      "sameDecision": 78,
+      "sameTop": 72,
+      "compared": 95,
+      "decided": 20,
+      "conflict": 1,
+      "gained": 6,
+      "lost": 10
+    },
+    {
+      "config": "qrepeat-p-letter",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.5,
+      "totalSeconds": 8,
+      "promptMsMedian": 71,
+      "promptTokensPerSecond": 16723,
+      "sameDecision": 75,
+      "sameTop": 70,
+      "compared": 95,
+      "decided": 20,
+      "conflict": 2,
+      "gained": 7,
+      "lost": 11
+    },
+    {
+      "config": "qrepeat",
+      "prompts": 95,
+      "complete": true,
+      "turnSecondsMedian": 0.4,
+      "turnSecondsP90": 0.5,
+      "totalSeconds": 8,
+      "promptMsMedian": 72,
+      "promptTokensPerSecond": 15897,
+      "sameDecision": 80,
+      "sameTop": 60,
+      "compared": 95,
+      "decided": 10,
+      "conflict": 1,
+      "gained": 0,
+      "lost": 14
+    }
+  ],
+  "kinds": {
+    "Which supported IAMPARIS task is the use": {
+      "prompts": 20,
+      "ms": 1743,
+      "tokens": 6188
+    },
+    "Which IAMPARIS study fits the user's dat": {
+      "prompts": 19,
+      "ms": 1663,
+      "tokens": 7269
+    },
+    "Which variable does the user ask about? ": {
+      "prompts": 10,
+      "ms": 2200,
+      "tokens": 11960
+    },
+    "Which region does the user ask about? Ch": {
+      "prompts": 12,
+      "ms": 1295,
+      "tokens": 3197
+    },
+    "Which model does the user name? Choose n": {
+      "prompts": 16,
+      "ms": 1121,
+      "tokens": 2881
+    },
+    "Which scenario does the user name? Choos": {
+      "prompts": 12,
+      "ms": 724,
+      "tokens": 2893
+    },
+    "Which topic is the user most interested ": {
+      "prompts": 1,
+      "ms": 87,
+      "tokens": 400
+    },
+    "Which IAMPARIS page does the user ask fo": {
+      "prompts": 3,
+      "ms": 456,
+      "tokens": 2533
+    },
+    "Which model does the user ask about?": {
+      "prompts": 1,
+      "ms": 144,
+      "tokens": 719
+    },
+    "Which curated definition directly answer": {
+      "prompts": 1,
+      "ms": 148,
+      "tokens": 704
+    }
+  }
+}

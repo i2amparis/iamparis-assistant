@@ -1,0 +1,23 @@
+== base 10:30:27
+qwen3:4b current qwen threads=default: 95 prompts
+== threads8 10:35:23
+qwen3:4b current qwen threads=8: 95 prompts
+== threads12 10:44:48
+qwen3:4b current qwen threads=12: 95 prompts
+== q4_0 10:51:25
+hf.co/unsloth/Qwen3-4B-GGUF:Q4_0 current qwen threads=default: 95 prompts
+== qwen35-4b 10:57:21
+qwen3.5:4b current qwen threads=default: 95 prompts
+== qwen35-2b 11:03:34
+qwen3.5:2b current qwen threads=default: 95 prompts
+== granite-tiny 11:07:18
+granite4:tiny-h current granite threads=default: 95 prompts
+== lfm2-8b-a1b 11:11:13
+hf.co/LiquidAI/LFM2-8B-A1B-GGUF:Q4_K_M current lfm threads=default: 95 prompts
+== p8-current 11:14:59
+qwen3:4b current qwen threads=default: 95 prompts
+== p8-qfirst 11:19:57
+qwen3:4b qfirst qwen threads=default: 95 prompts
+== p8-restate 11:23:28
+qwen3:4b qfirst-restate qwen threads=default: 95 prompts
+== done 11:27:15
