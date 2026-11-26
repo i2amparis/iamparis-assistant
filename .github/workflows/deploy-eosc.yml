@@ -1,0 +1,52 @@
+# Deploy main to the EOSC VM on every push, after the unit tests pass. See docs/auto-deploy.md.
+name: Deploy to EOSC VM
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time, in push order; the VM deploys the tip of main, so none is lost.
+concurrency:
+  group: deploy-eosc
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Deploy ${{ github.sha }}
+        env:
+          HOST: ${{ secrets.EOSC_HOST }}
+          KEY: ${{ secrets.EOSC_DEPLOY_KEY }}
+        run: |
+          if [ -z "$HOST" ] || [ -z "$KEY" ]; then
+            echo "::error::Set the EOSC_HOST and EOSC_DEPLOY_KEY repository secrets (docs/auto-deploy.md)."
+            exit 1
+          fi
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          # The VM's host key, pinned: SHA256:ktBIFuwr6trhoOwjQf9fCMFyiWSsupOJxY6xSx0aQLw.
+          echo "$HOST ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHT6MYcxcsHQ9h27F+610rSWUHEjPuNGjY3XYlow26TT" > ~/.ssh/known_hosts
+          # The key's forced command runs /usr/local/sbin/iamparis-deploy and nothing else.
+          ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            -o ServerAliveInterval=30 "deploy@$HOST" "deploy $GITHUB_SHA"

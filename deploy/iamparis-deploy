@@ -1,0 +1,55 @@
+#!/bin/bash
+# Deploy the tip of main on the EOSC VM. Installed as /usr/local/sbin/iamparis-deploy by
+# eosc-github-deploy-setup.sh and run by the GitHub Action (.github/workflows/deploy-eosc.yml)
+# through a forced SSH command, so the deploy key can run nothing else.
+#
+#   deploy <40-character commit of main>
+#
+# The commit must be on main. The tip of main is deployed (it contains that commit), so a late
+# job never rolls back a newer push. If the service does not come back with its classifier, the
+# previous commit is restored and the script fails.
+set -euo pipefail
+
+APP=/srv/iamparis-assistant/app
+BRANCH=main
+want="${1:-}"
+want="${want#deploy }"
+if ! [[ "$want" =~ ^[0-9a-f]{40}$ ]]; then
+  echo "Usage: deploy <40-character commit of $BRANCH>" >&2
+  exit 2
+fi
+
+exec 9>/run/iamparis-deploy.lock
+flock 9
+
+as() { sudo -H -u iamparis env CI=true GIT_TERMINAL_PROMPT=0 "$@"; }
+build() {
+  as pnpm --dir "$APP" install --frozen-lockfile
+  as pnpm --dir "$APP" build
+  systemctl restart iamparis-assistant
+}
+healthy() {
+  for _ in $(seq 1 60); do
+    curl -fsS -m 2 http://127.0.0.1:8788/api/status >/dev/null 2>&1 && break
+    sleep 1
+  done
+  curl -fsS -m 5 http://127.0.0.1:8788/api/status | jq -e '.available' >/dev/null
+}
+
+as git -C "$APP" fetch -q origin "$BRANCH"
+if ! as git -C "$APP" merge-base --is-ancestor "$want" "origin/$BRANCH" 2>/dev/null; then
+  echo "$want is not on $BRANCH; nothing deployed." >&2
+  exit 3
+fi
+before=$(as git -C "$APP" rev-parse HEAD)
+as git -C "$APP" checkout -q -B "$BRANCH" "origin/$BRANCH"
+if build && healthy; then
+  echo "Deployed $(as git -C "$APP" log -1 --format='%h %s') (was ${before:0:7})."
+  exit 0
+fi
+
+echo "The service is not healthy on the new commit; restoring ${before:0:7}." >&2
+as git -C "$APP" checkout -q --detach "$before"
+build
+healthy && echo "Restored ${before:0:7}." >&2
+exit 4
