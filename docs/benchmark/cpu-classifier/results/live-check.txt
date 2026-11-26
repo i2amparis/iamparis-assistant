@@ -1,0 +1,17 @@
+# Live curation check on the VM after deploying 9c20d58 (2026-11-26)
+    navigation 
+
+39/40 turns as expected over 2 runs; median 1206 ms.
+EXIT=1
+    result (2 series) world-headed · Carbon Sequestration|CCS · World · tiam · PR_CurPol_CP, PR_NDC_CP
+✗ emissions in the USA under current policies
+    ask world-headed · USA · PR_CurPol_CP
+    ! kind ask, expected result
+    Which variable do you mean? These are the closest matches; search for others.
+
+# The failing variable question, asked directly (node scripts/ab-variable.mjs diag.json "emissions in the USA under current policies")
+full   1278 tokens Emissions|CO2 99%, none 1%, Emissions|NH3 1%
+short  788 tokens Emissions|CO2 65%, none 33%, Emissions|NH3 2%
+ipcc   831 tokens Emissions|CO2 56%, none 41%, Emissions|NH3 2%
+cap160 1019 tokens Emissions|CO2 71%, none 28%, Emissions|NH3 2%
+cap200 1089 tokens none 51%, Emissions|CO2 46%, Emissions|NH3 2%

@@ -2,7 +2,7 @@
 
 **Question.** The assistant's classifier (`qwen3:4b` through Ollama) runs on a CPU-only EOSC VM. Which setting or model makes it faster without changing its decisions?
 
-**Answer.** Ollama's default threads and quantization are already the fastest. No other small model was both faster and close to today's decisions. One change is worth making: **shorter option descriptions in the classifier prompt**. They cut the classifier's total time on the VM by 19% and its slowest turns by 36%, with 93 of 95 decisions unchanged and none contradicted. That change is now in `apps/server/src/jev/client.ts` (`brief`). The [Results](#results) section has the details.
+**Answer.** Ollama's default threads and quantization are already the fastest. No other small model was both faster and close to today's decisions. The best candidate, **shorter option descriptions in the classifier prompt**, cut total classifier time on the VM by 19% and the slowest turns by 36%, with 93 of 95 sampled decisions unchanged. But once deployed it **failed one of the 40 curation turns**: "emissions in the USA under current policies" dropped from 99% to 65% for `Emissions|CO2`, so the assistant asked instead of answering. Gentler cuts did not fix it (see [Live check after deploying](#live-check-after-deploying)). The [Results](#results) section has the details.
 
 A short write-up of this benchmark for sharing is in Claude Docs, *Classifier on CPU: benchmark on the EOSC VM* (https://claude.ai/artifact/UzRyMuEPbP6Ff3NnnqZpQt, private until shared).
 
@@ -117,7 +117,7 @@ Where the baseline's time goes:
 
 1. **Threads and quantization: keep Ollama's defaults.** Processing the prompt scales with cores: 136 tok/s at 16 threads, 100 at 12, 70 at 8. Q4_0 was slower than Q4_K_M on this CPU (112 tok/s) and changed 15 decisions.
 2. **Other models: none is a clear win.** The fastest, LFM2-8B-A1B, Granite H-Tiny and Qwen3.5-2B, save 20–25% of total time but differ from today's decisions on 18–30 of 95 prompts. LFM2 and Granite decide much more often (39 and 29 against 23). Without ground truth that may be better recall or overconfidence, so judging them needs labelled data, not agreement. Qwen3.5-4B, despite its higher JevBench score, is slower on this CPU (108 tok/s) and decides less often.
-3. **Shortened descriptions: adopt.** The variable question takes 36% of the time because its options carry IPCC-category definitions. Shortening them brought it from 10.4 s to 5.6 s (722 tokens on average, from 1,196). 93/95 decisions were unchanged, with no conflicts; the 2 differences are new decisions. The same test on a GPU copy of the same model agrees (94/95, see below).
+3. **Shortened descriptions: faster, but they failed one curation turn once deployed (below).** The variable question takes 36% of the time because its options carry IPCC-category definitions. Shortening them brought it from 10.4 s to 5.6 s (722 tokens on average, from 1,196). 93/95 decisions were unchanged, with no conflicts; the 2 differences are new decisions. The same test on a GPU copy of the same model agrees (94/95, see below).
 4. **Cache-friendly layout: faster, but changes behaviour.** With 8 slots and the fixed part first, Ollama does reuse its cache: the task question drops from 2.2 s to about 0.2 s after its first use. Total time fell by 30% (41% with shortened descriptions). But Qwen decided much less often (13, then 7 and 6 against 23), because with the message last it often starts a sentence ("Let…", "The…") instead of a letter. More slots alone (`p8-current`) change nothing.
 
 ### Follow-up on the layout (local GPU, same model)
@@ -138,8 +138,24 @@ Changing the pre-fill brings the letters back: they get a median 91% of the prob
 ### Change made
 
 - `apps/server/src/jev/client.ts`: `brief()` shortens each option's description in the **Ollama classifier prompt only**, using the same rule as the `short` configuration. Users, hosted Jev and local-jev still see full descriptions. A test is in `client.test.ts`.
-- Checks: `pnpm test` 94/94. `scripts/curation-check.mjs` passed 40/40 turns over 2 runs, against a local server with the change, on local Ollama (`qwen3:4b`).
-- Not yet deployed to the VM.
+- Checks before deploying: `pnpm test` 94/94. `scripts/curation-check.mjs` passed 40/40 turns over 2 runs, against a local server with the change, on local Ollama with a GPU (`qwen3:4b`).
+- Committed as `9c20d58` on branch `classifier-short-descriptions`, then deployed to the VM.
+
+### Live check after deploying
+
+On the VM (CPU), the curation check passed **39/40** turns over 2 runs ([`results/live-check.txt`](results/live-check.txt)). Production only accepts its own origins, so this run used a copy of `curation-check.mjs` that sends `Origin: https://chat.iamparis.eu`. The failing turn, "emissions in the USA under current policies", ended in "Which variable do you mean?" instead of a result. The region and scenario were still decided.
+
+The variable question was then asked directly on the VM with [`scripts/ab-variable.mjs`](scripts/ab-variable.mjs), using the live options:
+
+| Descriptions | Prompt tokens | `Emissions|CO2` | None |
+|---|---|---|---|
+| full (before the change) | 1,278 | 99% | 1% |
+| shortened (`brief`, deployed) | 788 | 65% | 33% |
+| cut only at " (IPCC" | 831 | 56% | 41% |
+| capped at 160 characters | 1,019 | 71% | 28% |
+| capped at 200 characters | 1,089 | 46% | 51% |
+
+The confidence is not monotonic in how much is cut: on this question, any change to the descriptions moves the model's confidence. The 95-prompt sample did not include this question. On the GPU copy, the same prompt stayed above the 72% threshold, so the earlier checks passed. **Lesson:** a prompt change needs the curation check on the target machine before deploying, not only on a local GPU copy.
 
 ### Next steps worth testing
 
