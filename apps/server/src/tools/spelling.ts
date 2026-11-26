@@ -99,12 +99,27 @@ function distance(a: string, b: string, limit: number) {
   return previous[b.length];
 }
 
+/** Whether the word, or its stem without a plural, -ing or -ed ending, is in the data. */
+function isKnown(word: string) {
+  const stems = [
+    word,
+    word.replace(/s$/, ""),
+    word.replace(/es$/, ""),
+    word.replace(/ies$/, "y"),
+    word.replace(/ing$/, ""),
+    word.replace(/ing$/, "e"),
+    word.replace(/ed$/, ""),
+    word.replace(/d$/, ""),
+  ];
+  return stems.some((stem) => known.has(stem));
+}
+
 const cache = new Map<string, string | undefined>();
 /** The anchor a misspelled word stands for, if exactly one is close enough. */
 function repair(word: string): string | undefined {
   if (cache.has(word)) return cache.get(word);
   let found: string | undefined;
-  if (word.length >= 5 && !known.has(word) && !english.has(word)) {
+  if (word.length >= 5 && !isKnown(word) && !english.has(word)) {
     const limit = word.length >= 8 ? 2 : 1;
     let best = limit + 1;
     let tie = false;

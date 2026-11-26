@@ -92,7 +92,7 @@ const routes: Option[] = [
 const describesUser =
   /\b(i\s*(am|'m|’m)\s+(an?|the|in|at|with|from|working|responsible|based)\b|i\s+(work|advise|represent|lead|manage)\b|my\s+(role|job|background|work|team|ministry|department|agency|country|region|sector|organi[sz]ation|company|city)\b|we\s+(work|regulate|advise)\b|as\s+an?\s+[\w\s-]{0,30}(maker|advis[eo]r|analyst|regulator|planner|official|officer|servant|minister|journalist|student|researcher|consultant|investor|mayor)\b)/i;
 const asksForStudies =
-  /\b(which|what|any|relevant|recommend|suggest|curate|pick|find|show)\b[^.?!]*\bstud(y|ies)\b[^.?!]*\b(for|about|on|covering|relevant|matter|should|cover|deal)\b|\b(relevant|useful|matter)s?\s+(for|to)\s+(me|us|my)\b|\bwhat should i (read|look at)\b/i;
+  /\b(which|what|any|relevant|recommend|suggest|curate|pick|find|show)\b[^.?!]*\bstud(y|ies)\b[^.?!]*\b(for|about|on|covering|relevant|matter|should|cover|deal|look|looks|focus|focuses|examine|examines|address|addresses|analy[sz]e|analy[sz]es)\b|\b(relevant|useful|matter)s?\s+(for|to)\s+(me|us|my)\b|\bwhat should i (read|look at)\b/i;
 /** What each classifier question decides, as the inspector names it. */
 const subjects: Record<string, string> = {
   route: "task",
@@ -1137,16 +1137,26 @@ export async function handleTurn(
     // A requested value without data keeps the previous query and says why, never a silent revert.
     const missing = changes.find((d) => !draft.filters[d]?.includes(picks[d].choice!));
     if (missing) {
-      const value = picks[missing].choice!;
-      conversation.draft = before;
+      const lost = picks[missing].choice!;
       if (missing === "region") {
-        const moved = await moveToStudyWith(value, years);
+        // Only the region moves: the rest of the change stays ("final energy in transport in
+        // India" keeps the new variable when India is published as IND).
+        const moving = structuredClone(before);
+        for (const d of changes)
+          if (d !== "region")
+            moving.filters[d] =
+              extend && d !== "variable"
+                ? [...new Set([...(moving.filters[d] ?? []), value(d)])]
+                : [value(d)];
+        conversation.draft = moving;
+        const moved = await moveToStudyWith(lost, years);
         if (moved) return moved;
       }
+      conversation.draft = before;
       const study = workspaces.find((w) => w.code === before.filters.workspace_code?.[0])?.title;
       return ask(
         "review",
-        `There is no ${before.filters.variable} data for ${regionName(value) ?? value} in “${study}”, so your query is unchanged. Try another ${dimensionLabels[missing]} or variable.`,
+        `There is no ${before.filters.variable} data for ${regionName(lost) ?? lost} in “${study}”, so your query is unchanged. Try another ${dimensionLabels[missing]} or variable.`,
         refineOptions,
       );
     }

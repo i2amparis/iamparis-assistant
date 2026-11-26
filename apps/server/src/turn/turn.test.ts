@@ -282,6 +282,23 @@ describe("curated analysis", () => {
     // The variable was decided by wording: the classifier was not asked about it.
     expect(calls[0]).not.toContain("variable");
   });
+  it("leaves plurals of known words alone and reads study questions as such", async () => {
+    const games = await handleTurn(
+      conversation(),
+      { text: "are there any games about climate change?" },
+      api,
+      manual,
+    );
+    expect(games.trace.some((d) => d.subject === "spelling")).toBe(false);
+    expect(games.kind).toBe("apps");
+    const cement = await handleTurn(
+      conversation(),
+      { text: "Which studies look at cement?" },
+      api,
+      manual,
+    );
+    expect(cement.kind).toBe("studies");
+  });
   it("reads misspelled places and terms as meant", async () => {
     const reply = await handleTurn(
       conversation(),
