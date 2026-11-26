@@ -271,6 +271,124 @@
     },
     {
       "turns": [{ "text": "Where is the scenario metadata tool?", "kind": "navigation" }]
+    },
+    {
+      "_persona": "Added 2026-11-26 from docs/persona-study: typos, sibling follow-ups, definitions mid-analysis, study contents, site help.",
+      "turns": [
+        {
+          "text": "co2 emisions in germny 2040",
+          "kind": "result",
+          "variable": ["Emissions|CO2"],
+          "region": ["DEU"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "solar electricity generation in Spain",
+          "kind": "result",
+          "variable": ["Secondary Energy|Electricity|Solar"],
+          "region": ["ESP"]
+        },
+        {
+          "text": "and wind",
+          "kind": "result",
+          "variable": ["Secondary Energy|Electricity|Wind"],
+          "region": ["ESP"]
+        },
+        {
+          "text": "installed capacity instead",
+          "kind": "result",
+          "variable": ["Capacity|Electricity|Wind"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "transport emissions in the EU up to 2050",
+          "kind": "result",
+          "variable": ["Emissions|CO2|Energy|Demand|Transportation"],
+          "region": ["EU"]
+        },
+        {
+          "text": "how much energy does transport use in Germany?",
+          "kind": "result",
+          "variable": ["Final Energy|Transportation"],
+          "region": ["DEU"]
+        },
+        {
+          "text": "how much of that is electricity?",
+          "kind": "result",
+          "variable": ["Final Energy|Transportation|Electricity"],
+          "region": ["DEU"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "electricity generation for EU in 2050",
+          "kind": "result",
+          "variable": ["Secondary Energy|Electricity"]
+        },
+        { "text": "what's an NDC?", "kind": "answer" },
+        {
+          "text": "only solar",
+          "kind": "result",
+          "variable": ["Secondary Energy|Electricity|Solar"],
+          "region": ["EU"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "net zero CO2 emissions in the EU in the net zero study",
+          "kind": "result",
+          "workspace_code": ["net-zero"],
+          "variable": ["Emissions|CO2"]
+        },
+        { "text": "what scenarios are in this study?", "kind": "answer" }
+      ]
+    },
+    {
+      "turns": [
+        {
+          "text": "land use emissions in Brazil",
+          "kind": "result",
+          "variable": ["Emissions|CO2|AFOLU"]
+        }
+      ]
+    },
+    {
+      "turns": [
+        { "text": "show me greenhouse gas emissions for Greece", "kind": "ask", "region": ["GRC"] }
+      ]
+    },
+    {
+      "turns": [
+        { "text": "tell me about TIAM", "kind": "answer" },
+        { "text": "who built it?", "kind": "answer" }
+      ]
+    },
+    {
+      "turns": [
+        { "text": "How do I upload my model results to IAM PARIS?", "kind": "navigation" },
+        { "text": "what file format do you need?", "kind": "navigation" }
+      ]
+    },
+    {
+      "turns": [
+        { "text": "help me find something about steel", "kind": "studies", "tag": ["steel"] }
+      ]
+    },
+    {
+      "turns": [
+        { "text": "tools for adaptation in Africa", "kind": "apps" },
+        { "text": "only maps", "kind": "apps", "type": ["Interactive Maps"] }
+      ]
     }
   ]
 }

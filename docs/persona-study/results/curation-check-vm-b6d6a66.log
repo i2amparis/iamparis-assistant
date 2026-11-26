@@ -1,0 +1,128 @@
+✓ CO2 emissions in the world in 2050
+    result (8 series) world-headed · Emissions|CO2 · World · 4 modelName · PR_CurPol_CP, PR_NDC_CP
+✓ Compare CO2 emissions in Europe in 2050
+    result (6 series) eu-headed · Emissions|CO2 · EU · 6 modelName · PR_WWH_CP
+✓ greenhouse gas emissions in the EU
+    result (1 series) eu-headed · Emissions|Kyoto Gases · EU · GCAM-PR 5.3 · PR_WWH_CP
+✓ electricity generation for EU in 2050
+    result (6 series) eu-headed · Secondary Energy|Electricity · EU · 6 modelName · PR_WWH_CP
+✓   → only solar
+    result (6 series) eu-headed · Secondary Energy|Electricity|Solar · EU · 6 modelName · PR_WWH_CP
+✓   → same for Germany
+    result (4 series) world-headed · Secondary Energy|Electricity|Solar · DEU · e3me, ices · PR_CurPol_CP, PR_NDC_CP
+✓   → what about 2040?
+    result (4 series) world-headed · Secondary Energy|Electricity|Solar · DEU · e3me, ices · PR_CurPol_CP, PR_NDC_CP
+✓ How much power will the EU get from wind in 2050?
+    result (6 series) eu-headed · Secondary Energy|Electricity|Wind · EU · 6 modelName · PR_WWH_CP
+✓   → only GCAM
+    result (1 series) eu-headed · Secondary Energy|Electricity|Wind · EU · GCAM-PR 5.3 · PR_WWH_CP
+✓ solar capacity in China
+    result (4 series) world-headed · Capacity|Electricity|Solar · CHN · gcam, tiam · PR_CurPol_CP, PR_NDC_CP
+✓ final energy consumption in transport for the EU
+    result (8 series) eu-headed · Final Energy|Transportation · EU · 8 modelName · PR_WWH_CP, PR_WWH_NDC
+✓ CO2 emissions from transport in Germany
+    result (4 series) world-headed · Emissions|CO2|Energy|Demand|Transportation · DEU · e3me, ices · PR_CurPol_CP, PR_NDC_CP
+✓ primary energy from coal worldwide
+    result (12 series) world-headed · Primary Energy|Coal · World · 6 modelName · PR_CurPol_CP, PR_NDC_CP
+✓ Show me CCS in the world
+    result (8 series) world-headed · Carbon Sequestration|CCS · World · 4 modelName · PR_CurPol_CP, PR_NDC_CP
+✓   → only TIAM
+    result (2 series) world-headed · Carbon Sequestration|CCS · World · tiam · PR_CurPol_CP, PR_NDC_CP
+✗ emissions in the USA under current policies
+    ask world-headed · USA · PR_CurPol_CP
+    ! kind ask, expected result
+    Which variable do you mean? These are the closest matches; search for others.
+✓ CO2 emissions in the world
+    result (8 series) world-headed · Emissions|CO2 · World · 4 modelName · PR_CurPol_CP, PR_NDC_CP
+✓   → add baseline
+    result (12 series) world-headed · Emissions|CO2 · World · 4 modelName · PR_CurPol_CP, PR_NDC_CP, PR_Baseline
+✓   → only current policies
+    result (4 series) world-headed · Emissions|CO2 · World · 4 modelName · PR_CurPol_CP
+✓ global wind power
+    result (12 series) world-headed · Secondary Energy|Electricity|Wind · World · 6 modelName · PR_CurPol_CP, PR_NDC_CP
+✓   → same for India
+    result (12 series) world-headed · Secondary Energy|Electricity|Wind · IND · 6 modelName · PR_CurPol_CP, PR_NDC_CP
+✓ population projections for Africa
+    result (3 series) post-glasgow · Population · AFR · GEMINI-E3 7.0 · CP_EI, NDC_EI, NDC_LTT
+✓ what does GCAM project for wind capacity globally?
+    result (2 series) world-headed · Capacity|Electricity|Wind · World · gcam · PR_CurPol_CP, PR_NDC_CP
+✓ carbon price under the post-Glasgow targets
+    result (3 series) post-glasgow · Price|Carbon · EU · MUSE · CP_EI, NDC_EI, NDC_LTT
+✓ GDP of India
+    ask world-headed · IND
+✓ Where can I find the model catalogue?
+    navigation 
+✓ What is a baseline scenario?
+    answer 
+✓ tell me about GCAM
+    answer 
+✓   → who developed it?
+    answer 
+✓ I work on industry policy at the German economics ministry. Which studies matter to me?
+    studies germany · industry
+✓   → what about Poland?
+    studies poland · industry
+✓ I'm a policy maker, which studies are relevant for me?
+    ask 
+✓   → transport
+    studies transport
+✓ I work on buildings policy for the Greek government
+    studies greece, eu · buildings
+✓ Which studies are relevant for hydrogen in steelmaking?
+    studies industry · hydrogen
+✓ Is there a tool to explore countries' NDCs?
+    apps  NDC Explorer · NDC Ambition Explorer · PBL Climate Pledge NDC tool
+✓   → what about forests?
+    apps  Global Forest Watch (GFW) · CEOS Global Stocktake Portal · Climate Data Store - Copernicus
+✓ Where can I find Climate Watch?
+    apps  Climate Watch
+✓ Show me interactive maps in the application library
+    apps Interactive Maps CDP Open Data Portal · Climate Action Tracker · Climate Central Data Tools
+✓ Where is the scenario metadata tool?
+    navigation 
+✓ co2 emisions in germny 2040
+    result (2 series) world-headed · Emissions|CO2 · DEU · e3me · PR_CurPol_CP, PR_NDC_CP
+✓ solar electricity generation in Spain
+    result (4 series) world-headed · Secondary Energy|Electricity|Solar · ESP · e3me, ices · PR_CurPol_CP, PR_NDC_CP
+✓   → and wind
+    result (4 series) world-headed · Secondary Energy|Electricity|Wind · ESP · e3me, ices · PR_CurPol_CP, PR_NDC_CP
+✓   → installed capacity instead
+    result (4 series) net-zero · Capacity|Electricity|Wind · ES · E4SMA-EU-TIMES 1.0, NEMESIS 5.1 · WWH21, NZE_EUPol_Stand
+✓ transport emissions in the EU up to 2050
+    result (10 series) eu-headed · Emissions|CO2|Energy|Demand|Transportation · EU · 10 modelName · PR_WWH_CP, PR_WWH_NDC
+✓   → how much energy does transport use in Germany?
+    result (4 series) world-headed · Final Energy|Transportation · DEU · e3me, ices · PR_CurPol_CP, PR_NDC_CP
+✓   → how much of that is electricity?
+    result (4 series) world-headed · Final Energy|Transportation|Electricity · DEU · e3me, ices · PR_CurPol_CP, PR_NDC_CP
+✓ electricity generation for EU in 2050
+    result (6 series) eu-headed · Secondary Energy|Electricity · EU · 6 modelName · PR_WWH_CP
+✓   → what's an NDC?
+    answer 
+✓   → only solar
+    result (6 series) eu-headed · Secondary Energy|Electricity|Solar · EU · 6 modelName · PR_WWH_CP
+✓ net zero CO2 emissions in the EU in the net zero study
+    result (2 series) net-zero · Emissions|CO2 · EU27 · E4SMA-EU-TIMES 1.0, NEMESIS 5.1 · NZE_EUPol_Stand
+✓   → what scenarios are in this study?
+    answer 
+✓ land use emissions in Brazil
+    result (2 series) world-headed · Emissions|CO2|AFOLU · BRA · gcam · PR_CurPol_CP, PR_NDC_CP
+✓ show me greenhouse gas emissions for Greece
+    ask world-headed · GRC
+✓ tell me about TIAM
+    answer 
+✓   → who built it?
+    answer 
+✓ How do I upload my model results to IAM PARIS?
+    navigation 
+✓   → what file format do you need?
+    navigation 
+✓ help me find something about steel
+    studies industry · steel
+✓ tools for adaptation in Africa
+    apps  Climate Transparency Reports · Green Economy Tracker
+✓   → only maps
+    apps Interactive Maps weAdapt Adaptation Layer · Climate Action Tracker · CDP Open Data Portal
+
+60/61 turns as expected over 2 runs; median 692 ms.
+exit 1
+done

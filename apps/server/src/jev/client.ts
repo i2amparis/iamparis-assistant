@@ -72,6 +72,20 @@ const ollamaInstructions =
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXY";
 
 /**
+ * An option's description as the local classifier sees it: cut at its first parenthesis,
+ * semicolon or ", including / reporting / such as / for instance" after 40 characters, and at
+ * most about 120 characters. Variable definitions carry long IPCC-category text that made the
+ * variable question a third of all prompt tokens. On the EOSC VM (CPU) this cut total classifier
+ * time by 19% and the slowest turns by 36%, with 93 of 95 decisions unchanged and none
+ * contradicted (docs/benchmark/cpu-classifier). Users still see the full description.
+ */
+export function brief(detail: string): string {
+  const cut = detail.slice(40).search(/ \(|; |, (including|reporting|such as|for instance)\b/);
+  const kept = cut < 0 ? detail : detail.slice(0, 40 + cut);
+  return kept.length > 120 ? kept.slice(0, kept.lastIndexOf(" ", 120)) : kept;
+}
+
+/**
  * Ask a local Qwen model through Ollama as a classifier: the
  * options are lettered, the reply is pre-filled up to "Answer:", and the probabilities Ollama
  * reports for the next token form the distribution over options and "none". The same confidence
@@ -89,7 +103,7 @@ async function askOllama(
     const asked = performance.now();
     const options = questions[key].options.slice(0, letters.length);
     const listing = options
-      .map((o, i) => `${letters[i]}: ${o.label}${o.detail ? ` — ${o.detail}` : ""}`)
+      .map((o, i) => `${letters[i]}: ${o.label}${o.detail ? ` — ${brief(o.detail)}` : ""}`)
       .join("\n");
     const prompt = [
       `<|im_start|>system\n${ollamaInstructions}<|im_end|>`,

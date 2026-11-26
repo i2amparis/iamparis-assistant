@@ -1,0 +1,95 @@
+{"i":0,"turn":0,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.906,"decision":"A","ms":2326,"prompt_tokens":308,"prompt_ms":2268}
+{"i":1,"turn":0,"kind":"Which IAMPARIS study fits the user's dat","top":"L","p":0.227,"decision":"-","ms":2416,"prompt_tokens":380,"prompt_ms":2330}
+{"i":2,"turn":0,"kind":"Which variable does the user ask about? ","top":"G","p":0.284,"decision":"-","ms":9335,"prompt_tokens":1796,"prompt_ms":9239}
+{"i":3,"turn":0,"kind":"Which region does the user ask about? Ch","top":"A","p":0.985,"decision":"A","ms":1437,"prompt_tokens":264,"prompt_ms":1306}
+{"i":4,"turn":0,"kind":"Which model does the user name? Choose n","top":"Z","p":0.882,"decision":"-","ms":901,"prompt_tokens":164,"prompt_ms":843}
+{"i":5,"turn":0,"kind":"Which scenario does the user name? Choos","top":"Z","p":0.45,"decision":"-","ms":1740,"prompt_tokens":273,"prompt_ms":1677}
+{"i":6,"turn":2,"kind":"Which supported IAMPARIS task is the use","top":"E","p":0.907,"decision":"E","ms":2014,"prompt_tokens":302,"prompt_ms":1946}
+{"i":7,"turn":2,"kind":"Which IAMPARIS study fits the user's dat","top":"I","p":0.724,"decision":"I","ms":2547,"prompt_tokens":374,"prompt_ms":2458}
+{"i":8,"turn":2,"kind":"Which region does the user ask about? Ch","top":"A","p":0.991,"decision":"A","ms":1711,"prompt_tokens":259,"prompt_ms":1639}
+{"i":9,"turn":2,"kind":"Which model does the user name? Choose n","top":"Z","p":0.915,"decision":"-","ms":995,"prompt_tokens":158,"prompt_ms":910}
+{"i":10,"turn":2,"kind":"Which scenario does the user name? Choos","top":"J","p":0.176,"decision":"-","ms":1560,"prompt_tokens":267,"prompt_ms":1497}
+{"i":11,"turn":4,"kind":"Which supported IAMPARIS task is the use","top":"E","p":0.927,"decision":"E","ms":1949,"prompt_tokens":301,"prompt_ms":1891}
+{"i":12,"turn":4,"kind":"Which IAMPARIS study fits the user's dat","top":"L","p":0.597,"decision":"-","ms":2327,"prompt_tokens":373,"prompt_ms":2266}
+{"i":13,"turn":4,"kind":"Which region does the user ask about? Ch","top":"B","p":0.971,"decision":"B","ms":1576,"prompt_tokens":257,"prompt_ms":1514}
+{"i":14,"turn":4,"kind":"Which model does the user name? Choose n","top":"Z","p":0.973,"decision":"-","ms":1094,"prompt_tokens":157,"prompt_ms":1035}
+{"i":15,"turn":4,"kind":"Which scenario does the user name? Choos","top":"Z","p":0.259,"decision":"-","ms":1451,"prompt_tokens":266,"prompt_ms":1397}
+{"i":16,"turn":6,"kind":"Which topic is the user most interested ","top":"Z","p":0.677,"decision":"-","ms":2488,"prompt_tokens":394,"prompt_ms":2430}
+{"i":17,"turn":8,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.759,"decision":"A","ms":1767,"prompt_tokens":303,"prompt_ms":1709}
+{"i":18,"turn":8,"kind":"Which IAMPARIS study fits the user's dat","top":"B","p":0.415,"decision":"-","ms":1962,"prompt_tokens":375,"prompt_ms":1905}
+{"i":19,"turn":8,"kind":"Which model does the user name? Choose n","top":"Z","p":0.496,"decision":"-","ms":1511,"prompt_tokens":237,"prompt_ms":1456}
+{"i":20,"turn":8,"kind":"Which scenario does the user name? Choos","top":"B","p":0.907,"decision":"B","ms":751,"prompt_tokens":125,"prompt_ms":697}
+{"i":21,"turn":10,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.952,"decision":"A","ms":1564,"prompt_tokens":313,"prompt_ms":1507}
+{"i":22,"turn":10,"kind":"Which IAMPARIS study fits the user's dat","top":"L","p":0.242,"decision":"-","ms":2164,"prompt_tokens":385,"prompt_ms":2105}
+{"i":23,"turn":10,"kind":"Which variable does the user ask about? ","top":"B","p":0.908,"decision":"B","ms":9044,"prompt_tokens":1688,"prompt_ms":8978}
+{"i":24,"turn":10,"kind":"Which region does the user ask about? Ch","top":"A","p":0.981,"decision":"A","ms":1828,"prompt_tokens":269,"prompt_ms":1740}
+{"i":25,"turn":10,"kind":"Which model does the user name? Choose n","top":"B","p":0.335,"decision":"-","ms":1122,"prompt_tokens":169,"prompt_ms":1068}
+{"i":26,"turn":12,"kind":"Which supported IAMPARIS task is the use","top":"C","p":0.846,"decision":"C","ms":1899,"prompt_tokens":303,"prompt_ms":1843}
+{"i":27,"turn":12,"kind":"Which IAMPARIS study fits the user's dat","top":"I","p":0.75,"decision":"I","ms":2412,"prompt_tokens":375,"prompt_ms":2350}
+{"i":28,"turn":12,"kind":"Which variable does the user ask about? ","top":"G","p":0.2,"decision":"-","ms":7416,"prompt_tokens":1324,"prompt_ms":7347}
+{"i":29,"turn":12,"kind":"Which region does the user ask about? Ch","top":"Z","p":0.908,"decision":"-","ms":1730,"prompt_tokens":259,"prompt_ms":1641}
+{"i":30,"turn":12,"kind":"Which model does the user name? Choose n","top":"Z","p":0.66,"decision":"-","ms":1083,"prompt_tokens":159,"prompt_ms":1023}
+{"i":31,"turn":12,"kind":"Which scenario does the user name? Choos","top":"Z","p":0.397,"decision":"-","ms":1763,"prompt_tokens":268,"prompt_ms":1697}
+{"i":32,"turn":14,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.941,"decision":"A","ms":1653,"prompt_tokens":307,"prompt_ms":1580}
+{"i":33,"turn":14,"kind":"Which IAMPARIS study fits the user's dat","top":"B","p":0.566,"decision":"-","ms":2424,"prompt_tokens":379,"prompt_ms":2362}
+{"i":34,"turn":14,"kind":"Which variable does the user ask about? ","top":"X","p":0.272,"decision":"-","ms":10037,"prompt_tokens":1712,"prompt_ms":9964}
+{"i":35,"turn":14,"kind":"Which model does the user name? Choose n","top":"A","p":0.614,"decision":"-","ms":1606,"prompt_tokens":241,"prompt_ms":1512}
+{"i":36,"turn":14,"kind":"Which scenario does the user name? Choos","top":"B","p":0.87,"decision":"B","ms":959,"prompt_tokens":129,"prompt_ms":901}
+{"i":37,"turn":16,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.529,"decision":"-","ms":2020,"prompt_tokens":304,"prompt_ms":1961}
+{"i":38,"turn":16,"kind":"Which IAMPARIS study fits the user's dat","top":"M","p":0.164,"decision":"-","ms":2430,"prompt_tokens":376,"prompt_ms":2369}
+{"i":39,"turn":16,"kind":"Which variable does the user ask about? ","top":"Z","p":0.822,"decision":"-","ms":4073,"prompt_tokens":716,"prompt_ms":4009}
+{"i":40,"turn":16,"kind":"Which region does the user ask about? Ch","top":"Z","p":0.515,"decision":"-","ms":1736,"prompt_tokens":260,"prompt_ms":1645}
+{"i":41,"turn":16,"kind":"Which model does the user name? Choose n","top":"Z","p":0.794,"decision":"-","ms":1122,"prompt_tokens":160,"prompt_ms":1066}
+{"i":42,"turn":16,"kind":"Which scenario does the user name? Choos","top":"D","p":0.237,"decision":"-","ms":1788,"prompt_tokens":269,"prompt_ms":1720}
+{"i":43,"turn":18,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.592,"decision":"-","ms":1671,"prompt_tokens":304,"prompt_ms":1611}
+{"i":44,"turn":18,"kind":"Which IAMPARIS study fits the user's dat","top":"A","p":0.239,"decision":"-","ms":2443,"prompt_tokens":376,"prompt_ms":2381}
+{"i":45,"turn":18,"kind":"Which variable does the user ask about? ","top":"Y","p":0.518,"decision":"-","ms":5848,"prompt_tokens":939,"prompt_ms":5782}
+{"i":46,"turn":18,"kind":"Which model does the user name? Choose n","top":"Z","p":0.3,"decision":"-","ms":1672,"prompt_tokens":238,"prompt_ms":1575}
+{"i":47,"turn":20,"kind":"Which supported IAMPARIS task is the use","top":"B","p":0.474,"decision":"-","ms":1851,"prompt_tokens":302,"prompt_ms":1785}
+{"i":48,"turn":20,"kind":"Which IAMPARIS page does the user ask fo","top":"A","p":0.294,"decision":"-","ms":5169,"prompt_tokens":851,"prompt_ms":5101}
+{"i":49,"turn":22,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.979,"decision":"A","ms":1899,"prompt_tokens":304,"prompt_ms":1819}
+{"i":50,"turn":22,"kind":"Which IAMPARIS study fits the user's dat","top":"R","p":0.122,"decision":"-","ms":2004,"prompt_tokens":376,"prompt_ms":1936}
+{"i":51,"turn":22,"kind":"Which model does the user ask about?","top":"Y","p":0.29,"decision":"-","ms":4344,"prompt_tokens":713,"prompt_ms":4282}
+{"i":52,"turn":24,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.728,"decision":"A","ms":1996,"prompt_tokens":304,"prompt_ms":1878}
+{"i":53,"turn":24,"kind":"Which IAMPARIS study fits the user's dat","top":"M","p":0.117,"decision":"-","ms":2293,"prompt_tokens":376,"prompt_ms":2235}
+{"i":54,"turn":24,"kind":"Which variable does the user ask about? ","top":"B","p":0.995,"decision":"B","ms":4391,"prompt_tokens":798,"prompt_ms":4326}
+{"i":55,"turn":24,"kind":"Which region does the user ask about? Ch","top":"A","p":0.972,"decision":"A","ms":1685,"prompt_tokens":260,"prompt_ms":1591}
+{"i":56,"turn":24,"kind":"Which model does the user name? Choose n","top":"Z","p":0.876,"decision":"-","ms":1079,"prompt_tokens":160,"prompt_ms":1011}
+{"i":57,"turn":24,"kind":"Which scenario does the user name? Choos","top":"Z","p":0.219,"decision":"-","ms":1464,"prompt_tokens":269,"prompt_ms":1387}
+{"i":58,"turn":26,"kind":"Which supported IAMPARIS task is the use","top":"B","p":0.798,"decision":"B","ms":1857,"prompt_tokens":303,"prompt_ms":1785}
+{"i":59,"turn":26,"kind":"Which IAMPARIS study fits the user's dat","top":"Z","p":0.237,"decision":"-","ms":1856,"prompt_tokens":375,"prompt_ms":1784}
+{"i":60,"turn":26,"kind":"Which IAMPARIS page does the user ask fo","top":"X","p":0.283,"decision":"-","ms":4601,"prompt_tokens":829,"prompt_ms":4529}
+{"i":61,"turn":28,"kind":"Which supported IAMPARIS task is the use","top":"F","p":0.433,"decision":"-","ms":1982,"prompt_tokens":302,"prompt_ms":1880}
+{"i":62,"turn":28,"kind":"Which IAMPARIS study fits the user's dat","top":"B","p":0.934,"decision":"B","ms":1987,"prompt_tokens":374,"prompt_ms":1911}
+{"i":63,"turn":28,"kind":"Which variable does the user ask about? ","top":"F","p":0.358,"decision":"-","ms":2637,"prompt_tokens":487,"prompt_ms":2565}
+{"i":64,"turn":28,"kind":"Which region does the user ask about? Ch","top":"Z","p":0.963,"decision":"-","ms":1369,"prompt_tokens":260,"prompt_ms":1297}
+{"i":65,"turn":28,"kind":"Which model does the user name? Choose n","top":"Z","p":0.905,"decision":"-","ms":1098,"prompt_tokens":158,"prompt_ms":1027}
+{"i":66,"turn":30,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.689,"decision":"-","ms":2029,"prompt_tokens":308,"prompt_ms":1952}
+{"i":67,"turn":30,"kind":"Which IAMPARIS study fits the user's dat","top":"J","p":0.423,"decision":"-","ms":2404,"prompt_tokens":380,"prompt_ms":2329}
+{"i":68,"turn":30,"kind":"Which curated definition directly answer","top":"Z","p":0.71,"decision":"-","ms":3946,"prompt_tokens":698,"prompt_ms":3881}
+{"i":69,"turn":32,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.883,"decision":"A","ms":1569,"prompt_tokens":302,"prompt_ms":1448}
+{"i":70,"turn":32,"kind":"Which IAMPARIS study fits the user's dat","top":"Z","p":0.339,"decision":"-","ms":1838,"prompt_tokens":374,"prompt_ms":1757}
+{"i":71,"turn":32,"kind":"Which IAMPARIS page does the user ask fo","top":"Z","p":0.332,"decision":"-","ms":4995,"prompt_tokens":828,"prompt_ms":4899}
+{"i":72,"turn":34,"kind":"Which supported IAMPARIS task is the use","top":"D","p":0.368,"decision":"-","ms":1573,"prompt_tokens":306,"prompt_ms":1461}
+{"i":73,"turn":34,"kind":"Which IAMPARIS study fits the user's dat","top":"R","p":0.518,"decision":"-","ms":2310,"prompt_tokens":378,"prompt_ms":2223}
+{"i":74,"turn":34,"kind":"Which variable does the user ask about? ","top":"Z","p":0.326,"decision":"-","ms":3572,"prompt_tokens":602,"prompt_ms":3480}
+{"i":75,"turn":34,"kind":"Which region does the user ask about? Ch","top":"Z","p":0.986,"decision":"-","ms":1720,"prompt_tokens":262,"prompt_ms":1607}
+{"i":76,"turn":34,"kind":"Which model does the user name? Choose n","top":"Z","p":0.988,"decision":"-","ms":1047,"prompt_tokens":162,"prompt_ms":969}
+{"i":77,"turn":34,"kind":"Which scenario does the user name? Choos","top":"C","p":0.185,"decision":"-","ms":1797,"prompt_tokens":271,"prompt_ms":1707}
+{"i":78,"turn":36,"kind":"Which supported IAMPARIS task is the use","top":"E","p":0.826,"decision":"E","ms":1546,"prompt_tokens":303,"prompt_ms":1458}
+{"i":79,"turn":36,"kind":"Which IAMPARIS study fits the user's dat","top":"I","p":0.686,"decision":"-","ms":2309,"prompt_tokens":375,"prompt_ms":2238}
+{"i":80,"turn":36,"kind":"Which region does the user ask about? Ch","top":"A","p":0.995,"decision":"A","ms":1716,"prompt_tokens":259,"prompt_ms":1640}
+{"i":81,"turn":36,"kind":"Which model does the user name? Choose n","top":"Z","p":0.573,"decision":"-","ms":1023,"prompt_tokens":159,"prompt_ms":949}
+{"i":82,"turn":36,"kind":"Which scenario does the user name? Choos","top":"J","p":0.118,"decision":"-","ms":1728,"prompt_tokens":268,"prompt_ms":1668}
+{"i":83,"turn":38,"kind":"Which supported IAMPARIS task is the use","top":"E","p":0.708,"decision":"-","ms":1548,"prompt_tokens":306,"prompt_ms":1480}
+{"i":84,"turn":38,"kind":"Which IAMPARIS study fits the user's dat","top":"I","p":0.791,"decision":"I","ms":1909,"prompt_tokens":378,"prompt_ms":1854}
+{"i":85,"turn":38,"kind":"Which region does the user ask about? Ch","top":"A","p":0.995,"decision":"A","ms":1698,"prompt_tokens":265,"prompt_ms":1641}
+{"i":86,"turn":38,"kind":"Which model does the user name? Choose n","top":"B","p":0.563,"decision":"-","ms":1121,"prompt_tokens":162,"prompt_ms":1067}
+{"i":87,"turn":38,"kind":"Which scenario does the user name? Choos","top":"C","p":0.178,"decision":"-","ms":1820,"prompt_tokens":271,"prompt_ms":1767}
+{"i":88,"turn":38,"kind":"Which model does the user name? Choose n","top":"Z","p":0.632,"decision":"-","ms":973,"prompt_tokens":141,"prompt_ms":900}
+{"i":89,"turn":38,"kind":"Which scenario does the user name? Choos","top":"Z","p":0.632,"decision":"-","ms":905,"prompt_tokens":162,"prompt_ms":898}
+{"i":90,"turn":40,"kind":"Which supported IAMPARIS task is the use","top":"A","p":0.958,"decision":"A","ms":1547,"prompt_tokens":313,"prompt_ms":1490}
+{"i":91,"turn":40,"kind":"Which IAMPARIS study fits the user's dat","top":"L","p":0.243,"decision":"-","ms":1874,"prompt_tokens":385,"prompt_ms":1812}
+{"i":92,"turn":40,"kind":"Which variable does the user ask about? ","top":"B","p":0.334,"decision":"-","ms":8715,"prompt_tokens":1801,"prompt_ms":8649}
+{"i":93,"turn":40,"kind":"Which region does the user ask about? Ch","top":"A","p":0.977,"decision":"A","ms":1481,"prompt_tokens":269,"prompt_ms":1379}
+{"i":94,"turn":40,"kind":"Which model does the user name? Choose n","top":"B","p":0.331,"decision":"-","ms":1120,"prompt_tokens":169,"prompt_ms":1068}

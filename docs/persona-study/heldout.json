@@ -1,0 +1,124 @@
+{
+  "_comment": "Held-out conversations, written after the fixes and before running them on either version, so they test whether the fixes generalise. Not used to develop anything. Same format as personas.json.",
+  "personas": [
+    {
+      "id": "climate-teacher",
+      "who": "Secondary-school teacher preparing a lesson on climate scenarios",
+      "turns": [
+        {
+          "text": "what is the paris agreement?",
+          "want": "answer: Paris Agreement",
+          "expect": { "kind": "answer", "has": ["paris agreement"] }
+        },
+        {
+          "text": "how much methane does the world emit?",
+          "want": "result: Emissions|CH4, World",
+          "expect": { "kind": "result", "has": ["emissions|ch4", "world"] }
+        },
+        {
+          "text": "what does that look like in india?",
+          "want": "result: Emissions|CH4, India",
+          "expect": { "kind": "result", "has": ["emissions|ch4", "ind"] }
+        },
+        {
+          "text": "is this a prediction?",
+          "want": "answer: Projections, not forecasts",
+          "expect": { "kind": "answer", "has": ["projections"] }
+        },
+        {
+          "text": "are there any games about climate change?",
+          "want": "apps: type Game",
+          "expect": { "kind": "apps", "has": ["game"] }
+        }
+      ]
+    },
+    {
+      "id": "industry-consultant",
+      "who": "Consultant advising cement and steel producers",
+      "turns": [
+        {
+          "text": "industry emissions in Europe",
+          "want": "result: industry CO2 emissions, EU",
+          "expect": { "kind": "result", "has": ["industry", "\"eu\""] }
+        },
+        {
+          "text": "and in poland",
+          "want": "result: same variable, Poland",
+          "expect": { "kind": "result", "has": ["industry", "pol"] }
+        },
+        {
+          "text": "Which studies look at cement?",
+          "want": "studies: topic cement",
+          "expect": { "kind": "studies", "has": ["cement"] }
+        },
+        {
+          "text": "open the polish cement study",
+          "want": "navigation: Decarbonising the Polish cement sector",
+          "expect": { "kind": "navigation", "has": ["polish cement"] }
+        }
+      ]
+    },
+    {
+      "id": "hydrogen-analyst",
+      "who": "Analyst at a hydrogen industry association",
+      "turns": [
+        {
+          "text": "hydrogen producton in germany by 2050",
+          "want": "result: Secondary Energy|Hydrogen, Germany, 2050",
+          "expect": { "kind": "result", "has": ["secondary energy|hydrogen", "deu"] }
+        },
+        {
+          "text": "what about france?",
+          "want": "result: same variable, France",
+          "expect": { "kind": "result", "has": ["secondary energy|hydrogen", "fra"] }
+        },
+        {
+          "text": "whats CCS",
+          "want": "answer: CCS definition",
+          "expect": { "kind": "answer", "has": ["carbon capture"] }
+        },
+        {
+          "text": "carbon capture in the world",
+          "want": "result: Carbon Sequestration|CCS, World",
+          "expect": { "kind": "result", "has": ["carbon sequestration|ccs", "world"] }
+        },
+        {
+          "text": "how do i register for an account",
+          "want": "navigation: Create an account",
+          "expect": { "kind": "navigation", "has": ["register"] }
+        }
+      ]
+    },
+    {
+      "id": "ev-researcher",
+      "who": "PhD student researching electric mobility in India",
+      "turns": [
+        {
+          "text": "electric vehicles in india",
+          "want": "data, a question, or studies on electric vehicles",
+          "expect": { "kind": ["ask", "result", "studies"], "has": [] }
+        },
+        {
+          "text": "final energy in transport in india",
+          "want": "result: Final Energy|Transportation, India",
+          "expect": { "kind": "result", "has": ["final energy|transportation", "ind"] }
+        },
+        {
+          "text": "only electricity",
+          "want": "result: Final Energy|Transportation|Electricity",
+          "expect": { "kind": "result", "has": ["final energy|transportation|electricity"] }
+        },
+        {
+          "text": "what models are available for this?",
+          "want": "answer: the models of the current study",
+          "expect": { "kind": "answer", "has": ["models in"] }
+        },
+        {
+          "text": "where is the privacy policy",
+          "want": "navigation: Privacy policy",
+          "expect": { "kind": "navigation", "has": ["privacy"] }
+        }
+      ]
+    }
+  ]
+}

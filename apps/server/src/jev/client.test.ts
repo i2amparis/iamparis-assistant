@@ -95,6 +95,33 @@ describe("Ollama provider", () => {
     expect(body).toMatchObject({ raw: true, logprobs: true, options: { num_predict: 1 } });
     expect(body.prompt).toMatch(/A: Safe\nZ: None fits.*Answer:$/s);
   });
+  it("sends shortened option descriptions to the local model", async () => {
+    const fetch = ollama({ A: 0.9, Z: 0.1 });
+    const long = {
+      question: "Which variable?",
+      options: [
+        {
+          id: "kyoto",
+          label: "Emissions|Kyoto Gases",
+          detail:
+            "Emissions of Kyoto GHG emissions, including CO2, CH4, N2O and F-gases to the atmosphere",
+        },
+        {
+          id: "afolu",
+          label: "Emissions|CO2|AFOLU",
+          detail:
+            "Emissions of carbon dioxide (CO2) from agriculture, forestry and other land use (IPCC 1996 category 4, 5 - IPCC 2006 category 3), including agricultural emissions from livestock",
+        },
+      ],
+    };
+    await choose({ long }, "message");
+    const { prompt } = JSON.parse(
+      (fetch.mock.calls[0] as unknown as [string, RequestInit])[1].body as string,
+    );
+    expect(prompt).toContain(
+      "A: Emissions|Kyoto Gases — Emissions of Kyoto GHG emissions, including CO2, CH4, N2O and F-gases to the atmosphere\nB: Emissions|CO2|AFOLU — Emissions of carbon dioxide (CO2) from agriculture, forestry and other land use\nZ:",
+    );
+  });
   it("applies the confidence policy and maps Z to none", async () => {
     const two = { question: "Pick", options: [...pick.options, { id: "other", label: "Other" }] };
     ollama({ A: 0.5, B: 0.45, Z: 0.05 }, { Z: 0.9, A: 0.1 });

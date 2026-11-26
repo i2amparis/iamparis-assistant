@@ -1,0 +1,5 @@
+== short 12:10:21
+qwen3:4b current-short qwen threads=default: 95 prompts
+== p8-restate-short 12:14:21
+qwen3:4b qfirst-restate-short qwen threads=default: 95 prompts
+== done 12:17:26

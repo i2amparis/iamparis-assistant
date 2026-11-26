@@ -229,12 +229,87 @@ describe("curated analysis", () => {
     c.pending = { token: "current", kind: "review", options: [] };
     const reply = await handleTurn(
       c,
-      { text: "What is IAM PARIS?" },
+      { text: "Where can I compare models side by side?" },
       api,
-      jev({ request: "new", route: "answer", target: "term0" }),
+      jev({ request: "new" }),
     );
-    expect(reply.kind).toBe("answer");
+    expect(reply.kind).toBe("navigation");
     expect(c.draft).toBeUndefined();
+  });
+  it("answers a definition asked mid-analysis and keeps the query", async () => {
+    const c = conversation();
+    c.draft = draft();
+    c.pending = { token: "current", kind: "review", options: [] };
+    const calls: string[][] = [];
+    for (const text of ["What is IAM PARIS?", "is that a forecast?", "what's an NDC?"]) {
+      const reply = await handleTurn(c, { text }, api, jev({}, calls));
+      expect(reply.kind).toBe("answer");
+      expect(reply.text).toContain("Your data query is unchanged");
+    }
+    expect(calls).toEqual([]);
+    expect(c.draft?.filters.variable).toEqual(["Emissions|CO2"]);
+    expect(c.pending?.token).toBe("current");
+    // A question naming a place or a year is a data request, not a definition.
+    const data = await handleTurn(c, { text: "what is the carbon price in 2030?" }, api, manual);
+    expect(data.kind).not.toBe("answer");
+  });
+  it("lists what a study has data for, keeping the query", async () => {
+    const c = conversation();
+    c.draft = draft();
+    c.pending = { token: "current", kind: "review", options: [] };
+    const reply = await handleTurn(c, { text: "what scenarios are in this study?" }, api, manual);
+    expect(reply.kind).toBe("answer");
+    expect(reply.facts).toEqual(["Baseline", "NDC"]);
+    expect(c.draft?.filters.variable).toEqual(["Emissions|CO2"]);
+    // Without a study named or in use, it is not a study question.
+    const none = await handleTurn(
+      conversation(),
+      { text: "which models are on the site?" },
+      api,
+      manual,
+    );
+    expect(none.title ?? "").not.toContain("Models in");
+  });
+  it("swaps part of the current variable from a short follow-up", async () => {
+    const c = conversation();
+    c.draft = draft();
+    c.draft.filters.variable = ["Secondary Energy|Electricity|Solar"];
+    c.pending = { token: "current", kind: "review", options: [] };
+    const calls: string[][] = [];
+    const reply = await handleTurn(c, { text: "installed capacity instead" }, api, jev({}, calls));
+    expect(reply.kind).toBe("result");
+    expect(c.draft!.filters.variable).toEqual(["Capacity|Electricity|Solar"]);
+    // The variable was decided by wording: the classifier was not asked about it.
+    expect(calls[0]).not.toContain("variable");
+  });
+  it("leaves plurals of known words alone and reads study questions as such", async () => {
+    const games = await handleTurn(
+      conversation(),
+      { text: "are there any games about climate change?" },
+      api,
+      manual,
+    );
+    expect(games.trace.some((d) => d.subject === "spelling")).toBe(false);
+    expect(games.kind).toBe("apps");
+    const cement = await handleTurn(
+      conversation(),
+      { text: "Which studies look at cement?" },
+      api,
+      manual,
+    );
+    expect(cement.kind).toBe("studies");
+  });
+  it("reads misspelled places and terms as meant", async () => {
+    const reply = await handleTurn(
+      conversation(),
+      { text: "co2 emisions in germny 2050" },
+      api,
+      manual,
+    );
+    expect(reply.trace[0]).toMatchObject({ subject: "spelling" });
+    expect(reply.kind).toBe("result");
+    expect(reply.plan?.filters.region).toEqual(["Germany"]);
+    expect(reply.plan?.filters.variable).toEqual(["Emissions|CO2"]);
   });
   it("keeps the common unit when unpicked models report different ones", async () => {
     const mixed: Results = {

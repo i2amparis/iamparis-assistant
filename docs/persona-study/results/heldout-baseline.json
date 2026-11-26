@@ -1,0 +1,2781 @@
+{
+  "label": "heldout-baseline",
+  "set": "heldout",
+  "api": "http://127.0.0.1:8798/api",
+  "started": "2026-11-26T13:08:47.928Z",
+  "personas": [
+    {
+      "id": "climate-teacher",
+      "who": "Secondary-school teacher preparing a lesson on climate scenarios",
+      "turns": [
+        {
+          "said": "what is the paris agreement?",
+          "want": "answer: Paris Agreement",
+          "kind": "answer",
+          "mode": "answered (rules)",
+          "text": "The Paris Agreement is an international treaty adopted in 2015 under the United Nations Framework Convention on Climate Change (UNFCCC). It aims to hold the increase in global average temperature to well below 2°C above pre-industrial levels and to pursue efforts to limit it to 1.5°C. Each party sets its own targets in a Nationally Determined Contribution (NDC), updated every five years, and progress is reviewed collectively in a global stocktake.",
+          "title": "Paris Agreement",
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "answer",
+              "top": [
+                "answer:100",
+                "analysis:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:0",
+                "afolu:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "page or definition",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "term1:68",
+                "term24:11"
+              ],
+              "none": 19
+            },
+            {
+              "subject": "page or definition",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "term1",
+              "top": []
+            }
+          ],
+          "ms": 616,
+          "wall": 895
+        },
+        {
+          "said": "how much methane does the world emit?",
+          "want": "result: Emissions|CH4, World",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Emissions|CH4 in World, 2005–2100: 4 series from gcam, gemini_e3 and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Not named, so assumed: the “Where is the world headed?” study, all models with data, the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Emissions|CH4"
+            ],
+            "region": [
+              "World"
+            ],
+            "modelName": [
+              "gcam",
+              "gemini_e3"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "analysis",
+              "top": [
+                "analysis:77",
+                "studies:6"
+              ],
+              "none": 15
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "decarb-potentials:0",
+                "ndcs-impacts:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "Emissions|CH4",
+              "top": [
+                "Emissions|CH4:98",
+                "Emissions|CH4|Industrial Processes:2"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "World",
+              "top": [
+                "World:99",
+                "ARE:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:0",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 1309,
+          "wall": 1315
+        },
+        {
+          "said": "what does that look like in india?",
+          "want": "result: Emissions|CH4, India",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Emissions|CH4 in IND, 2005–2100: 4 series from gcam, gemini_e3 and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Emissions|CH4"
+            ],
+            "region": [
+              "IND"
+            ],
+            "modelName": [
+              "gcam",
+              "gemini_e3"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "refine",
+              "top": [
+                "refine:94",
+                "new:4"
+              ],
+              "none": 2
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "Emissions|CH4",
+              "top": [
+                "Emissions|CH4:86",
+                "Final Energy:0"
+              ],
+              "none": 14
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "IND:8",
+                "India:1"
+              ],
+              "none": 91
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "India",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "gemini_e3",
+              "top": [
+                "gemini_e3:90",
+                "muse:4"
+              ],
+              "none": 2
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "PR_CurPol_CP:51",
+                "PR_CurPol_CPO:1"
+              ],
+              "none": 47
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "world-headed",
+              "top": []
+            }
+          ],
+          "ms": 1069,
+          "wall": 1826
+        },
+        {
+          "said": "is this a prediction?",
+          "want": "answer: Projections, not forecasts",
+          "kind": "ask",
+          "mode": "asked",
+          "text": "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you.",
+          "options": [
+            "Build an analysis",
+            "Find a page",
+            "Find a tool",
+            "Explain a concept",
+            "Describe a model",
+            "Find studies for me"
+          ],
+          "pending": {
+            "kind": "route"
+          },
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "refine:27",
+                "new:3"
+              ],
+              "none": 70
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "Emissions|CH4:9",
+                "Export:0"
+              ],
+              "none": 90
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Emissions|CH4",
+              "top": []
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "AUS:0",
+                "Africa_Eastern:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "gemini_e3",
+              "top": [
+                "gemini_e3:78",
+                "gcam:17"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "PR_CurPol_CP",
+              "top": [
+                "PR_CurPol_CP:91",
+                "PR_CurPol_CPO:1"
+              ],
+              "none": 8
+            },
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "analysis:0",
+                "model:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:0",
+                "afolu:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "page or definition",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "result-buildings-transformation-iamparis-eu-results-ndc-aspects-buildings-transformation-policy-questions:1",
+                "model-42-iamparis-eu-models:0"
+              ],
+              "none": 99
+            }
+          ],
+          "ms": 571,
+          "wall": 576
+        },
+        {
+          "said": "are there any games about climate change?",
+          "want": "apps: type Game",
+          "kind": "apps",
+          "mode": "answered (rules)",
+          "text": "31 tools in the Application Library match “game”, “climate”, “change”. No Game tool matches “game”, “climate”, “change”, so every type is included. The closest 6 are listed. Each opens its library page. Describe what you need differently, or name a tool.",
+          "selection": [],
+          "tools": [
+            "Shortfall - Power Grid Optimisation Game",
+            "Climate Change Knowledge Portal (CCKP)",
+            "Climate Change Performance Index (CCPI)",
+            "COACCH Climate Change Impact Scenario Explorer",
+            "Systems Change Lab",
+            "Atlas of Climate Policy Barriers"
+          ],
+          "url": "https://iamparis.eu/application_library?q=change",
+          "actions": [
+            "/application_library?q=change"
+          ],
+          "options": [
+            "Only Interactive Charts",
+            "Only Interactive Maps",
+            "Only Report",
+            "Browse by topic"
+          ],
+          "featured": 4,
+          "pending": {
+            "kind": "apps"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "apps",
+              "top": []
+            },
+            {
+              "subject": "type",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Game",
+              "top": []
+            },
+            {
+              "subject": "widening",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "search",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 3,
+          "wall": 9
+        }
+      ]
+    },
+    {
+      "id": "industry-consultant",
+      "who": "Consultant advising cement and steel producers",
+      "turns": [
+        {
+          "said": "industry emissions in Europe",
+          "want": "result: industry CO2 emissions, EU",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Emissions|CO2|Energy|Demand|Industry in EU, 2005–2050: 10 series from 10 models and Current policies (PR_WWH_CP). Not named, so assumed: the “Where is the EU headed?” study, all models with data. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "eu-headed"
+            ],
+            "region": [
+              "EU"
+            ],
+            "variable": [
+              "Emissions|CO2|Energy|Demand|Industry"
+            ],
+            "modelName": [
+              "42",
+              "E3ME 6.1",
+              "E4SMA-EU-TIMES 1.0",
+              "FORECAST",
+              "GCAM-PR 5.3",
+              "GEMINI-E3 7.0",
+              "ICES-XPS 1.1",
+              "MUSE",
+              "NEMESIS 5.0",
+              "TIAM_Grantham 3.2"
+            ],
+            "scenario": [
+              "PR_WWH_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2050"
+          ],
+          "series": 10,
+          "assumed": [
+            "workspace_code",
+            "modelName"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "analysis:28",
+                "studies:1"
+              ],
+              "none": 70
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "industrial-transf",
+              "top": [
+                "industrial-transf:75",
+                "buildings-transf:5"
+              ],
+              "none": 13
+            },
+            {
+              "subject": "region",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "EU",
+              "top": []
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Emissions|CO2|Energy|Demand|Industry",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "MUSE:0",
+                "E4SMA-EU-TIMES 1.0:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_WWH_NDC:0",
+                "PR_WWH_CP:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "PR_WWH_CP",
+              "top": []
+            }
+          ],
+          "ms": 730,
+          "wall": 899
+        },
+        {
+          "said": "and in poland",
+          "want": "result: same variable, Poland",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Emissions|CO2|Energy|Demand|Industry in POL, 2010–2050: 4 series from e3me, ices and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Poland is not in “Where is the EU headed?”, so this uses “Where is the world headed?”. Not named, so assumed: all models with data, the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Emissions|CO2|Energy|Demand|Industry"
+            ],
+            "region": [
+              "POL"
+            ],
+            "modelName": [
+              "e3me",
+              "ices"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2010",
+            "2050"
+          ],
+          "series": 4,
+          "assumed": [
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Industry",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "refine:21",
+                "new:11"
+              ],
+              "none": 68
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "EU:1"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "MUSE:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_WWH_NDC:2",
+                "PR_WWH_CP:1"
+              ],
+              "none": 97
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "world-headed",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "ices:0",
+                "e3me:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_Baseline:0",
+                "PR_CurPol_CP:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 701,
+          "wall": 705
+        },
+        {
+          "said": "Which studies look at cement?",
+          "want": "studies: topic cement",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Final Energy|Industry in POL, 2010–2050: 4 series from e3me, ices and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Final Energy|Industry"
+            ],
+            "region": [
+              "POL"
+            ],
+            "modelName": [
+              "e3me",
+              "ices"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2010",
+            "2050"
+          ],
+          "series": 4,
+          "assumed": [
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Industry",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "new:50",
+                "refine:36"
+              ],
+              "none": 14
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "AUS:0",
+                "Africa_Eastern:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "e3me",
+              "top": [
+                "e3me:94",
+                "muse:1"
+              ],
+              "none": 4
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "PR_CurPol_CP:26",
+                "PR_CurPol_CPO:1"
+              ],
+              "none": 73
+            }
+          ],
+          "ms": 631,
+          "wall": 639
+        },
+        {
+          "said": "open the polish cement study",
+          "want": "navigation: Decarbonising the Polish cement sector",
+          "kind": "navigation",
+          "mode": "answered (rules)",
+          "text": "Open this page on IAMPARIS.",
+          "title": "Circularity & decarbonisation interventions",
+          "url": "https://iamparis.eu/datastories/CE_intervention",
+          "actions": [
+            "/datastories/CE_intervention"
+          ],
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Industry",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "refine",
+              "top": [
+                "refine:90",
+                "new:8"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "POL:2",
+                "Argentina:0"
+              ],
+              "none": 97
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "e3me:26",
+                "muse:2"
+              ],
+              "none": 70
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "PR_CurPol_CP",
+              "top": [
+                "PR_CurPol_CP:99",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "studies:70",
+                "navigation:25"
+              ],
+              "none": 3
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:0",
+                "afolu:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "page or definition",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "result-afolu-transformation-iamparis-eu-results-ndc-aspects-afolu-transformation-policy-questions:1",
+                "story-circularity-decarbonisation-interventions-iamparis-eu-datastories-ce-intervention:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "page or definition",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "story-circularity-decarbonisation-interventions-iamparis-eu-datastories-ce-intervention",
+              "top": []
+            }
+          ],
+          "ms": 449,
+          "wall": 454
+        }
+      ]
+    },
+    {
+      "id": "hydrogen-analyst",
+      "who": "Analyst at a hydrogen industry association",
+      "turns": [
+        {
+          "said": "hydrogen producton in germany by 2050",
+          "want": "result: Secondary Energy|Hydrogen, Germany, 2050",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Final Energy|Hydrogen in DE, 2050: 2 series from E4SMA-EU-TIMES 1.0 and Where is the world headed, 2021 (WWH21), Net zero with EU policies (NZE_EUPol_Stand). Germany is not in “Where is the world headed?”, so this uses “EU path to net zero”. Not named, so assumed: the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "net-zero"
+            ],
+            "variable": [
+              "Final Energy|Hydrogen"
+            ],
+            "region": [
+              "DE"
+            ],
+            "modelName": [
+              "E4SMA-EU-TIMES 1.0"
+            ],
+            "scenario": [
+              "WWH21",
+              "NZE_EUPol_Stand"
+            ]
+          },
+          "years": [
+            "2050",
+            "2050"
+          ],
+          "series": 2,
+          "assumed": [
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "analysis:6",
+                "studies:2"
+              ],
+              "none": 91
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:0",
+                "afolu:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "Final Energy|Hydrogen",
+              "top": [
+                "Final Energy|Hydrogen:97",
+                "Final Energy|Industry|Gases|Bioenergy:1"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "DEU",
+              "top": [
+                "DEU:100",
+                "Argentina:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:0",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "region",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "net-zero",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "E4SMA-EU-TIMES 1.0",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NZE_Bench_H:0",
+                "NZE_Bench_L:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 1324,
+          "wall": 1329
+        },
+        {
+          "said": "what about france?",
+          "want": "result: same variable, France",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Final Energy|Hydrogen in FR, 2050: 2 series from E4SMA-EU-TIMES 1.0 and Where is the world headed, 2021 (WWH21), Net zero with EU policies (NZE_EUPol_Stand). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "net-zero"
+            ],
+            "variable": [
+              "Final Energy|Hydrogen"
+            ],
+            "region": [
+              "FR"
+            ],
+            "modelName": [
+              "E4SMA-EU-TIMES 1.0"
+            ],
+            "scenario": [
+              "WWH21",
+              "NZE_EUPol_Stand"
+            ]
+          },
+          "years": [
+            "2050",
+            "2050"
+          ],
+          "series": 2,
+          "assumed": [
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "refine",
+              "top": [
+                "refine:78",
+                "new:21"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "Import:0",
+                "Agricultural Demand:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Hydrogen",
+              "top": []
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "FR:5",
+                "DE:0"
+              ],
+              "none": 94
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "FR",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NEMESIS 5.1:1",
+                "E4SMA-EU-TIMES 1.0:1"
+              ],
+              "none": 98
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "WWH21",
+              "top": [
+                "WWH21:100",
+                "Baseline:0"
+              ],
+              "none": 0
+            }
+          ],
+          "ms": 771,
+          "wall": 782
+        },
+        {
+          "said": "whats CCS",
+          "want": "answer: CCS definition",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Carbon Sequestration|CCS in FR, 2050: 2 series from E4SMA-EU-TIMES 1.0 and Where is the world headed, 2021 (WWH21), Net zero with EU policies (NZE_EUPol_Stand). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "net-zero"
+            ],
+            "variable": [
+              "Carbon Sequestration|CCS"
+            ],
+            "region": [
+              "FR"
+            ],
+            "modelName": [
+              "E4SMA-EU-TIMES 1.0"
+            ],
+            "scenario": [
+              "WWH21",
+              "NZE_EUPol_Stand"
+            ]
+          },
+          "years": [
+            "2050",
+            "2050"
+          ],
+          "series": 2,
+          "assumed": [
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Carbon Sequestration|CCS",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "new:52",
+                "refine:4"
+              ],
+              "none": 44
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "DK:0",
+                "AT:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NEMESIS 5.1:2",
+                "E4SMA-EU-TIMES 1.0:0"
+              ],
+              "none": 98
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "WWH21",
+              "top": [
+                "WWH21:100",
+                "Baseline:0"
+              ],
+              "none": 0
+            }
+          ],
+          "ms": 554,
+          "wall": 560
+        },
+        {
+          "said": "carbon capture in the world",
+          "want": "result: Carbon Sequestration|CCS, World",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Carbon Sequestration|CCS in World, 2050: 1 series from GCAM and Current policies (CP_EI). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "net-zero"
+            ],
+            "variable": [
+              "Carbon Sequestration|CCS"
+            ],
+            "region": [
+              "World"
+            ],
+            "modelName": [
+              "GCAM"
+            ],
+            "scenario": [
+              "CP_EI"
+            ]
+          },
+          "years": [
+            "2050",
+            "2050"
+          ],
+          "series": 1,
+          "assumed": [
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Carbon Sequestration|CCS",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "refine:38",
+                "new:32"
+              ],
+              "none": 30
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "CY:0",
+                "World:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "World",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NEMESIS 5.1:0",
+                "ALADIN:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "NZE_EUPol_Stand",
+              "top": [
+                "NZE_EUPol_Stand:91",
+                "WWH21:1"
+              ],
+              "none": 8
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "GCAM",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "CP_EI",
+              "top": []
+            }
+          ],
+          "ms": 567,
+          "wall": 572
+        },
+        {
+          "said": "how do i register for an account",
+          "want": "navigation: Create an account",
+          "kind": "ask",
+          "mode": "asked",
+          "text": "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you.",
+          "options": [
+            "Build an analysis",
+            "Find a page",
+            "Find a tool",
+            "Explain a concept",
+            "Describe a model",
+            "Find studies for me"
+          ],
+          "pending": {
+            "kind": "route"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Carbon Sequestration|CCS",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "new:58",
+                "refine:5"
+              ],
+              "none": 37
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "DE:0",
+                "IS:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "NEMESIS 5.1:0",
+                "ALADIN:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "CP_EI:0",
+                "Baseline:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "navigation:1",
+                "studies:0"
+              ],
+              "none": 98
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:0",
+                "afolu:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "page or definition",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "main-contact-iamparis-eu-contact:29",
+                "result-behavioural-changes-for-climate-policy-iamparis-eu-results-iam-compact-behavioural-changes-for-climate-policy-policy-questions:4"
+              ],
+              "none": 67
+            }
+          ],
+          "ms": 431,
+          "wall": 436
+        }
+      ]
+    },
+    {
+      "id": "ev-researcher",
+      "who": "PhD student researching electric mobility in India",
+      "turns": [
+        {
+          "said": "electric vehicles in india",
+          "want": "data, a question, or studies on electric vehicles",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Capacity|Electricity in IND, 2005–2100: 4 series from gcam, tiam and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Not named, so assumed: the “Where is the world headed?” study, all models with data, the study's main scenarios. Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Capacity|Electricity"
+            ],
+            "region": [
+              "IND"
+            ],
+            "modelName": [
+              "gcam",
+              "tiam"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "analysis:0",
+                "studies:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "overruled",
+              "choice": "transp-transf",
+              "top": [
+                "transp-transf:99",
+                "study-2:1"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "Capacity|Electricity",
+              "top": [
+                "Capacity|Electricity:75",
+                "Investment:1"
+              ],
+              "none": 22
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "IND",
+              "top": [
+                "IND:100",
+                "ARG:0"
+              ],
+              "none": 0
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:0",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            },
+            {
+              "subject": "scenario",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 772,
+          "wall": 776
+        },
+        {
+          "said": "final energy in transport in india",
+          "want": "result: Final Energy|Transportation, India",
+          "kind": "result",
+          "mode": "answered+assumed",
+          "text": "Capacity|Electricity in IND, 2005–2100: 4 series from gcam, tiam and Current policies (PR_CurPol_CP), NDC pledges (PR_NDC_CP). Type a change, such as a model, scenario or “2030 to 2050”.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ],
+            "variable": [
+              "Capacity|Electricity"
+            ],
+            "region": [
+              "IND"
+            ],
+            "modelName": [
+              "gcam",
+              "tiam"
+            ],
+            "scenario": [
+              "PR_CurPol_CP",
+              "PR_NDC_CP"
+            ]
+          },
+          "years": [
+            "2005",
+            "2100"
+          ],
+          "series": 4,
+          "assumed": [
+            "workspace_code",
+            "modelName",
+            "scenario"
+          ],
+          "url": "https://iamparis.eu/analysis",
+          "actions": [
+            "chart.apply"
+          ],
+          "options": [
+            "Change variable",
+            "Change region",
+            "Add a scenario",
+            "Change model",
+            "Change scenario",
+            "Change study",
+            "Use all available years"
+          ],
+          "featured": 3,
+          "pending": {
+            "kind": "review"
+          },
+          "decisions": [
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Final Energy|Transportation",
+              "top": []
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "refine:72",
+                "new:13"
+              ],
+              "none": 15
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "IND:16",
+                "India:1"
+              ],
+              "none": 82
+            },
+            {
+              "subject": "region",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "India",
+              "top": []
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "tiam:58",
+                "gcam:4"
+              ],
+              "none": 33
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "PR_CurPol_CP:35",
+                "PR_Baseline:1"
+              ],
+              "none": 64
+            },
+            {
+              "subject": "study",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "world-headed",
+              "top": []
+            }
+          ],
+          "ms": 892,
+          "wall": 897
+        },
+        {
+          "said": "only electricity",
+          "want": "result: Final Energy|Transportation|Electricity",
+          "kind": "ask",
+          "mode": "asked",
+          "text": "Which variable do you mean? These are the closest matches; search for others.",
+          "filters": {
+            "workspace_code": [
+              "world-headed"
+            ]
+          },
+          "assumed": [
+            "workspace_code"
+          ],
+          "options": [
+            "Capacity|Electricity",
+            "Final Energy|Electricity",
+            "GDP|PPP",
+            "Primary Energy|Nuclear",
+            "Primary Energy|Wind",
+            "Secondary Energy|Electricity",
+            "Secondary Energy|Non-Electricity",
+            "Capacity Additions|Electricity|Biomass",
+            "Capacity Additions|Electricity|Coal",
+            "Capacity Additions|Electricity|Gas",
+            "Capacity Additions|Electricity|Geothermal",
+            "Capacity Additions|Electricity|Nuclear",
+            "Capacity Additions|Electricity|Oil",
+            "Capacity Additions|Electricity|Solar",
+            "Capacity Additions|Electricity|Wind",
+            "Capacity|Electricity|Biomass",
+            "Capacity|Electricity|Coal",
+            "Capacity|Electricity|Gas",
+            "Capacity|Electricity|Geothermal",
+            "Capacity|Electricity|Hydro",
+            "Capacity|Electricity|Nuclear",
+            "Capacity|Electricity|Ocean",
+            "Capacity|Electricity|Oil",
+            "Capacity|Electricity|Solar",
+            "Capacity|Electricity|Wind",
+            "Capital Cost|Electricity|Geothermal",
+            "Capital Cost|Electricity|Nuclear",
+            "Emissions|CO2|Electricity",
+            "Final Energy|Industry|Electricity",
+            "Final Energy|Other Sector|Electricity",
+            "Final Energy|Residential and Commercial|Electricity",
+            "Final Energy|Transportation|Electricity",
+            "Investment|Energy Supply|Electricity",
+            "Price|Secondary Energy|Electricity",
+            "Primary Energy|Biomass|Electricity",
+            "Primary Energy|Coal|Electricity",
+            "Primary Energy|Gas|Electricity",
+            "Primary Energy|Oil|Electricity",
+            "Secondary Energy|Electricity|Biomass",
+            "Secondary Energy|Electricity|Coal",
+            "Secondary Energy|Electricity|Fossil",
+            "Secondary Energy|Electricity|Gas",
+            "Secondary Energy|Electricity|Geothermal",
+            "Secondary Energy|Electricity|Hydro",
+            "Secondary Energy|Electricity|Non-Biomass Renewables",
+            "Secondary Energy|Electricity|Nuclear",
+            "Secondary Energy|Electricity|Ocean",
+            "Secondary Energy|Electricity|Oil",
+            "Secondary Energy|Electricity|Oil w/ CCS",
+            "Secondary Energy|Electricity|Oil w/o CCS",
+            "Secondary Energy|Electricity|Other",
+            "Secondary Energy|Electricity|Solar",
+            "Secondary Energy|Electricity|Wind",
+            "Secondary Energy|Hydrogen|Electricity",
+            "Value Added|Industry|Energy",
+            "Capacity Additions|Electricity|Biomass|w/ CCS",
+            "Capacity Additions|Electricity|Biomass|w/o CCS",
+            "Capacity Additions|Electricity|Coal|w/ CCS",
+            "Capacity Additions|Electricity|Coal|w/o CCS",
+            "Capacity Additions|Electricity|Gas|w/ CCS",
+            "Capacity Additions|Electricity|Gas|w/o CCS",
+            "Capacity Additions|Electricity|Oil|w/ CCS",
+            "Capacity Additions|Electricity|Oil|w/o CCS",
+            "Capacity Additions|Electricity|Solar|CSP",
+            "Capacity Additions|Electricity|Solar|PV",
+            "Capacity Additions|Electricity|Wind|Offshore",
+            "Capacity Additions|Electricity|Wind|Onshore",
+            "Capacity|Electricity|Biomass|w/ CCS",
+            "Capacity|Electricity|Biomass|w/o CCS",
+            "Capacity|Electricity|Coal|w/ CCS",
+            "Capacity|Electricity|Coal|w/o CCS",
+            "Capacity|Electricity|Gas|w/ CCS",
+            "Capacity|Electricity|Gas|w/o CCS",
+            "Capacity|Electricity|Oil|w/ CCS",
+            "Capacity|Electricity|Oil|w/o CCS",
+            "Capacity|Electricity|Solar|CSP",
+            "Capacity|Electricity|Solar|PV",
+            "Capacity|Electricity|Wind|Offshore",
+            "Capacity|Electricity|Wind|Onshore",
+            "Capital Cost|Electricity|Biomass|w/ CCS",
+            "Capital Cost|Electricity|Biomass|w/o CCS",
+            "Capital Cost|Electricity|Coal|w/ CCS",
+            "Capital Cost|Electricity|Coal|w/o CCS",
+            "Capital Cost|Electricity|Gas|w/ CCS",
+            "Capital Cost|Electricity|Gas|w/o CCS",
+            "Capital Cost|Electricity|Solar|CSP",
+            "Capital Cost|Electricity|Solar|PV",
+            "Capital Cost|Electricity|Wind|Offshore",
+            "Capital Cost|Electricity|Wind|Onshore",
+            "Emissions|CO2|Energy|Supply",
+            "Final Energy|Residential and Commercial|Commercial|Electricity",
+            "Final Energy|Residential and Commercial|Residential|Electricity",
+            "Final Energy|Transportation|Freight|Electricity",
+            "Final Energy|Transportation|Passenger|Electricity",
+            "Investment|Energy Supply|Electricity|Biomass",
+            "Investment|Energy Supply|Electricity|Coal",
+            "Investment|Energy Supply|Electricity|Fossil",
+            "Investment|Energy Supply|Electricity|Gas",
+            "Investment|Energy Supply|Electricity|Geothermal",
+            "Investment|Energy Supply|Electricity|Hydro",
+            "Investment|Energy Supply|Electricity|Non-Biomass Renewables",
+            "Investment|Energy Supply|Electricity|Nuclear",
+            "Investment|Energy Supply|Electricity|Oil",
+            "Investment|Energy Supply|Electricity|Solar",
+            "Investment|Energy Supply|Electricity|Wind",
+            "Price|Final Energy|Transportation|Electricity",
+            "Primary Energy|Biomass|Electricity|w/ CCS",
+            "Primary Energy|Biomass|Electricity|w/o CCS",
+            "Primary Energy|Coal|Electricity|w/ CCS",
+            "Primary Energy|Coal|Electricity|w/o CCS",
+            "Primary Energy|Gas|Electricity|w/ CCS",
+            "Primary Energy|Gas|Electricity|w/o CCS",
+            "Primary Energy|Oil|Electricity|w/ CCS",
+            "Primary Energy|Oil|Electricity|w/o CCS",
+            "Secondary Energy|Electricity|Biomass|w/ CCS",
+            "Secondary Energy|Electricity|Biomass|w/o CCS",
+            "Secondary Energy|Electricity|Coal|w/ CCS",
+            "Secondary Energy|Electricity|Coal|w/o CCS",
+            "Secondary Energy|Electricity|Gas|w/ CCS",
+            "Secondary Energy|Electricity|Gas|w/o CCS",
+            "Secondary Energy|Electricity|Oil|w/ CCS",
+            "Secondary Energy|Electricity|Oil|w/o CCS",
+            "Secondary Energy|Electricity|Solar|CSP",
+            "Secondary Energy|Electricity|Solar|PV",
+            "Secondary Energy|Electricity|Wind|Offshore",
+            "Secondary Energy|Electricity|Wind|Onshore",
+            "Trade|Secondary Energy|Electricity|Volume",
+            "Emissions|CO2|Energy|Supply|Electricity",
+            "Emissions|CO2|Energy|Supply|Other Sector",
+            "Investment|Energy Supply|Electricity|Biomass|w/ CCS",
+            "Investment|Energy Supply|Electricity|Biomass|w/o CCS",
+            "Investment|Energy Supply|Electricity|Coal|w/ CCS",
+            "Investment|Energy Supply|Electricity|Coal|w/o CCS",
+            "Investment|Energy Supply|Electricity|Gas|w/ CCS",
+            "Investment|Energy Supply|Electricity|Gas|w/o CCS",
+            "Investment|Energy Supply|Electricity|Oil|w/ CCS",
+            "Investment|Energy Supply|Electricity|Oil|w/o CCS",
+            "Price|Final Energy|Residential and Commercial|Residential|Electricity",
+            "Carbon Sequestration|CCS|Biomass|Energy|Supply|Electricity",
+            "Carbon Sequestration|CCS|Fossil|Energy|Supply|Electricity",
+            "Agricultural Demand",
+            "Capital Stock",
+            "Consumption",
+            "Employment",
+            "Export",
+            "Final Energy",
+            "Forcing",
+            "Import",
+            "Investment",
+            "Population",
+            "Primary Energy",
+            "Secondary Energy",
+            "Agricultural Demand|Livestock",
+            "Carbon Sequestration|CCS",
+            "Carbon Sequestration|Direct Air Capture",
+            "Concentration|CO2",
+            "Emissions|C2F6",
+            "Emissions|CH4",
+            "Emissions|CO",
+            "Emissions|CO2",
+            "Emissions|F-Gases",
+            "Emissions|HFC",
+            "Emissions|Kyoto Gases",
+            "Emissions|N2O",
+            "Emissions|NH3",
+            "Emissions|NOx",
+            "Emissions|OC",
+            "Emissions|PFC",
+            "Emissions|SF6",
+            "Emissions|Sulfur",
+            "Emissions|VOC",
+            "Employment|Agriculture",
+            "Employment|Industry",
+            "Employment|Service",
+            "Expenditure|government",
+            "Expenditure|household",
+            "Export|Agriculture",
+            "Export|Energy",
+            "Export|Industry",
+            "Export|Other",
+            "Final Energy|Gases",
+            "Final Energy|Geothermal",
+            "Final Energy|Heat",
+            "Final Energy|Hydrogen",
+            "Final Energy|Industry",
+            "Final Energy|Liquids",
+            "Final Energy|Non-Energy Use",
+            "Final Energy|Other",
+            "Final Energy|Other Sector",
+            "Final Energy|Residential and Commercial",
+            "Final Energy|Solar",
+            "Final Energy|Solids",
+            "Final Energy|Transportation",
+            "GDP|MER",
+            "Import|Agriculture",
+            "Import|Energy",
+            "Import|Industry",
+            "Import|Other",
+            "Investment|Energy Supply",
+            "Land Cover|Built-up Area",
+            "Land Cover|Cropland",
+            "Land Cover|Forest",
+            "Land Cover|Pasture",
+            "Policy Cost|Consumption Loss",
+            "Policy Cost|Equivalent Variation",
+            "Policy Cost|GDP Loss",
+            "Price|Carbon",
+            "Primary Energy|Biomass",
+            "Primary Energy|Coal",
+            "Primary Energy|Fossil",
+            "Primary Energy|Gas",
+            "Primary Energy|Gases",
+            "Primary Energy|Geothermal",
+            "Primary Energy|Hydro",
+            "Primary Energy|Non-Biomass Renewables",
+            "Primary Energy|Ocean",
+            "Primary Energy|Oil",
+            "Primary Energy|Other",
+            "Primary Energy|Solar",
+            "Secondary Energy|Gases",
+            "Secondary Energy|Heat",
+            "Secondary Energy|Hydrogen",
+            "Secondary Energy|Liquids",
+            "Secondary Energy|Other Carrier",
+            "Secondary Energy|Solids",
+            "Temperature|Global Mean",
+            "Value Added|Agriculture",
+            "Value Added|Industry",
+            "Agricultural Demand|Crops|Energy",
+            "Agricultural Demand|Crops|Feed",
+            "Agricultural Demand|Crops|Food",
+            "Agricultural Demand|Crops|Other",
+            "Agricultural Demand|Livestock|Food",
+            "Agricultural Demand|Livestock|Other",
+            "Benchmarking|Buildings|CO2 intensity",
+            "Benchmarking|Buildings|District heat rate",
+            "Benchmarking|Buildings|Electrification rate",
+            "Benchmarking|Buildings|Energy per capita",
+            "Benchmarking|Industry|CO2 intensity (gross)",
+            "Benchmarking|Industry|CO2 intensity (net)",
+            "Benchmarking|Industry|Electrification rate",
+            "Benchmarking|Industry|Energy intensity",
+            "Benchmarking|Industry|GDP per capita",
+            "Benchmarking|Transport|Biofuel admixture quota",
+            "Benchmarking|Transport|CO2 intensity",
+            "Benchmarking|Transport|Electrification rate",
+            "Benchmarking|Transport|Energy per capita",
+            "Carbon Sequestration|CCS|Biomass",
+            "Carbon Sequestration|CCS|Fossil",
+            "Carbon Sequestration|CCS|Industrial Processes",
+            "Emissions|CH4|AFOLU",
+            "Emissions|CH4|Energy",
+            "Emissions|CH4|Industrial Processes",
+            "Emissions|CH4|Waste",
+            "Emissions|CO2|AFOLU",
+            "Emissions|CO2|Energy",
+            "Emissions|CO2|Energy and Industrial Processes",
+            "Emissions|CO2|Gases",
+            "Emissions|CO2|Heat",
+            "Emissions|CO2|Industrial Processes",
+            "Emissions|CO2|Liquids",
+            "Emissions|CO2|Solids",
+            "Emissions|CO2|Waste",
+            "Emissions|HFC|HFC125",
+            "Emissions|HFC|HFC134a",
+            "Emissions|HFC|HFC143a",
+            "Emissions|HFC|HFC227ea",
+            "Emissions|HFC|HFC23",
+            "Emissions|HFC|HFC245fa",
+            "Emissions|HFC|HFC32",
+            "Emissions|HFC|HFC43-10",
+            "Emissions|HFC|Industrial Processes",
+            "Emissions|N2O|AFOLU",
+            "Emissions|N2O|Energy",
+            "Emissions|N2O|Industrial Processes",
+            "Emissions|N2O|Other",
+            "Emissions|N2O|Waste",
+            "Emissions|PFC|CF4",
+            "Employment|Industry|Energy",
+            "Employment|Industry|Energy Intensive",
+            "Employment|Industry|Manufacturing",
+            "Energy Service|Transportation|Freight",
+            "Energy Service|Transportation|Passenger",
+            "Expenditure|household|Energy",
+            "Expenditure|household|Food",
+            "Expenditure|household|Industry",
+            "Expenditure|household|Services",
+            "Final Energy|Gases|Bioenergy",
+            "Final Energy|Gases|Fossil",
+            "Final Energy|Industry|Gases",
+            "Final Energy|Industry|Heat",
+            "Final Energy|Industry|Hydrogen",
+            "Final Energy|Industry|Liquids",
+            "Final Energy|Industry|Other",
+            "Final Energy|Industry|Solids",
+            "Final Energy|Liquids|Bioenergy",
+            "Final Energy|Liquids|Fossil",
+            "Final Energy|Non-Energy Use|Biomass",
+            "Final Energy|Non-Energy Use|Coal",
+            "Final Energy|Non-Energy Use|Gas",
+            "Final Energy|Non-Energy Use|Oil",
+            "Final Energy|Other Sector|Gases",
+            "Final Energy|Other Sector|Heat",
+            "Final Energy|Other Sector|Hydrogen",
+            "Final Energy|Other Sector|Liquids",
+            "Final Energy|Other Sector|Other",
+            "Final Energy|Other Sector|Solids",
+            "Final Energy|Residential and Commercial|Commercial",
+            "Final Energy|Residential and Commercial|Gases",
+            "Final Energy|Residential and Commercial|Heat",
+            "Final Energy|Residential and Commercial|Hydrogen",
+            "Final Energy|Residential and Commercial|Liquids",
+            "Final Energy|Residential and Commercial|Other",
+            "Final Energy|Residential and Commercial|Residential",
+            "Final Energy|Residential and Commercial|Solids",
+            "Final Energy|Solids|Biomass",
+            "Final Energy|Solids|Coal",
+            "Final Energy|Transportation|Freight",
+            "Final Energy|Transportation|Gases",
+            "Final Energy|Transportation|Hydrogen",
+            "Final Energy|Transportation|Liquids",
+            "Final Energy|Transportation|Other",
+            "Final Energy|Transportation|Passenger",
+            "Final Energy|Transportation|Solids",
+            "Policy Cost|GDP Loss|w/o transfers",
+            "Price|Primary Energy|Biomass",
+            "Price|Primary Energy|Coal",
+            "Price|Primary Energy|Gas",
+            "Price|Primary Energy|Oil",
+            "Price|Secondary Energy|Hydrogen",
+            "Price|Secondary Energy|Liquids",
+            "Primary Energy|Biomass|Modern",
+            "Primary Energy|Biomass|Traditional",
+            "Primary Energy|Coal|w/ CCS",
+            "Primary Energy|Coal|w/o CCS",
+            "Primary Energy|Fossil|w/ CCS",
+            "Primary Energy|Fossil|w/o CCS",
+            "Primary Energy|Gas|w/ CCS",
+            "Primary Energy|Gas|w/o CCS",
+            "Primary Energy|Oil|w/ CCS",
+            "Primary Energy|Oil|w/o CCS",
+            "Secondary Energy|Gases|Biomass",
+            "Secondary Energy|Gases|Coal",
+            "Secondary Energy|Gases|Fossil",
+            "Secondary Energy|Gases|Natural Gas",
+            "Secondary Energy|Heat|Geothermal",
+            "Secondary Energy|Hydrogen|Biomass",
+            "Secondary Energy|Hydrogen|Fossil",
+            "Secondary Energy|Liquids|Biomass",
+            "Secondary Energy|Liquids|Coal",
+            "Secondary Energy|Liquids|Fossil",
+            "Secondary Energy|Liquids|Gas",
+            "Secondary Energy|Liquids|Oil",
+            "Secondary Energy|Solids|Biomass",
+            "Secondary Energy|Solids|Coal",
+            "Secondary Energy|Solids|Fossil",
+            "Value Added|Industry|Energy Intensive",
+            "Value Added|Industry|Manufacturing",
+            "Value Added|Residential and Commercial|Commercial",
+            "Capacity|Electricty|Biomass|w/ CCS",
+            "Capacity|Electricty|Coal|CCS",
+            "Carbon Sequestration|CCS|Biomass|Energy",
+            "Carbon Sequestration|CCS|Biomass|Industrial Processes",
+            "Carbon Sequestration|CCS|Fossil|Energy",
+            "Carbon Sequestration|CCS|Fossil|Industrial Processes",
+            "Emissions|CH4|AFOLU|Agriculture",
+            "Emissions|CO2|Energy|Demand",
+            "Emissions|CO2|Industrial Processes|Cement",
+            "Emissions|CO2|Industrial Processes|Chemicals",
+            "Emissions|CO2|Industrial Processes|Non-ferrous metals",
+            "Emissions|CO2|Industrial Processes|Other",
+            "Emissions|CO2|Industrial Processes|Pulp and Paper",
+            "Emissions|CO2|Industrial Processes|Steel",
+            "Emissions|N2O|AFOLU|Agriculture",
+            "Expenditure|household|Services|health",
+            "Final Energy|Industry|Gases|Bioenergy",
+            "Final Energy|Industry|Gases|Fossil",
+            "Final Energy|Industry|Liquids|Bioenergy",
+            "Final Energy|Industry|Liquids|Fossil",
+            "Final Energy|Industry|Solids|Biomass",
+            "Final Energy|Industry|Solids|Coal",
+            "Final Energy|Other Sector|Gases|Bioenergy",
+            "Final Energy|Other Sector|Gases|Fossil",
+            "Final Energy|Other Sector|Liquids|Bioenergy",
+            "Final Energy|Other Sector|Liquids|Fossil",
+            "Final Energy|Other Sector|Solids|Biomass",
+            "Final Energy|Other Sector|Solids|Coal",
+            "Final Energy|Residential and Commercial|Commercial|Gases",
+            "Final Energy|Residential and Commercial|Commercial|Hydrogen",
+            "Final Energy|Residential and Commercial|Commercial|Liquids",
+            "Final Energy|Residential and Commercial|Commercial|Other",
+            "Final Energy|Residential and Commercial|Commercial|Solids",
+            "Final Energy|Residential and Commercial|Gases|Bioenergy",
+            "Final Energy|Residential and Commercial|Gases|Fossil",
+            "Final Energy|Residential and Commercial|Liquids|Bioenergy",
+            "Final Energy|Residential and Commercial|Liquids|Fossil",
+            "Final Energy|Residential and Commercial|Residential|Gases",
+            "Final Energy|Residential and Commercial|Residential|Hydrogen",
+            "Final Energy|Residential and Commercial|Residential|Liquids",
+            "Final Energy|Residential and Commercial|Residential|Other",
+            "Final Energy|Residential and Commercial|Residential|Solids",
+            "Final Energy|Residential and Commercial|Solids|Biomass",
+            "Final Energy|Residential and Commercial|Solids|Coal",
+            "Final Energy|Solids|Biomass|Traditional",
+            "Final Energy|Transportation|Freight|Gases",
+            "Final Energy|Transportation|Freight|Hydrogen",
+            "Final Energy|Transportation|Freight|Liquid",
+            "Final Energy|Transportation|Freight|Solid",
+            "Final Energy|Transportation|Gases|Bioenergy",
+            "Final Energy|Transportation|Gases|Fossil",
+            "Final Energy|Transportation|Liquids|Bioenergy",
+            "Final Energy|Transportation|Liquids|Biomass",
+            "Final Energy|Transportation|Liquids|Oil",
+            "Final Energy|Transportation|Passenger|Gases",
+            "Final Energy|Transportation|Passenger|Hydrogen",
+            "Final Energy|Transportation|Passenger|Liquid",
+            "Final Energy|Transportation|Passenger|Solid",
+            "Final Energy|Transportation|Solids|Biomass",
+            "Final Energy|Transportation|Solids|Coal",
+            "Price|Agriculture|Corn|Index",
+            "Price|Agriculture|Rice|Index",
+            "Price|Agriculture|Soybean|Index",
+            "Price|Agriculture|Wheat|Index",
+            "Price|Final Energy|Transportation|Gases",
+            "Price|Final Energy|Transportation|Hydrogen",
+            "Price|Final Energy|Transportation|Liquids",
+            "Price|Secondary Energy|Gases|Natural Gas",
+            "Price|Secondary Energy|Liquids|Biomass",
+            "Price|Secondary Energy|Liquids|Oil",
+            "Price|Secondary Energy|Solids|Biomass",
+            "Price|Secondary Energy|Solids|Coal",
+            "Primary Energy|Biomass|Modern|w/ CCS",
+            "Primary Energy|Biomass|Modern|w/o CCS",
+            "Secondary Energy|Hydrogen|Biomass|w/ CCS",
+            "Secondary Energy|Hydrogen|Biomass|w/o CCS",
+            "Secondary Energy|Hydrogen|Fossil|w/ CCS",
+            "Secondary Energy|Hydrogen|Fossil|w/o CCS",
+            "Secondary Energy|Liquids|Biomass|w/ CCS",
+            "Secondary Energy|Liquids|Biomass|w/o CCS",
+            "Secondary Energy|Liquids|Coal|w/ CCS",
+            "Secondary Energy|Liquids|Coal|w/o CCS",
+            "Secondary Energy|Liquids|Gas|w/o CCS",
+            "Trade|Primary Energy|Coal|Volume",
+            "Trade|Primary Energy|Gas|Volume",
+            "Trade|Primary Energy|Oil|Volume",
+            "Carbon Sequestration|CCS|Biomass|Energy|Supply",
+            "Carbon Sequestration|CCS|Fossil|Energy|Supply",
+            "Emissions|CO2|Energy|Demand|AFOFI",
+            "Emissions|CO2|Energy|Demand|Commercial",
+            "Emissions|CO2|Energy|Demand|Industry",
+            "Emissions|CO2|Energy|Demand|Other Sector",
+            "Emissions|CO2|Energy|Demand|Residential",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial",
+            "Emissions|CO2|Energy|Demand|Residential&Commercial",
+            "Emissions|CO2|Energy|Demand|Transport",
+            "Emissions|CO2|Energy|Demand|Transportation",
+            "Emissions|CO2|Energy|Supply|Gases",
+            "Emissions|CO2|Energy|Supply|Heat",
+            "Emissions|CO2|Energy|Supply|Liquids",
+            "Emissions|CO2|Energy|Supply|Solids",
+            "Emissions|CO2|Industrial Processes|Chemicals|Ammonia",
+            "Emissions|CO2|Industrial Processes|Chemicals|High value chemicals",
+            "Emissions|CO2|Industrial Processes|Chemicals|Methanol",
+            "Emissions|CO2|Industrial Processes|Chemicals|Other",
+            "Final Energy|Residential and Commercial|Commercial|Gases|Bioenergy",
+            "Final Energy|Residential and Commercial|Commercial|Gases|Fossil",
+            "Final Energy|Residential and Commercial|Commercial|Liquids|Bioenergy",
+            "Final Energy|Residential and Commercial|Commercial|Liquids|Fossil",
+            "Final Energy|Residential and Commercial|Commercial|Solids|Biomass",
+            "Final Energy|Residential and Commercial|Commercial|Solids|Coal",
+            "Final Energy|Residential and Commercial|Residential|Gases|Bioenergy",
+            "Final Energy|Residential and Commercial|Residential|Gases|Fossil",
+            "Final Energy|Residential and Commercial|Residential|Liquids|Bioenergy",
+            "Final Energy|Residential and Commercial|Residential|Liquids|Fossil",
+            "Final Energy|Residential and Commercial|Residential|Solids|Biomass",
+            "Final Energy|Residential and Commercial|Residential|Solids|Coal",
+            "Price|Final Energy|Residential and Commercial|Residential|Liquids",
+            "Trade|Secondary Energy|Liquids|Oil|Volume",
+            "Carbon Sequestration|CCS|Biomass|Energy|Supply|Hydrogen",
+            "Carbon Sequestration|CCS|Biomass|Energy|Supply|Liquids",
+            "Carbon Sequestration|CCS|Fossil|Energy|Demand|Industry",
+            "Carbon Sequestration|CCS|Fossil|Energy|Supply|Hydrogen",
+            "Emissions|CO2|Energy|Demand|Industry|Cement",
+            "Emissions|CO2|Energy|Demand|Industry|Chemicals",
+            "Emissions|CO2|Energy|Demand|Industry|Non-ferrous metals",
+            "Emissions|CO2|Energy|Demand|Industry|Other",
+            "Emissions|CO2|Energy|Demand|Industry|Pulp and Paper",
+            "Emissions|CO2|Energy|Demand|Industry|Steel",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Residential",
+            "Emissions|CO2|Energy|Demand|Transportation|Aviation",
+            "Emissions|CO2|Energy|Demand|Transportation|Maritime",
+            "Emissions|CO2|Energy|Demand|Transportation|Rail",
+            "Emissions|CO2|Energy|Demand|Transportation|Road",
+            "Price|Final Energy|Residential and Commercial|Residential|Gases|Natural Gas",
+            "Price|Final Energy|Residential and Commercial|Residential|Solids|Biomass",
+            "Price|Final Energy|Residential and Commercial|Residential|Solids|Coal",
+            "Emissions|CO2|Energy|Demand|Industry|Chemicals|Ammonia",
+            "Emissions|CO2|Energy|Demand|Industry|Chemicals|High value chemicals",
+            "Emissions|CO2|Energy|Demand|Industry|Chemicals|Methanol",
+            "Emissions|CO2|Energy|Demand|Industry|Chemicals|Other",
+            "Emissions|CO2|Energy|Demand|Transportation|Aviation|Freight",
+            "Emissions|CO2|Energy|Demand|Transportation|Aviation|International",
+            "Emissions|CO2|Energy|Demand|Transportation|Aviation|Passenger",
+            "Emissions|CO2|Energy|Demand|Transportation|Maritime|Freight",
+            "Emissions|CO2|Energy|Demand|Transportation|Maritime|International",
+            "Emissions|CO2|Energy|Demand|Transportation|Rail|Freight",
+            "Emissions|CO2|Energy|Demand|Transportation|Rail|Passenger",
+            "Emissions|CO2|Energy|Demand|Transportation|Road|Freight",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial|Heating|Cooking",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial|Heating|Space",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial|Heating|Water",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Residential|Heating|Cooking",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Residential|Heating|Space",
+            "Emissions|CO2|Energy|Demand|Residential and Commercial|Residential|Heating|Water",
+            "Emissions|CO2|Energy|Demand|Transportation|Road|Passenger|Bus",
+            "Emissions|CO2|Energy|Demand|Transportation|Road|Passenger|LDV"
+          ],
+          "featured": 4,
+          "pending": {
+            "kind": "dimension",
+            "dimension": "variable"
+          },
+          "decisions": [
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "new:28",
+                "refine:23"
+              ],
+              "none": 50
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "Capacity|Electricity:42",
+                "Capacity Additions|Electricity|Coal:8"
+              ],
+              "none": 42
+            },
+            {
+              "subject": "variable",
+              "source": "match",
+              "outcome": "accepted",
+              "choice": "Capacity|Electricity",
+              "top": []
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "AUS:0",
+                "Africa_Eastern:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "gcam:60",
+                "muse:5"
+              ],
+              "none": 30
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "PR_CurPol_CP:66",
+                "PR_Baseline:1"
+              ],
+              "none": 31
+            },
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "analysis:0",
+                "studies:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "power-people:18",
+                "decipher:2"
+              ],
+              "none": 77
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "Capacity|Electricity:32",
+                "Capacity Additions|Electricity|Coal:17"
+              ],
+              "none": 42
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "AUS:0",
+                "Africa_Eastern:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:1",
+                "PR_Baseline:1"
+              ],
+              "none": 98
+            },
+            {
+              "subject": "follow-up",
+              "source": "policy",
+              "outcome": "accepted",
+              "top": []
+            }
+          ],
+          "ms": 792,
+          "wall": 799
+        },
+        {
+          "said": "what models are available for this?",
+          "want": "answer: the models of the current study",
+          "kind": "ask",
+          "mode": "asked",
+          "text": "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you.",
+          "options": [
+            "Build an analysis",
+            "Find a page",
+            "Find a tool",
+            "Explain a concept",
+            "Describe a model",
+            "Find studies for me"
+          ],
+          "pending": {
+            "kind": "route"
+          },
+          "decisions": [
+            {
+              "subject": "answer",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "Capacity|Electricity|Oil:0",
+                "Capacity|Electricity:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "request type",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "refine",
+              "top": [
+                "refine:93",
+                "new:3"
+              ],
+              "none": 3
+            },
+            {
+              "subject": "variable",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "Capacity|Electricity|Oil:0",
+                "Capacity|Electricity:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "region",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "AUS:0",
+                "ARE:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "model",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "muse:0",
+                "42:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "scenario",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "WWH:1",
+                "PR_CurPol_CPO:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "unsure",
+              "top": [
+                "navigation:70",
+                "model:28"
+              ],
+              "none": 1
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:0",
+                "afolu:0"
+              ],
+              "none": 99
+            },
+            {
+              "subject": "page or definition",
+              "source": "ollama",
+              "outcome": "accepted",
+              "choice": "main-models-iamparis-eu-models",
+              "top": [
+                "main-models-iamparis-eu-models:96",
+                "result-behavioural-changes-for-climate-policy-iamparis-eu-results-iam-compact-behavioural-changes-for-climate-policy-policy-questions:2"
+              ],
+              "none": 1
+            }
+          ],
+          "ms": 745,
+          "wall": 763
+        },
+        {
+          "said": "where is the privacy policy",
+          "want": "navigation: Privacy policy",
+          "kind": "ask",
+          "mode": "asked",
+          "text": "Which page are you looking for?",
+          "options": [
+            "AFOLU transformation",
+            "Application Library",
+            "Barriers, Enablers & Policy Analysis",
+            "Behavioural changes for climate policy",
+            "Buildings Transformation",
+            "Comparison of Fit-for-55 Policy and Cost Optimal Scenarios for the EU",
+            "Cost of capital evolution effects on regional mitigation pathways",
+            "Data Stories",
+            "Enhancing renewable energy system metrics",
+            "Global impacts of NDCs",
+            "GLOBIO",
+            "Implications of EU steel industry relocation",
+            "Industrial transformation",
+            "Policy Catalogue Interactive Explorer",
+            "Post-Glasgow targets",
+            "Recovery Policy DB",
+            "Tech-constrained EU pathways to net zero",
+            "Transportation Transformation",
+            "42",
+            "AIM/Enduse India 3.3",
+            "ALADIN",
+            "ATOM",
+            "CHANCE",
+            "China-MORE",
+            "Circularity & decarbonisation interventions",
+            "CLEWs",
+            "CLEWs - Ethiopia",
+            "CLEWs - Kenya",
+            "CLEWs - Sri Lanka",
+            "CLEWs-EU",
+            "CLIMACRED",
+            "Configurable Analysis",
+            "Contact",
+            "CONTO",
+            "DECIPHER",
+            "DIAMOND",
+            "DICE",
+            "DIVA",
+            "DREEM",
+            "DYNERIO",
+            "E3ME 6.1",
+            "E3ME-FTT",
+            "E4SMA-EU-TIMES 1.0",
+            "EGMM",
+            "ENCLUDE",
+            "EnergyPLAN",
+            "EPMM",
+            "ETCU-RICE",
+            "EU-CHINA BRIDGE",
+            "Euro-Calliope",
+            "EXPANSE",
+            "FORECAST",
+            "GCAM",
+            "GCAM-Europe",
+            "GEM-E3",
+            "GEMINI-E3",
+            "GEMINI-E3 EU",
+            "HEB",
+            "Home",
+            "HU-TIMES",
+            "IAM COMPACT",
+            "ICES-XPS 1.0",
+            "IMACLIM-China",
+            "LEAP",
+            "MANAGE",
+            "MAPLE",
+            "MARIO",
+            "MARKAL-India",
+            "MEDEAS",
+            "MENA-EDS model",
+            "MicroGridsPy",
+            "Model Comparison",
+            "Models",
+            "MUSE",
+            "My Workspace",
+            "NATEM",
+            "NDC ASPECTS",
+            "NEMESIS 5.0",
+            "NEMESIS-World",
+            "OMNIA",
+            "OnSSET",
+            "OPEN-PROM",
+            "OSeMOSYS",
+            "OSeMOSYS OSeMBE",
+            "OSeMOSYS-Ukraine",
+            "PARIS REINFORCE",
+            "POLES",
+            "PowerPlan",
+            "PROMETHEUS",
+            "PSM-EU",
+            "Results",
+            "Scenario Metadata Tool",
+            "SDG Model Coverage Matrix",
+            "SISGEMA",
+            "Technology Inventories Explorer",
+            "TIAM_Grantham",
+            "TIMES-CAC",
+            "TIMES-GEO",
+            "TRANSIENCE",
+            "WILIAM",
+            "WISEE-EDM",
+            "WISEE-ESM",
+            "WISEE-Global Steel",
+            "WTMBT"
+          ],
+          "featured": 4,
+          "pending": {
+            "kind": "navigation"
+          },
+          "decisions": [
+            {
+              "subject": "answer",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "navigation:0",
+                "analysis:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "task",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "navigation:6",
+                "analysis:0"
+              ],
+              "none": 94
+            },
+            {
+              "subject": "study",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "study-2:0",
+                "study-7:0"
+              ],
+              "none": 100
+            },
+            {
+              "subject": "task",
+              "source": "policy",
+              "outcome": "accepted",
+              "choice": "navigation",
+              "top": []
+            },
+            {
+              "subject": "page or definition",
+              "source": "ollama",
+              "outcome": "none",
+              "top": [
+                "result-enhancing-renewable-energy-system-metrics-iamparis-eu-results-iam-compact-enhancing-renewable-energy-system-metrics-policy-questions:1",
+                "result-afolu-transformation-iamparis-eu-results-ndc-aspects-afolu-transformation-policy-questions:0"
+              ],
+              "none": 99
+            }
+          ],
+          "ms": 337,
+          "wall": 345
+        }
+      ]
+    }
+  ],
+  "finished": "2026-11-26T13:09:02.542Z"
+}

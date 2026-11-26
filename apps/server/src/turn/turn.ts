@@ -26,14 +26,23 @@ import {
   mentions,
   rankOptions,
   regionName,
+  says,
   variableDescription,
   terms,
   workspaceOptions,
   workspaces,
 } from "../tools/catalog.ts";
-import { curatedPick, headlineScenarios, namesStudy, scenarioLabel } from "../tools/curation.ts";
+import {
+  curatedPage,
+  curatedPick,
+  featuredVariables,
+  headlineScenarios,
+  namesStudy,
+  scenarioLabel,
+} from "../tools/curation.ts";
 import type { Results } from "../tools/results.ts";
-import { facetNames } from "../tools/studies.ts";
+import { facetNames, namedFacets } from "../tools/studies.ts";
+import { correctSpelling } from "../tools/spelling.ts";
 import { buildPlan, requestedYears } from "./analysis.ts";
 import { appFlow, asksForTool } from "./apps.ts";
 import { chartFilters, describeChart, draftFromChart, planPatch, usableChart } from "./chart.ts";
@@ -83,7 +92,7 @@ const routes: Option[] = [
 const describesUser =
   /\b(i\s*(am|'m|’m)\s+(an?|the|in|at|with|from|working|responsible|based)\b|i\s+(work|advise|represent|lead|manage)\b|my\s+(role|job|background|work|team|ministry|department|agency|country|region|sector|organi[sz]ation|company|city)\b|we\s+(work|regulate|advise)\b|as\s+an?\s+[\w\s-]{0,30}(maker|advis[eo]r|analyst|regulator|planner|official|officer|servant|minister|journalist|student|researcher|consultant|investor|mayor)\b)/i;
 const asksForStudies =
-  /\b(which|what|any|relevant|recommend|suggest|curate|pick|find|show)\b[^.?!]*\bstud(y|ies)\b[^.?!]*\b(for|about|on|covering|relevant|matter|should|cover|deal)\b|\b(relevant|useful|matter)s?\s+(for|to)\s+(me|us|my)\b|\bwhat should i (read|look at)\b/i;
+  /\b(which|what|any|relevant|recommend|suggest|curate|pick|find|show)\b[^.?!]*\bstud(y|ies)\b[^.?!]*\b(for|about|on|covering|relevant|matter|should|cover|deal|look|looks|focus|focuses|examine|examines|address|addresses|analy[sz]e|analy[sz]es)\b|\b(relevant|useful|matter)s?\s+(for|to)\s+(me|us|my)\b|\bwhat should i (read|look at)\b/i;
 /** What each classifier question decides, as the inspector names it. */
 const subjects: Record<string, string> = {
   route: "task",
@@ -115,7 +124,7 @@ function modelByName(models: ModelProfile[], text: string): ModelProfile | undef
     text,
   );
   if (exact) return models.find((m) => m.id === exact.id);
-  const family = (m: ModelProfile) => m.name.split(/[\s-]/)[0];
+  const family = (m: ModelProfile) => m.name.split(/[\s_-]/)[0];
   const named = models.filter(
     (m) =>
       family(m).length >= 3 &&
@@ -293,6 +302,47 @@ function plainest(variable: string, available: string[], text: string) {
   }
 }
 
+const wordsOf = (value: string) => value.toLowerCase().match(/[a-z0-9]+/g) ?? [];
+/**
+ * A follow-up that swaps part of the current variable: "and wind" after solar generation is wind
+ * generation, "installed capacity instead" after wind generation is wind capacity, "how much of
+ * that is electricity?" after transport energy is transport electricity. A candidate must use a
+ * word of the follow-up that the current variable lacks, and every one of its words must come
+ * from the follow-up or the current variable; the most specific such variable wins, a tie
+ * decides nothing.
+ */
+function switchedVariable(available: string[], request: string, current: string) {
+  const combined = `${request} ${current.replace(/\|/g, " ")}`;
+  const old = new Set(wordsOf(current));
+  let best: string[] = [];
+  let size = 0;
+  for (const variable of available) {
+    if (variable === current) continue;
+    const words = wordsOf(variable);
+    if (!words.some((w) => !old.has(w) && mentions(request, w))) continue;
+    if (!says(combined, variable.replace(/\|/g, " "))) continue;
+    if (words.length > size) [best, size] = [[variable], words.length];
+    else if (words.length === size) best.push(variable);
+  }
+  return best.length === 1 ? best[0] : undefined;
+}
+/** Wording that asks for a definition: "what's an NDC?", "is that a forecast?". */
+const asksDefinition =
+  /^\s*(what(?:'s|’s|s| is| are| does| do)|define|explain|meaning of|(is|are) (that|this|it|these|those|they)\b)/i;
+/** Wording that asks what a study contains: "what scenarios are in this study?". */
+const asksContents =
+  /\b(what|which|list( the)?|show( me)?( the)?)\s+(scenarios|models|regions|countries|variables|indicators)\b(?![^?]*\b(show|project|predict|say|expect)\b)/i;
+const contentDimensions: Record<string, SeriesDimension> = {
+  scenarios: "scenario",
+  models: "modelName",
+  regions: "region",
+  countries: "region",
+  variables: "variable",
+  indicators: "variable",
+};
+/** Words that ask for a page, so a message naming a study is not read as a data request. */
+const pageRequest = /\b(page|open|go to|take me|link|where|read|website|site|policy questions)\b/i;
+
 /**
  * Execute one turn: one classifier request answers every open question, code
  * decides what happens, and the user is asked only for what can be neither inferred nor assumed.
@@ -309,7 +359,8 @@ export async function handleTurn(
   const briefBefore = structuredClone(conversation.brief);
   const finderBefore = structuredClone(conversation.finder);
   const pendingBefore = structuredClone(conversation.pending);
-  const text = "text" in input ? input.text.trim() : "";
+  // Misspelled place names and domain terms are read as meant ("germny" → "germany").
+  const { text, fixes } = correctSpelling("text" in input ? input.text.trim() : "");
   const chart = usableChart(input.context?.chart) ? input.context.chart : undefined;
   const availableRoutes = chart ? [...routes, chartRoute] : routes;
 
@@ -463,7 +514,7 @@ export async function handleTurn(
       // "Not mentioned" (or no classifier) lets policy assume a default; an unsure split asks,
       // leading with the classifier's best guess.
       const guess = Object.entries(decision?.probabilities ?? {})
-        .filter(([id, p]) => p > 0 && ranked[key].options.some((o) => o.id === id))
+        .filter(([id, p]) => p >= 0.15 && ranked[key].options.some((o) => o.id === id))
         .sort((a, b) => b[1] - a[1])[0]?.[0];
       result[key] = {
         guess,
@@ -476,6 +527,12 @@ export async function handleTurn(
     return result;
   }
 
+  if (fixes.length)
+    note(
+      "spelling",
+      `Read ${fixes.map(([typed, meant]) => `“${typed}” as “${meant}”`).join(", ")}.`,
+      "A word found nowhere in the assistant's data, one or two letters from a place name or domain term.",
+    );
   const studies = studyFlow({ conversation, trace, decide, ask, note });
   const apps = appFlow({ conversation, trace, decide, ask, note });
 
@@ -490,7 +547,7 @@ export async function handleTurn(
     return options.map((value) => {
       const detail =
         dimension === "modelName"
-          ? value.split(/[\s-]/)[0]
+          ? value.split(/[\s_-]/)[0]
           : dimension === "region"
             ? regionName(value)
             : dimension === "variable"
@@ -505,7 +562,26 @@ export async function handleTurn(
   }
 
   function askFor(dimension: Dimension, options: Option[], why = "", guess?: string): Reply {
-    const ranked = rankOptions(options, conversation.draft?.goal ?? text);
+    const request = conversation.draft?.goal ?? text;
+    let ranked = rankOptions(options, request);
+    // "emissions" offers total greenhouse gases and CO2 before NH3 or C2F6: the curated aggregates
+    // that share a word with the request lead, in curated order.
+    if (dimension === "variable") {
+      const lead = featuredVariables.filter((v) =>
+        ranked.some(
+          (o) =>
+            o.id === v &&
+            v
+              .toLowerCase()
+              .split(/[^a-z0-9]+/)
+              .some((w) => w.length > 2 && mentions(request, w)),
+        ),
+      );
+      ranked = [
+        ...lead.map((v) => ranked.find((o) => o.id === v)!),
+        ...ranked.filter((o) => !lead.includes(o.id)),
+      ];
+    }
     const first = ranked.findIndex((o) => o.id === guess);
     if (first > 0) ranked.unshift(...ranked.splice(first, 1));
     return ask(
@@ -713,6 +789,8 @@ export async function handleTurn(
       if (outside) {
         const moved = await moveToStudyWith(outside.id, draft.years);
         if (moved) return moved;
+        const related = await relatedVariablesFor(outside);
+        if (related) return related;
       }
       const unspecified = Boolean(outside) || (picks[d]?.unspecified ?? true);
       if (d === "variable" || !unspecified) {
@@ -909,6 +987,60 @@ export async function handleTurn(
   }
 
   /**
+   * A region named outright that no study has for this variable ("greenhouse gas emissions for
+   * Greece"): rather than show another region, offer the variables of the same family that do
+   * have data for it (Emissions|CO2 for Greece), in the first study that has the region, general
+   * studies first. Nothing is offered when the region has none of them.
+   */
+  async function relatedVariablesFor(region: Option): Promise<Reply | undefined> {
+    const draft = conversation.draft!;
+    const wanted = draft.filters.variable?.[0];
+    if (!wanted) return undefined;
+    const family = wanted.split("|")[0];
+    const name = (r: string) => (regionName(r) ?? r).toLowerCase();
+    const order = [
+      ...new Set([
+        draft.filters.workspace_code![0],
+        "world-headed",
+        "eu-headed",
+        ...workspaces.map((w) => w.code),
+      ]),
+    ];
+    for (const code of order) {
+      const regions = await api
+        .distinct("region", { workspace_code: [code] })
+        .catch((): string[] => []);
+      const twin = regions.find((r) => r === region.id || name(r) === name(region.id));
+      if (!twin) continue;
+      const variables = (
+        await api
+          .distinct("variable", { workspace_code: [code], region: [twin] })
+          .catch((): string[] => [])
+      ).filter((v) => v.split("|")[0] === family);
+      if (!variables.length) continue;
+      const place = regionName(region.id) ?? region.id;
+      note(
+        "variable",
+        `No study has ${wanted} for ${place}.`,
+        `Offering the ${family} variables that ${code} has for ${twin}, rather than showing another region.`,
+        code,
+      );
+      conversation.draft = {
+        filters: { workspace_code: [code], region: [twin] },
+        years: draft.years,
+        goal: draft.goal,
+        assumed: code === draft.filters.workspace_code![0] ? draft.assumed : ["workspace_code"],
+      };
+      return askFor(
+        "variable",
+        values(variables, "variable"),
+        `No study has ${wanted} data for ${place}, but these ${family} variables do. `,
+      );
+    }
+    return undefined;
+  }
+
+  /**
    * Apply a typed change to the current draft in one classifier request: whether it is a change at
    * all, and which value of each dimension is now wanted. Returns nothing for a new request.
    */
@@ -921,45 +1053,69 @@ export async function handleTurn(
         seriesDimensions.map(async (d) => [d, await api.distinct(d, study)] as const),
       ),
     ) as Record<SeriesDimension, string[]>;
-    const picks = await decide(
-      {
-        request: {
-          question: "Does the user change the current data query, or make a new unrelated request?",
-          options: requestKinds,
-        },
-        ...Object.fromEntries(
-          seriesDimensions.map((d) => [
-            d,
-            {
-              // The current value is stated in the question, not the message, so the classifier
-              // does not mistake it for what the user asks: "none" means keep it.
-              question: `The current ${dimensionLabels[d]} is ${draft.filters[d]?.join(", ") ?? "not set"}. Which ${dimensionLabels[d]} does the user want now?${d === "variable" ? ' Narrowing words such as "only solar" select a more specific variable.' : ""} Choose none if the message does not change the ${dimensionLabels[d]}.`,
-              options: values(available[d], d),
-            },
-          ]),
-        ),
-      } as Record<"request" | SeriesDimension, Question>,
-      request,
-      {
-        request,
-        region: request,
-        modelName: request,
-        scenario: request,
-        // A variable named outright wins; otherwise narrowing words combine with the current
-        // one: "only solar" on Secondary Energy|Electricity matches …|Electricity|Solar.
-        variable: matchOption(values(available.variable), request)
-          ? request
-          : `${request} ${draft.filters.variable?.join(" ").replace(/\|/g, " ") ?? ""}`,
+    const current = draft.filters.variable?.[0];
+    const variableOptions = values(available.variable);
+    const named =
+      matchOption(variableOptions, request) ?? curatedPick("variable", variableOptions, request);
+    // "and wind", "installed capacity instead": decided by wording, so the classifier is not asked.
+    const switched =
+      !named && current ? switchedVariable(available.variable, request, current) : undefined;
+    const questions = {
+      request: {
+        question: "Does the user change the current data query, or make a new unrelated request?",
+        options: requestKinds,
       },
-    );
+      ...Object.fromEntries(
+        seriesDimensions.map((d) => [
+          d,
+          {
+            // The current value is stated in the question, not the message, so the classifier
+            // does not mistake it for what the user asks: "none" means keep it.
+            question: `The current ${dimensionLabels[d]} is ${draft.filters[d]?.join(", ") ?? "not set"}. Which ${dimensionLabels[d]} does the user want now?${d === "variable" ? ' Narrowing words such as "only solar" select a more specific variable.' : ""} Choose none if the message does not change the ${dimensionLabels[d]}.`,
+            options: values(available[d], d),
+          },
+        ]),
+      ),
+    } as Record<"request" | SeriesDimension, Question>;
+    if (switched) delete (questions as Partial<typeof questions>).variable;
+    const picks = await decide(questions, request, {
+      request,
+      region: request,
+      modelName: request,
+      scenario: request,
+      // A variable named outright wins; otherwise narrowing words combine with the current
+      // one: "only solar" on Secondary Energy|Electricity matches …|Electricity|Solar.
+      variable: named
+        ? request
+        : `${request} ${draft.filters.variable?.join(" ").replace(/\|/g, " ") ?? ""}`,
+    });
+    if (switched) {
+      picks.variable = { choice: switched, unspecified: false, curated: true };
+      note(
+        "variable",
+        `The follow-up swaps part of ${current}.`,
+        "Its new words and the rest of the current variable name this one exactly; the classifier was not asked.",
+        switched,
+      );
+    }
+    if (!picks.region.choice && mentions(request, "eu")) {
+      const eu = defaultRegions.find((r) => r !== "World" && available.region.includes(r));
+      if (eu) picks.region = { choice: eu, unspecified: false };
+    }
+    const value = (d: SeriesDimension) =>
+      d === "variable" && !picks[d].curated
+        ? plainest(picks[d].choice!, available.variable, request)
+        : picks[d].choice!;
     const years = requestedYears(request);
     const changes = seriesDimensions.filter(
       (d) => picks[d].choice && draft.filters[d]?.join() !== picks[d].choice,
     );
-    // A region this study lacks ("same for Germany" in the EU study) may exist in another one.
+    // A region this study lacks ("same for Germany" in the EU study) may exist in another one,
+    // for the variable this message asks for ("how much energy does transport use in Germany?").
     if (picks.request.choice !== "new" && !changes.includes("region")) {
       const outside = matchOption(knownRegions, request);
       if (outside && !available.region.includes(outside.id)) {
+        if (changes.includes("variable")) draft.filters.variable = [value("variable")];
         const moved = await moveToStudyWith(outside.id, years);
         if (moved) return moved;
       }
@@ -969,12 +1125,10 @@ export async function handleTurn(
     const extend = /\b(add|also|compare|versus|vs|plus|as well)\b/i.test(request);
     const before = structuredClone(draft);
     for (const d of changes) {
-      const value =
-        d === "variable" && !picks[d].curated
-          ? plainest(picks[d].choice!, available.variable, request)
-          : picks[d].choice!;
       draft.filters[d] =
-        extend && d !== "variable" ? [...new Set([...(draft.filters[d] ?? []), value])] : [value];
+        extend && d !== "variable"
+          ? [...new Set([...(draft.filters[d] ?? []), value(d)])]
+          : [value(d)];
       draft.assumed = draft.assumed?.filter((a) => a !== d);
     }
     if (years.length) draft.years = years;
@@ -983,16 +1137,26 @@ export async function handleTurn(
     // A requested value without data keeps the previous query and says why, never a silent revert.
     const missing = changes.find((d) => !draft.filters[d]?.includes(picks[d].choice!));
     if (missing) {
-      const value = picks[missing].choice!;
-      conversation.draft = before;
+      const lost = picks[missing].choice!;
       if (missing === "region") {
-        const moved = await moveToStudyWith(value, years);
+        // Only the region moves: the rest of the change stays ("final energy in transport in
+        // India" keeps the new variable when India is published as IND).
+        const moving = structuredClone(before);
+        for (const d of changes)
+          if (d !== "region")
+            moving.filters[d] =
+              extend && d !== "variable"
+                ? [...new Set([...(moving.filters[d] ?? []), value(d)])]
+                : [value(d)];
+        conversation.draft = moving;
+        const moved = await moveToStudyWith(lost, years);
         if (moved) return moved;
       }
+      conversation.draft = before;
       const study = workspaces.find((w) => w.code === before.filters.workspace_code?.[0])?.title;
       return ask(
         "review",
-        `There is no ${before.filters.variable} data for ${regionName(value) ?? value} in “${study}”, so your query is unchanged. Try another ${dimensionLabels[missing]} or variable.`,
+        `There is no ${before.filters.variable} data for ${regionName(lost) ?? lost} in “${study}”, so your query is unchanged. Try another ${dimensionLabels[missing]} or variable.`,
         refineOptions,
       );
     }
@@ -1228,6 +1392,107 @@ export async function handleTurn(
     throw new Error("Choose one of the current options.");
   }
 
+  /** A region, a year or a request for numbers: the message asks for data, not a page. */
+  const asksForData = () =>
+    requestedYears(text).length > 0 ||
+    Boolean(matchOption(knownRegions, text)) ||
+    /\b(world|global|worldwide|eu|europe)\b/i.test(text) ||
+    /^\s*(show|plot|chart|graph|compare|display|give me)\b|\b(how (much|many)|trend)\b/i.test(text);
+
+  /**
+   * "What's an NDC?" or "is that a forecast?" in the middle of an analysis, a study search or a
+   * tool search: the definition, with everything else kept, so the next message can carry on.
+   */
+  function definitionAside(): Reply | undefined {
+    if (!asksDefinition.test(text) || asksForData() || asksContents.test(text)) return undefined;
+    const term = matchOption(answerOptions, text);
+    if (!term || !mentionsOption(term, text)) return undefined;
+    const entry = terms[Number(term.id.replace("term", ""))];
+    trace.push({
+      subject: subjects.answer,
+      question: "Which curated definition does the question name?",
+      options: [term],
+      choice: term.id,
+      probabilities: {},
+      ms: 0,
+      source: "match",
+      outcome: "accepted",
+      reason:
+        "A definition question naming a glossary term, asked mid-conversation: answered without dropping what the user was doing.",
+      state: text,
+    });
+    const kept = conversation.draft
+      ? "Your data query is unchanged; type a change to carry on with it."
+      : conversation.brief
+        ? "Your study search is unchanged; type a change to carry on with it."
+        : conversation.finder
+          ? "Your tool search is unchanged; type a change to carry on with it."
+          : "";
+    return {
+      kind: "answer",
+      title: entry.term,
+      text: [entry.definition, kept].filter(Boolean).join(" "),
+      source: entry.source,
+      trace,
+    };
+  }
+
+  /**
+   * "What scenarios are in this study?": the values a study has data for, from the results API.
+   * The study is the one named, else the one being charted or queried. Nothing else changes.
+   */
+  async function studyContents(): Promise<Reply | undefined> {
+    if (!asksContents.test(text) || /\b(site|platform|iam ?paris|website)\b/i.test(text))
+      return undefined;
+    const named =
+      curatedPick("workspace_code", workspaceOptions, text) ?? matchOption(workspaceOptions, text);
+    const refers =
+      /\b(this|that|the|current|my) (study|workspace|query|chart|analysis)\b|\b(in|for) (this|it|there)\b|\b(available|included)\b|\bare there\b|\b(has|have|include|includes|cover|covers)\b/i.test(
+        text,
+      );
+    const study =
+      named?.id ??
+      (refers ? (conversation.draft?.filters.workspace_code?.[0] ?? chart?.workspace) : undefined);
+    if (!study) return undefined;
+    const noun = /\b(scenarios|models|regions|countries|variables|indicators)\b/i
+      .exec(text)![1]
+      .toLowerCase();
+    const d = contentDimensions[noun];
+    const found = await api.distinct(d, { workspace_code: [study] });
+    const title = workspaces.find((w) => w.code === study)?.title ?? study;
+    const shownAs = (value: string) => {
+      const detail =
+        d === "scenario" ? scenarioLabel(value) : d === "region" ? regionName(value) : undefined;
+      return detail && detail !== value ? `${detail} (${value})` : value;
+    };
+    const listed = found.map(shownAs);
+    note(
+      "study",
+      `Listing the ${dimensionLabels[d]}s with data in “${title}”.`,
+      named
+        ? "The message names the study."
+        : "The study of the current query; the classifier was not asked.",
+      study,
+    );
+    const link = workspaces.find((w) => w.code === study)?.explorer_url;
+    return {
+      kind: "answer",
+      title: `${noun[0].toUpperCase()}${noun.slice(1)} in “${title}”`,
+      text: [
+        `“${title}” has data for ${found.length} ${dimensionLabels[d]}${found.length === 1 ? "" : "s"}${found.length > 40 ? "; the first 40 are listed" : ""}.`,
+        conversation.draft ? "Your data query is unchanged; name one of these to use it." : "",
+      ]
+        .filter(Boolean)
+        .join(" "),
+      facts: listed.slice(0, 40),
+      source: "IAMPARIS results API",
+      actions: link
+        ? [{ type: "navigate", label: "Open the study's graphs", path: sitePath(link) }]
+        : undefined,
+      trace,
+    };
+  }
+
   async function newRequest(): Promise<Reply> {
     conversation.pending = undefined;
     conversation.draft = undefined;
@@ -1235,6 +1500,25 @@ export async function handleTurn(
     conversation.finder = undefined;
     // With a chart open, "this chart" or a chart type is about that chart: no classifier needed.
     if (chart && aboutOpenChart.test(text)) return execute("route", "chart");
+    // A page named by a curated phrase ("upload my results", "model documentation"), unless the
+    // message also names a place, a year or numbers.
+    const page = asksForData() && !pageRequest.test(text) ? undefined : curatedPage(text);
+    const curated = page ? linkOptions.find((option) => option.id === page) : undefined;
+    if (curated) {
+      trace.push({
+        subject: subjects.target,
+        question: "Which IAMPARIS page does the message name?",
+        options: [curated],
+        choice: curated.id,
+        probabilities: {},
+        ms: 0,
+        source: "match",
+        outcome: "accepted",
+        reason: "Named by a curated phrase in data/curation.json, so the classifier was not asked.",
+        state: text,
+      });
+      return execute("navigation", curated.id);
+    }
     // A tool named from the Application Library, or a word for tools, is a tool search. When
     // the message gives nothing to search by, it is read as any other request below.
     let noSuchTool = false;
@@ -1275,6 +1559,22 @@ export async function handleTurn(
       );
       return studies.start(text);
     }
+    // "Help me find something about steel": the studies tagged with that topic or sector.
+    if (
+      /\b(something|anything|information|info|resources?|material|work|research)\s+(about|on|related to|regarding)\b/i.test(
+        text,
+      ) &&
+      !asksForData() &&
+      (namedFacets("tag", text).length || namedFacets("sector", text).length)
+    ) {
+      note(
+        "task",
+        "The message asks for material on a topic the Results page can filter by.",
+        "Studies are picked for that topic. A wording rule in code; the classifier was not asked.",
+        "studies",
+      );
+      return studies.start(text);
+    }
     // "Who developed it?" right after a model profile is about that model.
     if (
       conversation.subject?.kind === "model" &&
@@ -1288,9 +1588,13 @@ export async function handleTurn(
       const named = modelByName(await registry(), text);
       if (named) return execute("model", named.id);
     }
-    // A study or data story named outright opens its page.
-    const page = namedPage(text);
-    if (page) return execute("navigation", page.id);
+    // "What is an integrated assessment model?": the glossary term named outright.
+    const definition = definitionAside();
+    if (definition) return definition;
+    // A study or data story named outright opens its page, unless the message asks for numbers
+    // from it ("net zero CO2 emissions in the EU in the net zero study").
+    const named = asksForData() && !pageRequest.test(text) ? undefined : namedPage(text);
+    if (named) return execute("navigation", named.id);
     // The study rides along with the route so an analysis can start without a second request.
     const picks = await decide(
       {
@@ -1406,6 +1710,18 @@ export async function handleTurn(
         conversation.draft = undefined;
         return await execute(chartOptions.includes(command) ? "chart" : "route", command.id);
       }
+      // Questions asked on the side keep the analysis, study search or tool search in progress.
+      const contents = await studyContents();
+      if (contents) return contents;
+      if (conversation.pending || conversation.draft || conversation.brief || conversation.finder) {
+        const aside = definitionAside();
+        if (aside) return aside;
+        // "Tell me about TIAM" mid-analysis is about the model, not a change to the query.
+        if (asksAboutModel.test(text) && !asksForData()) {
+          const named = modelByName(await registry(), text);
+          if (named) return await execute("model", named.id);
+        }
+      }
       const pending = conversation.pending;
       if (pending) {
         // "2" picks the second offered option, as numbered in the panel.
@@ -1441,6 +1757,27 @@ export async function handleTurn(
         const aboutStudies = describesUser.test(text) || asksForStudies.test(text);
         // A request for a tool is never an answer to a question about something else.
         if (pending.kind !== "apps" && apps.wanted(text) && !mentionsStudies.test(text))
+          return await newRequest();
+        // A study or data story named outright during a study or tool search opens its page
+        // ("steel industry relocation results").
+        if (pending.kind === "studies" || pending.kind === "apps") {
+          const page = asksForData() ? undefined : namedPage(text);
+          if (page) return await execute("navigation", page.id);
+        }
+        // Asked which page, definition, model or task, the user typed a data request instead
+        // ("show primary energy in India" after "which topic do you mean?").
+        if (["answer", "navigation", "model", "route"].includes(pending.kind) && asksForData())
+          return await newRequest();
+        // Asked for one value, the user names another place: a new query, not an answer
+        // ("carbon price in Europe" when asked which wind variable for Spain).
+        const place = matchOption(knownRegions, text);
+        if (
+          pending.kind === "dimension" &&
+          pending.dimension !== "region" &&
+          place &&
+          !/^\s*(same|what about|how about|and|only|just|for|in)\b/i.test(text) &&
+          !conversation.draft?.filters.region?.includes(place.id)
+        )
           return await newRequest();
         if (pending.kind === "apps") {
           const found = aboutStudies ? undefined : await apps.typed(text);

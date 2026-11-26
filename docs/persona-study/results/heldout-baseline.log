@@ -1,0 +1,56 @@
+
+## climate-teacher: Secondary-school teacher preparing a lesson on climate scenarios
+> what is the paris agreement?
+  answer [answered (rules)] Paris Agreement
+  "The Paris Agreement is an international treaty adopted in 2015 under the United Nations Framework Convention on Climate Change (UNFCCC). It aims to hold the inc"
+> how much methane does the world emit?
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CH4 region=World modelName=gcam+gemini_e3 scenario=PR_CurPol_CP+PR_NDC_CP
+> what does that look like in india?
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CH4 region=IND modelName=gcam+gemini_e3 scenario=PR_CurPol_CP+PR_NDC_CP
+> is this a prediction?
+  ask [asked] Build an analysis | Find a page | Find a tool | Explain a concept
+  "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you."
+> are there any games about climate change?
+  apps [answered (rules)] 
+  "31 tools in the Application Library match “game”, “climate”, “change”. No Game tool matches “game”, “climate”, “change”, so every type is included. The closest "
+
+## industry-consultant: Consultant advising cement and steel producers
+> industry emissions in Europe
+  result [answered+assumed] workspace_code=eu-headed region=EU variable=Emissions|CO2|Energy|Demand|Industry modelName=10 values scenario=PR_WWH_CP
+> and in poland
+  result [answered+assumed] workspace_code=world-headed variable=Emissions|CO2|Energy|Demand|Industry region=POL modelName=e3me+ices scenario=PR_CurPol_CP+PR_NDC_CP
+> Which studies look at cement?
+  result [answered+assumed] workspace_code=world-headed variable=Final Energy|Industry region=POL modelName=e3me+ices scenario=PR_CurPol_CP+PR_NDC_CP
+> open the polish cement study
+  navigation [answered (rules)] Circularity & decarbonisation interventions
+  "Open this page on IAMPARIS."
+
+## hydrogen-analyst: Analyst at a hydrogen industry association
+> hydrogen producton in germany by 2050
+  result [answered+assumed] workspace_code=net-zero variable=Final Energy|Hydrogen region=DE modelName=E4SMA-EU-TIMES 1.0 scenario=WWH21+NZE_EUPol_Stand
+> what about france?
+  result [answered+assumed] workspace_code=net-zero variable=Final Energy|Hydrogen region=FR modelName=E4SMA-EU-TIMES 1.0 scenario=WWH21+NZE_EUPol_Stand
+> whats CCS
+  result [answered+assumed] workspace_code=net-zero variable=Carbon Sequestration|CCS region=FR modelName=E4SMA-EU-TIMES 1.0 scenario=WWH21+NZE_EUPol_Stand
+> carbon capture in the world
+  result [answered+assumed] workspace_code=net-zero variable=Carbon Sequestration|CCS region=World modelName=GCAM scenario=CP_EI
+> how do i register for an account
+  ask [asked] Build an analysis | Find a page | Find a tool | Explain a concept
+  "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you."
+
+## ev-researcher: PhD student researching electric mobility in India
+> electric vehicles in india
+  result [answered+assumed] workspace_code=world-headed variable=Capacity|Electricity region=IND modelName=gcam+tiam scenario=PR_CurPol_CP+PR_NDC_CP
+> final energy in transport in india
+  result [answered+assumed] workspace_code=world-headed variable=Capacity|Electricity region=IND modelName=gcam+tiam scenario=PR_CurPol_CP+PR_NDC_CP
+> only electricity
+  ask [asked] Capacity|Electricity | Final Energy|Electricity | GDP|PPP | Primary Energy|Nuclear
+  "Which variable do you mean? These are the closest matches; search for others."
+> what models are available for this?
+  ask [asked] Build an analysis | Find a page | Find a tool | Explain a concept
+  "I can show IAMPARIS data, find a page or a tool, explain a concept, or pick the studies relevant to you."
+> where is the privacy policy
+  ask [asked] AFOLU transformation | Application Library | Barriers, Enablers & Policy Analysis | Behavioural changes for climate policy
+  "Which page are you looking for?"
+
+Saved results/heldout-baseline.json
